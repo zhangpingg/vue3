@@ -4,31 +4,39 @@ const routes = [
     {
         path: "/",
         name: "",
-        redirect: "/directivePage",
+        redirect: "/directive",
     },
     {
-        path: `/directivePage`,
-        name: "directivePage",
+        path: `/directive`,
+        name: "directive",
         meta: {
             title: "指令页",
         },
-        component: () => import("@/pages/directivePage/index.vue"),
+        component: () => import("@/pages/directiveDemo/index.vue"),
     },
     {
-        path: `/home`,
-        name: "home",
+        path: `/routerHome`,
+        name: "routerHome",
         meta: {
             title: "路由-首页",
         },
-        component: () => import("@/pages/routerPage/home.vue"),
+        component: () => import("@/pages/routerDemo/home.vue"),
     },
     {
-        path: `/about`,
-        name: "about",
+        path: `/routerAbout`,
+        name: "routerAbout",
         meta: {
             title: "路由-关于",
         },
-        component: () => import("@/pages/routerPage/about.vue"),
+        component: () => import("@/pages/routerDemo/about.vue"),
+    },
+    {
+        path: `/plugin`,
+        name: "plugin",
+        meta: {
+            title: "自定义全局插件",
+        },
+        component: () => import("@/pages/pluginDemo/index.vue"),
     },
 ];
 
