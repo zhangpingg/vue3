@@ -26,6 +26,9 @@ watch(
         Promise.resolve().then(() => {
             const newDom = boxRef.value;
             const clickoutFn = (e) => {
+                if (newDom != boxRef.value) {
+                    document.removeEventListener('click', boxRef.value?.__clickEvent__);
+                }
                 if (newDom == boxRef.value && !newDom?.contains(e.target)) {
                     props.onClose();
                 }
