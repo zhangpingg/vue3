@@ -12,8 +12,10 @@ import {
     clickoutsideDirective,
 } from '@/directives'; // 自定义指令
 import ConfirmPlugin from './plugins/confirm'; // 全局confirm插件
+import ContextMenuPlugin from './plugins/contextMenu'; // 全局右键菜单插件
 
 const app = createApp(App);
+
 app.directive('reserve', reserveDirective);
 app.directive('copy', copyDirective);
 app.directive('real-img', realImgDirective);
@@ -22,5 +24,5 @@ app.directive('permission', permissionDirective);
 app.directive('loading', loadingDirective);
 app.directive('clickoutside', clickoutsideDirective);
 
-app.use(router).use(ConfirmPlugin).mount('#app');
+app.use(router).use(ConfirmPlugin).use(ContextMenuPlugin).mount('#app');
 
