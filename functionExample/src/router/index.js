@@ -4,7 +4,15 @@ const routes = [
     {
         path: '/',
         name: '',
-        redirect: '/directive',
+        redirect: '/home',
+    },
+    {
+        path: `/home`,
+        name: 'home',
+        meta: {
+            title: '首页',
+        },
+        component: () => import('@/pages/home/index.vue'),
     },
     {
         path: `/directive`,
@@ -45,6 +53,14 @@ const routes = [
             title: '滚动',
         },
         component: () => import('@/pages/scrollDemo/horizontalScroll.vue'),
+    },
+    {
+        path: `/previewPDF`,
+        name: 'previewPDF',
+        meta: {
+            title: '预览PDF',
+        },
+        component: () => import('@/pages/previewPDF/index.vue'),
     },
 ];
 

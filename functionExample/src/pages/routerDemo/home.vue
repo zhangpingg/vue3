@@ -5,13 +5,13 @@
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
-import { Input, Button } from "view-ui-plus";
+import { useRouter } from 'vue-router';
+import { Input, Button } from 'view-ui-plus';
 
 const router = useRouter();
 
 const jumpPage = () => {
-    router.push({ path: "/about", query: { id: 1 } });
+    router.push({ path: '/routerAbout', query: { id: 1 } });
 };
 </script>
 
