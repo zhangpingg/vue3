@@ -16,6 +16,15 @@ const routes = [
         component: () => import('@/pages/home/index.vue'),
     },
     {
+        path: `/test`,
+        name: 'test',
+        meta: {
+            title: '测试',
+            cache: true,
+        },
+        component: () => import('@/pages/test/index.vue'),
+    },
+    {
         path: `/directive`,
         name: 'directive',
         meta: {
