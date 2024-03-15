@@ -11,6 +11,7 @@ const routes = [
         name: 'home',
         meta: {
             title: '首页',
+            cache: true, // 是否 keep-alive 缓存
         },
         component: () => import('@/pages/home/index.vue'),
     },
@@ -19,6 +20,7 @@ const routes = [
         name: 'directive',
         meta: {
             title: '指令页',
+            cache: true,
         },
         component: () => import('@/pages/directiveDemo/index.vue'),
     },
@@ -27,6 +29,7 @@ const routes = [
         name: 'routerHome',
         meta: {
             title: '路由-首页',
+            cache: true,
         },
         component: () => import('@/pages/routerDemo/home.vue'),
     },
@@ -35,6 +38,7 @@ const routes = [
         name: 'routerAbout',
         meta: {
             title: '路由-关于',
+            cache: true,
         },
         component: () => import('@/pages/routerDemo/about.vue'),
     },
@@ -43,6 +47,7 @@ const routes = [
         name: 'plugin',
         meta: {
             title: '自定义全局插件',
+            cache: true,
         },
         component: () => import('@/pages/pluginDemo/index.vue'),
     },
@@ -51,6 +56,7 @@ const routes = [
         name: 'scroll',
         meta: {
             title: '滚动',
+            cache: true,
         },
         component: () => import('@/pages/scrollDemo/horizontalScroll.vue'),
     },
@@ -59,8 +65,18 @@ const routes = [
         name: 'previewPDF',
         meta: {
             title: '预览PDF',
+            cache: true,
         },
         component: () => import('@/pages/previewPDF/index.vue'),
+    },
+    {
+        path: `/viewUiPlus`,
+        name: 'viewUiPlus',
+        meta: {
+            title: 'UI框架',
+            cache: false,
+        },
+        component: () => import('@/pages/viewUiPlusDemo/index.vue'),
     },
 ];
 
