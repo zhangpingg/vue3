@@ -79,6 +79,15 @@ const routes = [
         component: () => import('@/pages/previewPDF/index.vue'),
     },
     {
+        path: `/previewImg`,
+        name: 'previewImg',
+        meta: {
+            title: '预览图片',
+            cache: true,
+        },
+        component: () => import('@/pages/previewImg/index.vue'),
+    },
+    {
         path: `/viewUiPlus`,
         name: 'viewUiPlus',
         meta: {

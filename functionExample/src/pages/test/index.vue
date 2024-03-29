@@ -3,10 +3,17 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
+
+const timer = ref();
 
 onMounted(() => {
-    console.log('路由参数：');
+    timer.value = setTimeout(() => {
+        console.log('数据');
+    }, 2000);
+});
+onUnmounted(() => {
+    //clearInterval(timer);
 });
 </script>
 

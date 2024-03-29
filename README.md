@@ -4,6 +4,7 @@ functionExample
 2)路由
 3)自定义vue插件（confirm对话框，自定义右键菜单）
 4)横向滚动，滚动到某一项位置，或滚动到最右侧等
-5)网页中在线预览PDF
-6)view-ui-plus
+5)view-ui-plus
+6)网页中在线预览PDF
+7)网页中在线预览图片
 ```

@@ -2,6 +2,8 @@ import { createApp } from 'vue';
 import router from './router';
 import App from './App.vue';
 import 'view-ui-plus/dist/styles/viewuiplus.css';
+import VueViewer from 'v-viewer'; // 预览图片插件
+import 'viewerjs/dist/viewer.css';
 import {
     reserveDirective,
     copyDirective,
@@ -23,6 +25,8 @@ app.directive('lazy-img', lazyImgDirective);
 app.directive('permission', permissionDirective);
 app.directive('loading', loadingDirective);
 app.directive('clickoutside', clickoutsideDirective);
+
+app.use(VueViewer);
 
 app.use(router).use(ConfirmPlugin).use(ContextMenuPlugin).mount('#app');
 
