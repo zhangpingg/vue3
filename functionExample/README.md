@@ -11,5 +11,6 @@ npm run dev
 5)view-ui-plus
 6)网页中在线预览PDF
 7)网页中在线预览图片
+8)在线预览pdf,docx,excel
 ```
 

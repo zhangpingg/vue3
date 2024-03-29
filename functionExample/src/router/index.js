@@ -88,6 +88,15 @@ const routes = [
         component: () => import('@/pages/previewImg/index.vue'),
     },
     {
+        path: `/previewPdfDocxExcel`,
+        name: 'previewPdfDocxExcel',
+        meta: {
+            title: '预览pdf/docx/excel',
+            cache: true,
+        },
+        component: () => import('@/pages/previewPdfDocxExcel/index.vue'),
+    },
+    {
         path: `/viewUiPlus`,
         name: 'viewUiPlus',
         meta: {

@@ -4,6 +4,8 @@ import App from './App.vue';
 import 'view-ui-plus/dist/styles/viewuiplus.css';
 import VueViewer from 'v-viewer'; // 预览图片插件
 import 'viewerjs/dist/viewer.css';
+import '@vue-office/docx/lib/index.css'; // '@vue-office/docx' 样式
+import '@vue-office/excel/lib/index.css'; // '@vue-office/excel' 样式
 import {
     reserveDirective,
     copyDirective,
