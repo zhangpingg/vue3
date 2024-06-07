@@ -28,7 +28,5 @@ app.directive('permission', permissionDirective);
 app.directive('loading', loadingDirective);
 app.directive('clickoutside', clickoutsideDirective);
 
-app.use(VueViewer);
-
-app.use(router).use(ConfirmPlugin).use(ContextMenuPlugin).mount('#app');
+app.use(router).use(VueViewer).use(ConfirmPlugin).use(ContextMenuPlugin).mount('#app');
 
