@@ -105,6 +105,15 @@ const routes = [
         },
         component: () => import('@/pages/viewUiPlusDemo/index.vue'),
     },
+    {
+        path: `/jsx`,
+        name: 'jsx',
+        meta: {
+            title: 'jsx语法',
+            cache: false,
+        },
+        component: () => import('@/pages/jsxDemo/index.vue'),
+    },
 ];
 
 const router = createRouter({

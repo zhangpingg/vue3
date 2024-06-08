@@ -11,6 +11,7 @@
         <span @click="jumpPage('previewImg')">预览图片</span> <br />
         <span @click="jumpPage('previewPdfDocxExcel')">预览pdf/docx/excel</span> <br />
         <span @click="jumpPage('viewUiPlus')">view-ui-plus 框架</span><br />
+        <span @click="jumpPage('jsx')">jsx语法子组件</span><br />
     </div>
 </template>
 
