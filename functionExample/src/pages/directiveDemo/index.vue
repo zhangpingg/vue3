@@ -5,7 +5,7 @@
             <div>字符串翻转指令：<span v-reserve="val1"></span></div>
         </div>
         <div class="box1">
-            <el-input v-model="textarea" v-filter-emoji style="width: 300px" type="textarea" />
+            <el-input v-model="textarea" v-filter-emoji="textarea" style="width: 300px" type="textarea" />
             <p>{{ textarea }}</p>
             <p>初始化的时候有问题，输入的时候正常</p>
             <Button type="primary" @click="getTextarea">获取值</Button>
