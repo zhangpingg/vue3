@@ -1,0 +1,50 @@
+{
+    "name": "vue-vite-1",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite --open --host 0.0.0.0",
+        "build": "vite build",
+        "preview": "vite preview",
+        "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json,vue}'"
+    },
+    "gitHooks": {
+        "pre-commit": "lint-staged"
+    },
+    "lint-staged": {
+        "*.{js,jsx,less,md,json,vue}": [
+            "prettier --write",
+            "eslint src/"
+        ]
+    },
+    "dependencies": {
+        "@element-plus/icons-vue": "^2.3.1",
+        "@vue-office/docx": "^1.6.2",
+        "@vue-office/excel": "^1.7.8",
+        "@vue-office/pdf": "^2.0.2",
+        "axios": "^1.1.3",
+        "colors": "^1.4.0",
+        "dayjs": "^1.11.11",
+        "element-plus": "^2.7.0",
+        "js-cookie": "^3.0.5",
+        "lodash": "^4.17.21",
+        "pinia": "^2.1.7",
+        "pinia-plugin-persist": "^1.0.0",
+        "screenfull": "^6.0.2",
+        "v-viewer": "^3.0.13",
+        "view-ui-plus": "^1.3.16",
+        "vue": "^3.3.11",
+        "vue-router": "^4.2.5"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-vue": "^4.5.2",
+        "eslint": "^8.56.0",
+        "eslint-plugin-vue": "^9.19.2",
+        "inquirer": "^9.2.22",
+        "less": "^4.2.0",
+        "prettier": "^3.1.1",
+        "vite": "^5.0.8",
+        "vite-plugin-zip-pack": "^1.2.3"
+    }
+}

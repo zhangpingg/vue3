@@ -1,26 +1,15 @@
 <template>
-    <div>
-        <el-input v-model="textarea" style="width: 200px" type="textarea" />
-    </div>
+    <div>test</div>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, onMounted } from 'vue';
+import { v4 as uuidv4 } from 'uuid';
 
-const textarea = ref('');
-
-watch(
-    textarea,
-    (newVal) => {
-        const input = 'Hello 😊 World! 🌍';
-        const cleanedInput = input.replace(/[\p{Emoji_Presentation}]/gu, '');
-        console.log(cleanedInput); // 输出："Hello  World! "
-    },
-    {
-        immediate: true,
-        deep: true,
-    }
-);
+onMounted(() => {
+    const uuid = uuidv4();
+    console.log(11, uuid);
+});
 </script>
 
 <style scoped lang="less"></style>
