@@ -1,8 +1,3 @@
-<!--
- * @Author: chengleilei
- * @Date: 2024-05-14 09:26:43
- * @Description: 上传图片组件
--->
 <template>
     <el-upload
         list-type="picture-card"

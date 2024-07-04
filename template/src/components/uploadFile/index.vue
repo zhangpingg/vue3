@@ -1,8 +1,3 @@
-<!--
- * @Author: chengleilei
- * @Date: 2024-05-27 15:50:02
- * @Description: 上传文件组件
--->
 <template>
     <el-upload
         name="uploadFile"
