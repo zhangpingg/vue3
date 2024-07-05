@@ -12,7 +12,16 @@
         >
             <vue-office-pdf :src="url" v-if="fileType === 'pdf'" />
             <vue-office-docx :src="url" v-if="fileType === 'docx'" />
-            <vue-office-excel :src="url" v-if="fileType === 'excel'" />
+            <vue-office-excel
+                :src="url"
+                :options="{
+                    minColLength: 0,
+                    widthOffset: 10,
+                    heightOffset: 18,
+                    minRowLength: 0,
+                }"
+                v-if="fileType === 'excel'"
+            />
         </div>
         <FooterToolbar v-if="[].includes(pageSource)">
             <el-button type="primary" @click="agreeApproval" v-if="[].includes(pageSource)"> 同意 </el-button>
