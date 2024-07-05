@@ -13,4 +13,5 @@ npm run dev
 7)网页中在线预览图片
 8)在线预览pdf,docx,excel
 9)组件使用jsx语法
+10)@vueuse/core：useClipboard-复制文本到剪切板，useToggle-类似react中的useState，useResizeObserver：监听DOM元素，isClient：判断当前环境是否为客户端，useFullscreen：全屏
 ```

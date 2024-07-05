@@ -12,6 +12,10 @@
         <span @click="jumpPage('previewPdfDocxExcel')">预览pdf/docx/excel</span> <br />
         <span @click="jumpPage('viewUiPlus')">view-ui-plus 框架</span><br />
         <span @click="jumpPage('jsx')">jsx语法子组件</span><br />
+        <span @click="jumpPage('vueuseCore')"
+            >@vueuse/core
+            依赖插件（useClipboard-复制文本到剪切板，useToggle-类似react中的useState，useResizeObserver：监听DOM元素，isClient：判断当前环境是否为客户端，useFullscreen：全屏）</span
+        ><br />
     </div>
 </template>
 

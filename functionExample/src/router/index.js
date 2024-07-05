@@ -114,6 +114,15 @@ const routes = [
         },
         component: () => import('@/pages/jsxDemo/index.vue'),
     },
+    {
+        path: `/vueuseCore`,
+        name: 'vueuseCore',
+        meta: {
+            title: '@vueuse/core依赖插件',
+            cache: false,
+        },
+        component: () => import('@/pages/vueuseCore/index.vue'),
+    },
 ];
 
 const router = createRouter({
