@@ -11,7 +11,16 @@
         <p>3)预览excel</p>
         (1)不能预览xls文件，需要后台转换为xlsx，方可预览 <br />
         (2)文件里面的柱状图，形状会丢失，渲染不出来
-        <vue-office-excel :src="excelUrl" class="box" />
+        <vue-office-excel
+            :src="excelUrl"
+            :options="{
+                minColLength: 0,
+                widthOffset: 10,
+                heightOffset: 15,
+                minRowLength: 0,
+            }"
+            class="box"
+        />
     </div>
 </template>
 
