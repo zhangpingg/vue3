@@ -14,10 +14,10 @@
         <vue-office-excel
             :src="excelUrl"
             :options="{
-                minColLength: 0,
-                widthOffset: 10,
-                heightOffset: 15,
-                minRowLength: 0,
+                minColLength: 0, // excel最少渲染多少列，如果想实现xlsx文件内容有几列，就渲染几列，可以将此值设置为0.
+                minRowLength: 0, // excel最少渲染多少行，如果想实现根据xlsx实际函数渲染，可以将此值设置为0.
+                widthOffset: 10, //如果渲染出来的结果感觉单元格宽度不够，可以在默认渲染的列表宽度上再加 Npx宽
+                heightOffset: 15, //在默认渲染的列表高度上再加 Npx高
             }"
             class="box"
         />
