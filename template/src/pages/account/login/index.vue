@@ -56,7 +56,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 import Cookies from 'js-cookie';
 import ValidateCode from '@/components/validateCode/index.vue';
 import { usePageStore } from '@/store';
@@ -73,7 +73,9 @@ const router = useRouter();
 const pageStore = usePageStore();
 
 const formRef = ref();
-const formData = reactive({});
+const formData = reactive({
+    phone: localStorage.getItem('mobile'),
+});
 const formRules = reactive({
     phone: [{ validator: checkPhone, trigger: 'blur' }],
     code: [{ required: true, message: '请输入短信验证码', trigger: 'blur' }],
@@ -109,6 +111,7 @@ const submitForm = async (formEl) => {
                     type: 'success',
                     message: '登录成功！',
                 });
+                localStorage.setItem('mobile', formData.phone);
                 Cookies.set('token', loginRes.accessToken, { expires: Setting.cookiesExpires });
                 await requestUser();
                 pageStore.setRoutePool(frameIn || []);
@@ -129,6 +132,17 @@ const submitForm = async (formEl) => {
         }
     });
 };
+
+onMounted(() => {
+    ['menu', 'page', 'user', 'pageData'].map((item) => {
+        localStorage.removeItem(item);
+    });
+    pageStore.clearPageInfo();
+    sessionStorage.clear();
+    document.cookie.split(';').forEach(function (c) {
+        document.cookie = c.trim().split('=')[0] + '=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+    });
+});
 </script>
 
 <style lang="less" scoped>
