@@ -123,6 +123,15 @@ const routes = [
         },
         component: () => import('@/pages/vueuseCore/index.vue'),
     },
+    {
+        path: `/markDown`,
+        name: 'markDown',
+        meta: {
+            title: 'markDown文件渲染',
+            cache: false,
+        },
+        component: () => import('@/pages/markDown/index.vue'),
+    },
 ];
 
 const router = createRouter({
