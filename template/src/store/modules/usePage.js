@@ -111,7 +111,11 @@ const usePage = defineStore(
                 pageInfo.openedTabList.splice(index, 1);
             }
             if (isCurrent) {
-                router.push({ path: newPage.path || '/home', query: newPage.query });
+                if (newPage.query.isReset === '1') {
+                    router.push({ path: newPage.path || '/home', query: { ...newPage.query, isReset: '0' } });
+                } else {
+                    router.push({ path: newPage.path || '/home', query: newPage.query });
+                }
             }
         };
         // 关闭当前标签左边的标签
