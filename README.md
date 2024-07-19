@@ -13,7 +13,8 @@
 11)markDown文件渲染
 ```
 
-## template：vue3项目模板，vite+vue3+element-plus+pinia
+## template
+vue3项目模板，vite+vue3+element-plus+pinia
 ```
 1)tableForm: 表单查询组件
 2)tablePage：表格分页组件
