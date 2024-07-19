@@ -1,5 +1,6 @@
 # Vue 3 + Vite
 
+[文档地址](https://zhangpingg.github.io/vue3/home)
 ```
 npm install
 npm run dev

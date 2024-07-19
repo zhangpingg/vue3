@@ -29,7 +29,7 @@ import VueOfficePdf from '@vue-office/pdf';
 import VueOfficeDocx from '@vue-office/docx';
 import VueOfficeExcel from '@vue-office/excel';
 
-const pdfUrl = 'https://501351981.github.io/vue-office/examples/dist/static/test-files/test.pdf';
+const pdfUrl = 'https://pdfobject.com/pdf/sample-3pp.pdf#page=2';
 const docxUrl = 'http://static.shanhuxueyuan.com/test6.docx';
 const excelUrl = 'http://static.shanhuxueyuan.com/demo/excel.xlsx';
 </script>

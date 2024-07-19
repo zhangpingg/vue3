@@ -135,7 +135,7 @@ const routes = [
 ];
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory('/vue3'),        // 设置基础路径为 '/vue3'
     routes,
 });
 

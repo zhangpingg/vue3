@@ -24,7 +24,7 @@ onMounted(() => {
             pagemode: 'thumbs', // 显示页面缩略图
         },
     };
-    PDFObject.embed(companyUrl, '#box', options);
+    PDFObject.embed(onlineUrl, '#box', options);
 });
 </script>
 

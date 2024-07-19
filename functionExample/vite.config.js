@@ -5,10 +5,12 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    base: '/vue3',
+    publicPath: '/admin',
     server: {
         port: 8084,
         cors: true,
-        origin: "http://localhost:8084",
+        origin: "http://localhost:8084/zp",
     },
     plugins: [vue(), vueJsx()],
     resolve: {
