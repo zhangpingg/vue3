@@ -1,0 +1,1 @@
+import{u as s,m as u,n as a,o as r,c as n,f as c,w as l,g as m,b as p,v as _}from"./index-D3MxUNyB.js";const h={__name:"about",setup(i){const e=s(),o=u(),t=()=>{e.push("/routerHome")};return a(()=>{console.log("路由参数：",o.query)}),(d,f)=>(r(),n("div",null,[c(m(_.Button),{onClick:t},{default:l(()=>[p("跳转到home")]),_:1})]))}};export{h as default};
