@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="home">
         <span @click="jumpPage('test')">测试</span><br />
         <span @click="jumpPage('directive')">
             自定义指令（input-倒序字符串，input-过滤表情包，复制，图片加载失败-默认图片，图片懒加载，按钮权限，loading，点击某元素其他地方事件） </span
@@ -17,6 +17,7 @@
             依赖插件（useClipboard-复制文本到剪切板，useToggle-类似react中的useState，useResizeObserver：监听DOM元素，isClient：判断当前环境是否为客户端，useFullscreen：全屏）</span
         ><br />
         <span @click="jumpPage('markDown')">markDown文件渲染</span><br />
+        <span @click="jumpPage('cssVbind')">css v-bind 引用js中的变量</span><br />
     </div>
 </template>
 
@@ -32,10 +33,13 @@ const jumpPage = (path) => {
 </script>
 
 <style scoped lang="scss">
-span {
-    cursor: pointer;
-    &:hover {
-        color: #f00;
+.home {
+    padding-left: 10px;
+    span {
+        cursor: pointer;
+        &:hover {
+            color: #f00;
+        }
     }
 }
 </style>

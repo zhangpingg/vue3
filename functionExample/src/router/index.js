@@ -132,10 +132,19 @@ const routes = [
         },
         component: () => import('@/pages/markDown/index.vue'),
     },
+    {
+        path: `/cssVbind`,
+        name: 'cssVbind',
+        meta: {
+            title: 'css v-bind',
+            cache: false,
+        },
+        component: () => import('@/pages/cssVbind/index.vue'),
+    },
 ];
 
 const router = createRouter({
-    history: createWebHistory('/vue3'),        // 设置基础路径为 '/vue3'
+    history: createWebHistory('/vue3'), // 设置基础路径为 '/vue3'
     routes,
 });
 
