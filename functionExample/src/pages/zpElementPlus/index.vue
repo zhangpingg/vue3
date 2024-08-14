@@ -1,11 +1,11 @@
 <template>
     <div>
         <TablePageDemo />
-        <uploadFileDemo />
+        <UploadFileDemo />
     </div>
 </template>
 
 <script setup>
 import TablePageDemo from './components/tablePageDemo.vue';
-import uploadFileDemo from './components/uploadFileDemo.vue';
+import UploadFileDemo from './components/uploadFileDemo.vue';
 </script>

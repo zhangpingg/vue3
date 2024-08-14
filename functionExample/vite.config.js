@@ -11,6 +11,16 @@ export default defineConfig({
         port: 8084,
         cors: true,
         origin: "http://localhost:8084/zp",
+        proxy: {
+            '/test/api': {
+                target: 'http://10.1.13.23',
+                changeOrigin: true,
+                bypass(req, res, options) {
+                    const realUrl = new URL(req.url || '', options.target).href || '';
+                    res.setHeader('x-res-proxyUrl', realUrl);
+                },
+            },
+        },
     },
     plugins: [vue(), vueJsx()],
     resolve: {
