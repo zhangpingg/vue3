@@ -141,6 +141,15 @@ const routes = [
         },
         component: () => import('@/pages/cssVbind/index.vue'),
     },
+    {
+        path: `/zpElementPlus`,
+        name: 'zpElementPlus',
+        meta: {
+            title: 'zp-element-plus',
+            cache: false,
+        },
+        component: () => import('@/pages/zpElementPlus/index.vue'),
+    },
 ];
 
 const router = createRouter({

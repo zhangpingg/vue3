@@ -1,4 +1,5 @@
 ## [functionExample](https://zhangpingg.github.io/vue3/home)
+
 ```
 1)自定义指令（倒序字符串，input-过滤表情包，复制，图片加载失败-默认图片，图片懒加载，按钮权限，loading，点击某元素其他地方事件）
 2)路由
@@ -11,10 +12,13 @@
 9)组件使用jsx语法
 10)@vueuse/core：useClipboard-复制文本到剪切板，useToggle-类似react中的useState，useResizeObserver：监听DOM元素，isClient：判断当前环境是否为客户端，useFullscreen：全屏
 11)markDown文件渲染
+12)css v-bind 引用js中的变量
 ```
 
 ## template
-vue3项目模板，vite+vue3+element-plus+pinia
+
+vue3 项目模板，vite+vue3+element-plus+pinia
+
 ```
 1)tableForm: 表单查询组件
 2)tablePage：表格分页组件

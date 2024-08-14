@@ -1,6 +1,7 @@
 # Vue 3 + Vite
 
 [文档地址](https://zhangpingg.github.io/vue3/home)
+
 ```
 npm install
 npm run dev
@@ -16,4 +17,5 @@ npm run dev
 9)组件使用jsx语法
 10)@vueuse/core：useClipboard-复制文本到剪切板，useToggle-类似react中的useState，useResizeObserver：监听DOM元素，isClient：判断当前环境是否为客户端，useFullscreen：全屏
 11)markDown文件渲染
+12)css v-bind 引用js中的变量
 ```

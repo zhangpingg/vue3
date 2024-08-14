@@ -22,6 +22,8 @@ import {
 } from '@/directives';
 import ConfirmPlugin from './plugins/confirm'; // 全局confirm插件
 import ContextMenuPlugin from './plugins/contextMenu'; // 全局右键菜单插件
+// zp-element-plus 组件库
+import 'zp-element-plus/lib/style.css';
 
 const app = createApp(App);
 
