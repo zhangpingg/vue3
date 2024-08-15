@@ -1,6 +1,6 @@
 <template>
-    <div class="confirmModal" v-if="isShowModal" @click="clickMaskToClose && handleCancel()">
-        <transition name="fade">
+    <transition name="fade">
+        <div class="confirmModal" v-if="isShowModal" @click="clickMaskToClose && handleCancel()">
             <div class="confirmModal-main">
                 <div class="confirmModal-main-title" v-if="title">{{ title }}</div>
                 <div :class="['confirmModal-main-content', title ? '' : 'confirmModal-main-noTitle']">
@@ -21,12 +21,12 @@
                     </div>
                 </div>
             </div>
-        </transition>
-    </div>
+        </div>
+    </transition>
 </template>
 
 <script setup>
-import { ref, defineComponent, reactive, toRefs, watch } from 'vue';
+import { ref, watch } from 'vue';
 
 const props = defineProps({
     visible: {
@@ -88,7 +88,7 @@ const handleCancel = () => {
 
 watch(
     () => props.visible,
-    (newVal, oldVal) => {
+    (newVal) => {
         isShowModal.value = newVal;
     },
     { immediate: true }
@@ -170,3 +170,4 @@ watch(
     }
 }
 </style>
+

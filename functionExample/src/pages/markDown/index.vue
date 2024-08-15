@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 
 const content = ref();
 
@@ -23,3 +23,4 @@ content.value = marked.parse(`${data}`);
     margin-top: 10px;
 }
 </style>
+

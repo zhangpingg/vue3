@@ -8,7 +8,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import { Button } from 'view-ui-plus';
 
 const list = [
@@ -46,3 +45,4 @@ const scrollToRight = () => {
     }
 }
 </style>
+

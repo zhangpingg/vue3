@@ -7,22 +7,22 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, nextTick, onUpdated, watch } from 'vue';
+import { ref, watch } from 'vue';
 
 const boxRef = ref(null);
 
 const props = defineProps({
-    data: { type: Object, default: {} },
+    data: { type: Object, default: () => {} },
     onClose: { type: Function, default: () => {} }
 });
 
-const clickFunc = (type) => {
+const clickFunc = () => {
     props.onClose();
 };
 
 watch(
     () => props.data.visible,
-    (newVal, oldVal) => {
+    () => {
         Promise.resolve().then(() => {
             const newDom = boxRef.value;
             const clickoutFn = (e) => {
@@ -41,7 +41,7 @@ watch(
 );
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .contextMenu {
     position: fixed;
     padding: 10px 20px 10px 10px;
@@ -59,3 +59,4 @@ watch(
     }
 }
 </style>
+

@@ -22,10 +22,8 @@
 
 <script setup>
 import { ref, reactive, onMounted } from 'vue';
-import { ZpSearchForm, ZpTablePage, utils } from 'zp-element-plus';
+import { ZpSearchForm, ZpTablePage } from 'zp-element-plus';
 import { resData } from './const';
-
-const { isValidVal, isValidArr } = utils;
 
 const zpSearchFormRef = ref(null);
 const formList = reactive([
@@ -104,7 +102,7 @@ const getData = async () => {
             tablePageData.pageConfig.total = 100;
             tablePageData.tableConfig.loading = false;
         }, 1000);
-    } catch (error) {
+    } catch () {
         tablePageData.tableConfig.loading = false;
     }
 };
@@ -141,10 +139,9 @@ const goDetail = (row) => {
 };
 
 onMounted(() => {
-    let a = 1;
-    const b = [];
     getData();
 });
 </script>
 
 <style lang="less" scoped></style>
+

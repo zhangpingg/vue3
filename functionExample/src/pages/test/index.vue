@@ -2,14 +2,7 @@
     <div>test</div>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue';
-
-const obj = {
-    a: 1,
-    b: 2
-};
-let aa = 1;
-</script>
+<script setup></script>
 
 <style scoped lang="less"></style>
+
