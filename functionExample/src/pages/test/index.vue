@@ -9,6 +9,7 @@ const obj = {
     a: 1,
     b: 2
 };
+let aa = 1;
 </script>
 
 <style scoped lang="less"></style>
