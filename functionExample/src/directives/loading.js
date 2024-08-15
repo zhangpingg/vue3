@@ -1,8 +1,7 @@
-// @ts-nocheck
 // loading
 
 const loadingDirective = {
-    beforeMount(el, binding) {
+    beforeMount(el) {
         el.$instance = document.createElement('div');
         el.$instance.setAttribute('class', 'loadingWrap');
         const text = el.getAttribute('loading-text') || '加载中...';
@@ -34,7 +33,7 @@ function toggleLoading(el, binding) {
 }
 
 // 插入loading Dom
-function insertDom(el, instance, binding) {
+function insertDom(el, instance) {
     // 给父级添加relative
     if (!['fixed', 'absolute', 'relative'].includes(getStyle(el, 'position'))) {
         el.style.position = 'relative';
@@ -94,3 +93,4 @@ function createLoadingInn(text = '') {
 }
 
 export { loadingDirective };
+

@@ -8,6 +8,7 @@ export default defineConfig({
     base: '/vue3',
     publicPath: '/vue3',
     server: {
+        host: '0.0.0.0',
         port: 8084,
         cors: true,
         origin: 'http://localhost:8084/zp',
@@ -30,3 +31,4 @@ export default defineConfig({
         }
     }
 });
+

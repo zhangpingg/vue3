@@ -6,7 +6,7 @@
 import { computed } from 'vue';
 
 const textColor = computed(() => {
-    return true ? '#f00' : '#0f0';
+    return '#f00';
 });
 </script>
 
@@ -15,3 +15,4 @@ const textColor = computed(() => {
     color: v-bind(textColor);
 }
 </style>
+

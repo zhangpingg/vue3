@@ -10,7 +10,7 @@ const addClick = (el) => {
             Message.info('没有内容');
             return;
         }
-        copyText(el.data_copy, undefined, (error, event) => {
+        copyText(el.data_copy, undefined, (error) => {
             if (error) {
                 Message.error('复制失败');
             } else {
@@ -36,3 +36,4 @@ const copyDirective = {
 };
 
 export { copyDirective };
+
