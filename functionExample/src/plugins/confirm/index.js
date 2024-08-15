@@ -22,7 +22,7 @@ ConfirmPlugin.install = function (app) {
         },
         hide() {
             optionsData.visible = false;
-        },
+        }
     };
     app.config.globalProperties.$confirm = confirm; // 定义全局实例方法
 };

@@ -28,7 +28,7 @@ const openModal = () => {
         },
         onCancel: () => {
             console.log('取消');
-        },
+        }
     });
 };
 // 展开右键菜单
@@ -37,7 +37,7 @@ const showContextMenu = (e) => {
     //ContextMenu(e, { id: 1, name: '张三', age: 10 });
     proxy.$contextMenu.show({
         e,
-        data: { id: 1, name: '张三', age: 10 },
+        data: { id: 1, name: '张三', age: 10 }
     });
 };
 </script>

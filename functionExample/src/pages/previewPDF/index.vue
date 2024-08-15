@@ -21,8 +21,8 @@ onMounted(() => {
         page: 2, // 页码
         pdfOpenParams: {
             view: 'FitV',
-            pagemode: 'thumbs', // 显示页面缩略图
-        },
+            pagemode: 'thumbs' // 显示页面缩略图
+        }
     };
     PDFObject.embed(onlineUrl, '#box', options);
 });

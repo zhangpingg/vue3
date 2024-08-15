@@ -31,48 +31,48 @@ import { ref, defineComponent, reactive, toRefs, watch } from 'vue';
 const props = defineProps({
     visible: {
         type: Boolean,
-        default: false,
+        default: false
     },
     showCancelButton: {
         type: Boolean,
-        default: true,
+        default: true
     },
     showConfirmButton: {
         type: Boolean,
-        default: true,
+        default: true
     },
     title: {
         type: String,
-        default: '',
+        default: ''
     },
     content: {
         type: String,
-        default: '内容',
+        default: '内容'
     },
     confirmText: {
         type: String,
-        default: '确定',
+        default: '确定'
     },
     confirmColor: {
         type: String,
-        default: '#409EFF',
+        default: '#409EFF'
     },
     cancelText: {
         type: String,
-        default: '取消',
+        default: '取消'
     },
     clickMaskToClose: {
         type: Boolean,
-        default: false,
+        default: false
     }, // 点击遮罩是否关闭弹框
     onConfirm: {
         type: Function,
-        default: () => {},
+        default: () => {}
     },
     onCancel: {
         type: Function,
-        default: () => {},
-    },
+        default: () => {}
+    }
 });
 
 const isShowModal = ref(false);

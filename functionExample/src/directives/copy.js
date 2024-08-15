@@ -32,7 +32,7 @@ const copyDirective = {
     },
     unmounted(el) {
         el.removeEventListener('click', el.__copyEvent__);
-    },
+    }
 };
 
 export { copyDirective };

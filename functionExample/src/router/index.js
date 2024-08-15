@@ -4,157 +4,157 @@ const routes = [
     {
         path: '/',
         name: '',
-        redirect: '/home',
+        redirect: '/home'
     },
     {
         path: `/home`,
         name: 'home',
         meta: {
             title: '首页',
-            cache: true, // 是否 keep-alive 缓存
+            cache: true // 是否 keep-alive 缓存
         },
-        component: () => import('@/pages/home/index.vue'),
+        component: () => import('@/pages/home/index.vue')
     },
     {
         path: `/test`,
         name: 'test',
         meta: {
             title: '测试',
-            cache: true,
+            cache: true
         },
-        component: () => import('@/pages/test/index.vue'),
+        component: () => import('@/pages/test/index.vue')
     },
     {
         path: `/directive`,
         name: 'directive',
         meta: {
             title: '指令页',
-            cache: true,
+            cache: true
         },
-        component: () => import('@/pages/directiveDemo/index.vue'),
+        component: () => import('@/pages/directiveDemo/index.vue')
     },
     {
         path: `/routerHome`,
         name: 'routerHome',
         meta: {
             title: '路由-首页',
-            cache: true,
+            cache: true
         },
-        component: () => import('@/pages/routerDemo/home.vue'),
+        component: () => import('@/pages/routerDemo/home.vue')
     },
     {
         path: `/routerAbout`,
         name: 'routerAbout',
         meta: {
             title: '路由-关于',
-            cache: true,
+            cache: true
         },
-        component: () => import('@/pages/routerDemo/about.vue'),
+        component: () => import('@/pages/routerDemo/about.vue')
     },
     {
         path: `/plugin`,
         name: 'plugin',
         meta: {
             title: '自定义全局插件',
-            cache: true,
+            cache: true
         },
-        component: () => import('@/pages/pluginDemo/index.vue'),
+        component: () => import('@/pages/pluginDemo/index.vue')
     },
     {
         path: `/scroll`,
         name: 'scroll',
         meta: {
             title: '滚动',
-            cache: true,
+            cache: true
         },
-        component: () => import('@/pages/scrollDemo/horizontalScroll.vue'),
+        component: () => import('@/pages/scrollDemo/horizontalScroll.vue')
     },
     {
         path: `/previewPDF`,
         name: 'previewPDF',
         meta: {
             title: '预览PDF',
-            cache: true,
+            cache: true
         },
-        component: () => import('@/pages/previewPDF/index.vue'),
+        component: () => import('@/pages/previewPDF/index.vue')
     },
     {
         path: `/previewImg`,
         name: 'previewImg',
         meta: {
             title: '预览图片',
-            cache: true,
+            cache: true
         },
-        component: () => import('@/pages/previewImg/index.vue'),
+        component: () => import('@/pages/previewImg/index.vue')
     },
     {
         path: `/previewPdfDocxExcel`,
         name: 'previewPdfDocxExcel',
         meta: {
             title: '预览pdf/docx/excel',
-            cache: true,
+            cache: true
         },
-        component: () => import('@/pages/previewPdfDocxExcel/index.vue'),
+        component: () => import('@/pages/previewPdfDocxExcel/index.vue')
     },
     {
         path: `/viewUiPlus`,
         name: 'viewUiPlus',
         meta: {
             title: 'UI框架',
-            cache: false,
+            cache: false
         },
-        component: () => import('@/pages/viewUiPlusDemo/index.vue'),
+        component: () => import('@/pages/viewUiPlusDemo/index.vue')
     },
     {
         path: `/jsx`,
         name: 'jsx',
         meta: {
             title: 'jsx语法',
-            cache: false,
+            cache: false
         },
-        component: () => import('@/pages/jsxDemo/index.vue'),
+        component: () => import('@/pages/jsxDemo/index.vue')
     },
     {
         path: `/vueuseCore`,
         name: 'vueuseCore',
         meta: {
             title: '@vueuse/core依赖插件',
-            cache: false,
+            cache: false
         },
-        component: () => import('@/pages/vueuseCore/index.vue'),
+        component: () => import('@/pages/vueuseCore/index.vue')
     },
     {
         path: `/markDown`,
         name: 'markDown',
         meta: {
             title: 'markDown文件渲染',
-            cache: false,
+            cache: false
         },
-        component: () => import('@/pages/markDown/index.vue'),
+        component: () => import('@/pages/markDown/index.vue')
     },
     {
         path: `/cssVbind`,
         name: 'cssVbind',
         meta: {
             title: 'css v-bind',
-            cache: false,
+            cache: false
         },
-        component: () => import('@/pages/cssVbind/index.vue'),
+        component: () => import('@/pages/cssVbind/index.vue')
     },
     {
         path: `/zpElementPlus`,
         name: 'zpElementPlus',
         meta: {
             title: 'zp-element-plus',
-            cache: false,
+            cache: false
         },
-        component: () => import('@/pages/zpElementPlus/index.vue'),
-    },
+        component: () => import('@/pages/zpElementPlus/index.vue')
+    }
 ];
 
 const router = createRouter({
     history: createWebHistory('/vue3'), // 设置基础路径为 '/vue3'
-    routes,
+    routes
 });
 
 export default router;

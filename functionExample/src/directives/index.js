@@ -15,5 +15,5 @@ export {
     lazyImgDirective,
     permissionDirective,
     loadingDirective,
-    clickoutsideDirective,
+    clickoutsideDirective
 };

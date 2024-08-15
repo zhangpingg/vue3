@@ -21,7 +21,7 @@ const contextMenu = (e, data) => {
             if (curInstance) {
                 curInstance.destroy();
             }
-        },
+        }
     };
     const vnode = h(MenuContext, props); // 创建虚拟节点
     render(vnode, container); // 编程式地创建组件虚拟 DOM 树（vnode:虚拟节点，container:渲染的容器）
@@ -52,7 +52,7 @@ const contextMenu = (e, data) => {
         destroy: () => {
             curInstance = null;
             render(null, container);
-        },
+        }
     };
     curInstance = instance;
     return instance;
@@ -81,7 +81,7 @@ ContextMenuPlugin.install = function (app) {
                     if (curInstance) {
                         curInstance.destroy();
                     }
-                },
+                }
             };
             const vnode = h(MenuContext, props); // 创建虚拟节点
             render(vnode, container); // 编程式地创建组件虚拟 DOM 树（vnode:虚拟节点，container:渲染的容器）
@@ -112,14 +112,14 @@ ContextMenuPlugin.install = function (app) {
                 destroy: () => {
                     curInstance = null;
                     render(null, container);
-                },
+                }
             };
             curInstance = instance;
             return instance;
         },
         hide() {
             //optionsData.visible = false;
-        },
+        }
     };
     app.config.globalProperties.$contextMenu = contextMenu;
 };

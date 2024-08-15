@@ -6,7 +6,7 @@ const realImgDirective = {
         const imgURL = binding.value;
         if (imgURL) {
             const exist = await imageIsExist(imgURL);
-            exist && el.setAttribute("src", imgURL);
+            exist && el.setAttribute('src', imgURL);
         }
         // 判断一个图片是否存在, 注意是异步行为
         function imageIsExist(url) {
@@ -25,7 +25,7 @@ const realImgDirective = {
                 };
             });
         }
-    },
+    }
 };
 
 export { realImgDirective };

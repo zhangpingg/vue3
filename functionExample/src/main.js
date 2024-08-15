@@ -19,7 +19,7 @@ import {
     lazyImgDirective,
     permissionDirective,
     loadingDirective,
-    clickoutsideDirective,
+    clickoutsideDirective
 } from '@/directives';
 import ConfirmPlugin from './plugins/confirm'; // 全局confirm插件
 import ContextMenuPlugin from './plugins/contextMenu'; // 全局右键菜单插件

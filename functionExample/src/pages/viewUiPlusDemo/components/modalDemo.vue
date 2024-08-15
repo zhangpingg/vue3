@@ -11,7 +11,7 @@ import { Modal, Button } from 'view-ui-plus';
 const fn1 = () => {
     Modal.info({
         title: '提示',
-        content: '暂无PDF链接',
+        content: '暂无PDF链接'
     });
 };
 

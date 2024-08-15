@@ -13,7 +13,7 @@ const boxRef = ref(null);
 
 const props = defineProps({
     data: { type: Object, default: {} },
-    onClose: { type: Function, default: () => {} },
+    onClose: { type: Function, default: () => {} }
 });
 
 const clickFunc = (type) => {

@@ -16,7 +16,7 @@ const list = [
     { id: 2, name: '选项2' },
     { id: 3, name: '选项3' },
     { id: 4, name: '选项4' },
-    { id: 5, name: '选项5' },
+    { id: 5, name: '选项5' }
 ];
 
 // 滚动到最右

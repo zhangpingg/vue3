@@ -1,0 +1,19 @@
+{
+    "root": true,
+    "env": {
+        "node": true
+    },
+    "extends": [
+        "plugin:vue/essential",
+        "@vue/standard",
+        "@vue/prettier",
+        "@vue/prettier/@typescript-eslint",
+        "plugin:prettier/recommended"
+    ],
+    "plugins": ["prettier", "vue"],
+    "rules": {
+        "prettier/prettier": "error",
+        "comma-dangle": ["error", "never-multiline"] // 或者 ''
+        // 可以在这里添加其他的 ESLint 规则
+    }
+}

@@ -1,6 +1,6 @@
 // 控制按钮权限，不需要 v-show/v-if 来一一判断
 
-var ownPermission = ["user", "order"];
+var ownPermission = ['user', 'order'];
 
 // 判断是否有按钮权限
 const isHasPermission = (el, permission) => {
@@ -15,7 +15,7 @@ const permissionDirective = {
     },
     updated(el, binding) {
         isHasPermission(el, binding.value);
-    },
+    }
 };
 
 export { permissionDirective };

@@ -20,7 +20,7 @@ const lazyImgDirective = {
     },
     unmounted(el) {
         el.$io.disconnect(); // 停止监听工作
-    },
+    }
 };
 
 export { lazyImgDirective };

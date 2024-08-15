@@ -3,9 +3,9 @@
 
 const loadingDirective = {
     beforeMount(el, binding) {
-        el.$instance = document.createElement("div");
-        el.$instance.setAttribute("class", "loadingWrap");
-        const text = el.getAttribute("loading-text") || "加载中...";
+        el.$instance = document.createElement('div');
+        el.$instance.setAttribute('class', 'loadingWrap');
+        const text = el.getAttribute('loading-text') || '加载中...';
         el.$instance.innerHTML = createLoadingInn(text);
     },
     updated(el, binding) {
@@ -14,17 +14,14 @@ const loadingDirective = {
         }
     },
     unmounted(el, binding) {
-        el.$domInserted &&
-            toggleLoading(el, { value: false, modifiers: binding.modifiers });
+        el.$domInserted && toggleLoading(el, { value: false, modifiers: binding.modifiers });
         el.$instance && (el.$instance = null);
-    },
+    }
 };
 
 // 获取元素的相关CSS
 function getStyle(el, attr) {
-    return el.currentStyle
-        ? el.currentStyle[attr]
-        : window.getComputedStyle(el, false)[attr];
+    return el.currentStyle ? el.currentStyle[attr] : window.getComputedStyle(el, false)[attr];
 }
 
 // 切换loading的显示与隐藏
@@ -32,23 +29,22 @@ function toggleLoading(el, binding) {
     if (binding.value) {
         insertDom(el, el.$instance, binding);
     } else {
-        el.$instance.parentNode &&
-            el.$instance.parentNode.removeChild(el.$instance);
+        el.$instance.parentNode && el.$instance.parentNode.removeChild(el.$instance);
     }
 }
 
 // 插入loading Dom
 function insertDom(el, instance, binding) {
     // 给父级添加relative
-    if (!["fixed", "absolute", "relative"].includes(getStyle(el, "position"))) {
-        el.style.position = "relative";
+    if (!['fixed', 'absolute', 'relative'].includes(getStyle(el, 'position'))) {
+        el.style.position = 'relative';
     }
     el.appendChild(instance); // 插入dom
     el.domInserted = true; // 表明dom已插入
 }
 
 // 生成loading内部结构
-function createLoadingInn(text = "") {
+function createLoadingInn(text = '') {
     // 创建CSS
     const loadingInnCSS = `
         .loadingWrap{
@@ -85,13 +81,13 @@ function createLoadingInn(text = "") {
         <svg class="loading-circular" viewBox="25 25 50 50">
         <circle class="loading-circular-path" cx="50" cy="50" r="20" fill="none"/>
         </svg>
-        ${text ? '<span class="loading-text">' + text + "</span>" : ""}
+        ${text ? '<span class="loading-text">' + text + '</span>' : ''}
     `;
     // 把CSS直接插入页面中
-    const styleNode = document.createElement("style");
-    styleNode.setAttribute("type", "text/css");
+    const styleNode = document.createElement('style');
+    styleNode.setAttribute('type', 'text/css');
     styleNode.innerHTML = loadingInnCSS;
-    let headNode = document.querySelector("head");
+    let headNode = document.querySelector('head');
     headNode.appendChild(styleNode);
 
     return loadingInnHTML;

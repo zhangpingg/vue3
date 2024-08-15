@@ -26,7 +26,7 @@ const previewFile = (uploadFile) => {
 const getFileList = () => {
     const fileList = uploadFileRef.value.fileList.map((item) => ({
         name: item.name,
-        url: item.url,
+        url: item.url
     }));
     console.log('文件列表', fileList);
 };

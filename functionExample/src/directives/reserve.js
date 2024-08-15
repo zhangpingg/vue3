@@ -23,7 +23,7 @@ const reserveDirective = {
     },
     unmounted() {
         //console.log("绑定元素的父组件卸载后调用");
-    },
+    }
 };
 
 export { reserveDirective };

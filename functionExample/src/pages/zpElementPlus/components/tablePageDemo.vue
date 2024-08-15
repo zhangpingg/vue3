@@ -38,8 +38,8 @@ const formList = reactive([
         options: [
             { label: '上海', value: 'shanghai' },
             { label: '杭州', value: 'hangzhou' },
-            { label: '北京', value: 'beijing' },
-        ],
+            { label: '北京', value: 'beijing' }
+        ]
     },
     {
         type: 'cascader',
@@ -52,9 +52,9 @@ const formList = reactive([
                 children: [
                     {
                         label: '合肥',
-                        value: 'hefei',
-                    },
-                ],
+                        value: 'hefei'
+                    }
+                ]
             },
             {
                 label: '福建',
@@ -62,12 +62,12 @@ const formList = reactive([
                 children: [
                     {
                         label: '厦门',
-                        value: 'xiamen',
-                    },
-                ],
-            },
-        ],
-    },
+                        value: 'xiamen'
+                    }
+                ]
+            }
+        ]
+    }
 ]);
 const tablePageData = reactive({
     tableConfig: {
@@ -76,15 +76,15 @@ const tablePageData = reactive({
             { label: '全选', type: 'selection', width: 60, align: 'center', fixed: 'left' },
             { label: 'id', prop: 'id', minWidth: 100 },
             { label: '姓名', prop: 'aa', minWidth: 100 },
-            { label: '手机号', prop: 'bb', minWidth: 100 },
+            { label: '手机号', prop: 'bb', minWidth: 100 }
         ],
-        data: [],
+        data: []
     },
     pageConfig: {
         currentPage: 1,
         pageSize: 10,
-        total: 0,
-    },
+        total: 0
+    }
 });
 
 // 获取数据
@@ -94,7 +94,7 @@ const getData = async () => {
     const _params = {
         ...formData,
         index: currentPage,
-        sise: pageSize,
+        sise: pageSize
     };
     console.log('参数', _params);
     try {

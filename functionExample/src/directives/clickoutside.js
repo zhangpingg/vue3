@@ -8,11 +8,11 @@ const clickoutsideDirective = {
             }
         };
         el.__clickEvent__ = clickoutFn;
-        document.addEventListener("click", clickoutFn, false);
+        document.addEventListener('click', clickoutFn, false);
     },
     unmounted(el) {
-        document.removeEventListener("click", el.__clickEvent__);
-    },
+        document.removeEventListener('click', el.__clickEvent__);
+    }
 };
 
 export { clickoutsideDirective };
