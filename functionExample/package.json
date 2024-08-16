@@ -9,7 +9,23 @@
         "preview": "vite preview",
         "deploy": "deploy.sh",
         "lint": "eslint src/",
+        "lint-staged": "lint-staged",
         "prettier": "prettier --write './src/**/*.{js,jsx,tsx,vue,ts,less,md,json}'"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.vue": [
+            "prettier --write",
+            "eslint --fix"
+        ],
+        "*.js?(x)": [
+            "prettier --write",
+            "eslint --fix"
+        ]
     },
     "dependencies": {
         "@vue-office/docx": "^1.6.0",
@@ -39,7 +55,9 @@
         "eslint-plugin-prettier": "^5.2.1",
         "eslint-plugin-vue": "^9.27.0",
         "globals": "^15.9.0",
+        "husky": "^9.1.4",
         "less": "^4.2.0",
+        "lint-staged": "^15.2.9",
         "pdfobject": "^2.3.0",
         "prettier": "^3.3.3",
         "sass": "^1.72.0",
