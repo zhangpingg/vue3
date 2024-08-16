@@ -93,4 +93,3 @@ function createLoadingInn(text = '') {
 }
 
 export { loadingDirective };
-

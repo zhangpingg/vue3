@@ -15,4 +15,3 @@ const textColor = computed(() => {
     color: v-bind(textColor);
 }
 </style>
-

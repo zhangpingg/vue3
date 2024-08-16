@@ -1,6 +1,8 @@
-# Vue 3 + Vite
+### Vue 3 + Vite
 
 [文档地址](https://zhangpingg.github.io/vue3/home)
+
+### 功能
 
 ```
 npm install
@@ -19,4 +21,16 @@ npm run dev
 11)markDown文件渲染
 12)css v-bind 引用js中的变量
 13)zp-element-plus 组件库使用
+```
+
+### 命令
+
+```
+npm run dev         // 启动项目
+npm run build       // 打包
+npm run preview     // 本地预览打完的包
+npm run deploy      // 部署包到 github Page 上
+npm run lint        // 执行 eslint 检查
+npm run prettier    // 全局格式化，并自动修复
+
 ```

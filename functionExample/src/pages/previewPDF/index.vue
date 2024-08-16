@@ -33,4 +33,3 @@ onMounted(() => {
     border: 1px solid #f00;
 }
 </style>
-

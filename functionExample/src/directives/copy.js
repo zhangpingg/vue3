@@ -36,4 +36,3 @@ const copyDirective = {
 };
 
 export { copyDirective };
-
