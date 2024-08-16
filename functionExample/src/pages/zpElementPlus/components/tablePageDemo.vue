@@ -102,8 +102,9 @@ const getData = async () => {
             tablePageData.pageConfig.total = 100;
             tablePageData.tableConfig.loading = false;
         }, 1000);
-    } catch () {
+    } catch (error) {
         tablePageData.tableConfig.loading = false;
+        console.log(error);
     }
 };
 // 查询
@@ -144,4 +145,3 @@ onMounted(() => {
 </script>
 
 <style lang="less" scoped></style>
-

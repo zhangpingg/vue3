@@ -24,7 +24,6 @@
 
 <script setup>
 import { useRouter } from 'vue-router';
-import { Button } from 'view-ui-plus';
 
 const router = useRouter();
 

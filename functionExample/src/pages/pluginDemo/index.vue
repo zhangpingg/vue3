@@ -2,11 +2,9 @@
     <div>
         <Button @click="openModal">打开自定义全局插件弹框</Button> <br /><br />
         <div>
-            <p @click.right.native="showContextMenu($event)">展示右键菜单</p>
-            <p style="text-align: right" @click.right.native="showContextMenu($event)">展示右侧边界菜单</p>
-            <p style="position: absolute; bottom: 0px" @click.right.native="showContextMenu($event)">
-                展示底部边界菜单
-            </p>
+            <p @click.right="showContextMenu($event)">展示右键菜单</p>
+            <p style="text-align: right" @click.right="showContextMenu($event)">展示右侧边界菜单</p>
+            <p style="position: absolute; bottom: 0px" @click.right="showContextMenu($event)">展示底部边界菜单</p>
         </div>
     </div>
 </template>
@@ -14,7 +12,6 @@
 <script setup>
 import { getCurrentInstance } from 'vue';
 import { Button } from 'view-ui-plus';
-import ContextMenu from '@/plugins/contextMenu/';
 
 const { proxy } = getCurrentInstance();
 
@@ -34,7 +31,6 @@ const openModal = () => {
 // 展开右键菜单
 const showContextMenu = (e) => {
     e.preventDefault();
-    //ContextMenu(e, { id: 1, name: '张三', age: 10 });
     proxy.$contextMenu.show({
         e,
         data: { id: 1, name: '张三', age: 10 }

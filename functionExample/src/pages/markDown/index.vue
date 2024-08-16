@@ -23,4 +23,3 @@ content.value = marked.parse(`${data}`);
     margin-top: 10px;
 }
 </style>
-

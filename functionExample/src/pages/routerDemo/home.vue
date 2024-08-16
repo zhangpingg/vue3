@@ -6,7 +6,7 @@
 
 <script setup>
 import { useRouter } from 'vue-router';
-import { Input, Button } from 'view-ui-plus';
+import { Button } from 'view-ui-plus';
 
 const router = useRouter();
 
