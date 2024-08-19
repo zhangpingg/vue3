@@ -19,6 +19,7 @@
         <span @click="jumpPage('markDown')">markDown文件渲染</span><br />
         <span @click="jumpPage('cssVbind')">css v-bind 引用js中的变量</span><br />
         <span @click="jumpPage('zpElementPlus')">zp-element-plus 组件库</span><br />
+        <span @click="jumpPage('i18n')">国际化-多语言</span><br />
     </div>
 </template>
 
@@ -43,3 +44,4 @@ const jumpPage = (path) => {
     }
 }
 </style>
+

@@ -149,6 +149,15 @@ const routes = [
             cache: false
         },
         component: () => import('@/pages/zpElementPlus/index.vue')
+    },
+    {
+        path: `/i18n`,
+        name: 'i18n',
+        meta: {
+            title: 'i18n',
+            cache: false
+        },
+        component: () => import('@/pages/i18nDemo/index.vue')
     }
 ];
 
@@ -158,3 +167,4 @@ const router = createRouter({
 });
 
 export default router;
+
