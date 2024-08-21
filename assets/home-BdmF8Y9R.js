@@ -1,0 +1,1 @@
+import{u as o,o as a,c as u,g as r,i as s,h as c,b as n,v as p}from"./index-B7jdAFnZ.js";const d={__name:"home",setup(i){const e=o(),t=()=>{e.push({path:"/routerAbout",query:{id:1}})};return(_,l)=>(a(),u("div",null,[r(c(p.Button),{onClick:t},{default:s(()=>[n("跳转到about")]),_:1})]))}};export{d as default};
