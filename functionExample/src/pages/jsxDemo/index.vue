@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import ComponentA from './components/ComponentA';
+import ComponentA from './components/ComponentA.jsx';
 
 const change = (val) => {
     console.log(val);

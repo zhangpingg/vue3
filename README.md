@@ -1,4 +1,6 @@
-## [functionExample](https://zhangpingg.github.io/vue3/home)
+## functionExample
+
+[文档地址](https://zhangpingg.github.io/vue3/home)
 
 ```
 1)自定义指令（倒序字符串，input-过滤表情包，复制，图片加载失败-默认图片，图片懒加载，按钮权限，loading，点击某元素其他地方事件）

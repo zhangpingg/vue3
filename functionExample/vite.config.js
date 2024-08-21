@@ -6,12 +6,11 @@ import path from 'path';
 // https://vitejs.dev/config/
 export default defineConfig({
     base: '/vue3',
-    publicPath: '/vue3',
     server: {
         host: '0.0.0.0',
         port: 8084,
         cors: true,
-        origin: 'http://localhost:8084/zp',
+        origin: 'http://localhost:8084',
         proxy: {
             '/test/api': {
                 target: 'http://10.1.13.23',
@@ -25,10 +24,7 @@ export default defineConfig({
     },
     plugins: [vue(), vueJsx()],
     resolve: {
-        alias: {
-            '@': path.resolve(__dirname, 'src'),
-            extensions: ['.js', '.vue', '.json']
-        }
+        alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
+        extensions: ['.js', '.vue', '.json']
     }
 });
-
