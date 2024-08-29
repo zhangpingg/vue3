@@ -1,11 +1,12 @@
 <template>
     <div>
         <p>1)预览PDF</p>
+        (1)该插件是简易版，想要更完善的请查看完美版，详见 previewPDF
         <vue-office-pdf :src="pdfUrl" class="box" /> <br />
 
         <p>2)预览docx</p>
         (1)不能预览doc文件，需要后台转换为docx，方可预览 <br />
-        (2)文件里面的柱状图会丢失，渲染不出来
+        (2)excel文件里面的柱状图会丢失，渲染不出来，可让后台转换为png，前端展示
         <vue-office-docx :src="docxUrl" class="box" /> <br />
 
         <p>3)预览excel</p>
