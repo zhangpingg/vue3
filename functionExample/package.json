@@ -43,7 +43,7 @@
         "vue-demi": "^0.14.6",
         "vue-i18n": "^10.0.0-beta.5",
         "vue-router": "^4.3.0",
-        "zp-element-plus": "^1.0.5"
+        "zp-element-plus": "^1.0.9"
     },
     "devDependencies": {
         "@eslint/js": "^9.9.0",

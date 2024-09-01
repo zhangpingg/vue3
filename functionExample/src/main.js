@@ -28,6 +28,8 @@ import 'zp-element-plus/lib/style.css';
 // 国际化
 import { createI18n } from 'vue-i18n';
 import { messages } from '@/lib/i18n';
+// 本地样式
+import './assets/css/index.css';
 
 const app = createApp(App);
 
