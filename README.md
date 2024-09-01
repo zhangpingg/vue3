@@ -8,14 +8,15 @@
 3)自定义vue插件（confirm对话框，自定义右键菜单）
 4)横向滚动，滚动到某一项位置，或滚动到最右侧等
 5)view-ui-plus
-6)网页中在线预览PDF
+6)网页中在线预览PDF（完美版）
 7)网页中在线预览图片
-8)在线预览pdf,docx,excel
+8)在线预览pdf,docx,excel（预览pdf:简易版）
 9)组件使用jsx语法
 10)@vueuse/core：useClipboard-复制文本到剪切板，useToggle-类似react中的useState，useResizeObserver：监听DOM元素，isClient：判断当前环境是否为客户端，useFullscreen：全屏
 11)markDown文件渲染
 12)css v-bind 引用js中的变量
 13)zp-element-plus 组件库使用
+14)国际化-多语言（如果想把一个普通项目转换为多语言，请使用vscode扩展插件du-i18n）
 ```
 
 ## template

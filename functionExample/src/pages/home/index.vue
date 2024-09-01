@@ -7,9 +7,9 @@
         <span @click="jumpPage('routerHome')">路由</span><br />
         <span @click="jumpPage('plugin')">自定义vue插件（confirm对话框，自定义右键菜单）</span><br />
         <span @click="jumpPage('scroll')">横向滚动，滚动到某一项位置，或滚动到最右侧等</span><br />
-        <span @click="jumpPage('previewPDF')">预览PDF</span> <br />
+        <span @click="jumpPage('previewPDF')">预览PDF（完美版）</span> <br />
         <span @click="jumpPage('previewImg')">预览图片</span> <br />
-        <span @click="jumpPage('previewPdfDocxExcel')">预览pdf/docx/excel</span> <br />
+        <span @click="jumpPage('previewPdfDocxExcel')">预览pdf/docx/excel（预览pdf:简易版）</span> <br />
         <span @click="jumpPage('viewUiPlus')">view-ui-plus 框架</span><br />
         <span @click="jumpPage('jsx')">jsx语法子组件</span><br />
         <span @click="jumpPage('vueuseCore')"
@@ -44,4 +44,3 @@ const jumpPage = (path) => {
     }
 }
 </style>
-
