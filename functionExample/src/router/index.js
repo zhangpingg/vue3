@@ -158,6 +158,15 @@ const routes = [
             cache: false
         },
         component: () => import('@/pages/i18nDemo/index.vue')
+    },
+    {
+        path: `/formInTable`,
+        name: 'formInTable',
+        meta: {
+            title: 'table 中嵌入 form',
+            cache: false
+        },
+        component: () => import('@/pages/formInTable/index.vue')
     }
 ];
 
@@ -167,4 +176,3 @@ const router = createRouter({
 });
 
 export default router;
-
