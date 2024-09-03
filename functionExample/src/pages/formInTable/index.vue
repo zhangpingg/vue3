@@ -44,6 +44,18 @@ const tablePageData = reactive({
 });
 const formRefs = reactive([]);
 
+// 获取数据
+const getData = () => {
+    let res = [
+        { aa: '张三', bb: null, cc: null },
+        { aa: '李四', bb: null, cc: null }
+    ];
+    tablePageData.tableConfig.data = res;
+    // 初始化表单引用
+    res.forEach(() => {
+        formRefs.push(ref(null));
+    });
+};
 // 上传文件
 const uploadFile = (row, index) => {
     tablePageData.tableConfig.data[index].bbb = true;
@@ -66,10 +78,7 @@ const submit = async () => {
 };
 
 onMounted(() => {
-    // 初始化表单引用
-    tablePageData.tableConfig.data.forEach(() => {
-        formRefs.push(ref(null));
-    });
+    getData();
 });
 </script>
 
@@ -80,3 +89,4 @@ onMounted(() => {
     }
 }
 </style>
+
