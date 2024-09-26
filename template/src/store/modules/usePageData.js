@@ -8,7 +8,7 @@ import { defineStore } from 'pinia';
 const useUser = defineStore(
     'pageData',
     () => {
-        const pageData = reactive({ previewFile: null });
+        const pageData = reactive({ previewFile: null, pageScrollPosition: null });
 
         // 存储页面数据
         const setPageData = (pageType, data) => {

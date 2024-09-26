@@ -1,10 +1,12 @@
 import _ from 'lodash';
-import { usePageStore } from '@/store';
+import { useRoute } from 'vue-router';
+import { usePageStore, usePageDataStore } from '@/store';
 import { api as viewerApi } from 'v-viewer';
 import { apiConvertFileType } from '@/api/common';
 import Setting from '@/globalSetting';
 
 const pageStore = usePageStore();
+const pageDataStore = usePageDataStore();
 const { imgPreviewTypes, menuPreviewTypes } = Setting;
 /**
  * @description 判断-是否是有效的数据
@@ -201,4 +203,50 @@ const isResetDetail = (detailName, query) => {
     return isReset;
 };
 
-export { isValidVal, isValidArr, clearInvalidKey, previewFile, downloadFile, transToNergeCellList, isResetDetail };
+// 页面滚动事件
+const pageScrollFn = (event, route) => {
+    pageDataStore.setPageData('pageScrollPosition', {
+        ...pageDataStore.pageData.pageScrollPosition,
+        [route.name]: event.target.scrollTop,
+    });
+};
+// 设置页面滚动距离0
+const setPageScrollZero = () => {
+    var blMain = document.getElementsByClassName('bl-main')[0];
+    blMain.scrollTop = 0;
+};
+// 设置页面滚动距离
+const setPageScrollPosition = () => {
+    const route = useRoute();
+    var blMain = document.getElementsByClassName('bl-main')[0];
+    blMain.scrollTop = pageDataStore.pageData.pageScrollPosition?.[route.name] || 0;
+    Promise.resolve().then(() => {
+        blMain?.addEventListener('scroll', (event) => {
+            pageScrollFn(event, route);
+        });
+    });
+};
+// 移除页面滚动监听
+const removePageScrollListener = () => {
+    const scrollbarList = document.querySelectorAll('.el-table__body-wrapper .el-scrollbar__thumb');
+    Array.from(scrollbarList || []).forEach((item) => {
+        if (item) {
+            item.style.transform = 'translateX(0%)';
+        }
+    });
+    var blMain = document.getElementsByClassName('bl-main')[0];
+    blMain?.removeEventListener('scroll', pageScrollFn);
+};
+
+export {
+    isValidVal,
+    isValidArr,
+    clearInvalidKey,
+    previewFile,
+    downloadFile,
+    transToNergeCellList,
+    isResetDetail,
+    setPageScrollZero,
+    setPageScrollPosition,
+    removePageScrollListener,
+};

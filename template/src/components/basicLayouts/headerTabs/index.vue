@@ -14,6 +14,7 @@
                 closable
                 @on-click="changeTab"
                 @on-tab-remove="closeSingleTab"
+                :key="updateKey"
             >
                 <TabPane
                     v-for="item in openedTabList"
@@ -40,15 +41,19 @@
 </template>
 
 <script setup>
-import { toRefs } from 'vue';
+import { ref, toRefs } from 'vue';
 import { Tabs, TabPane, Dropdown, DropdownMenu, DropdownItem, Icon } from 'view-ui-plus';
-import { usePageStore } from '@/store';
-import { useRouter } from 'vue-router';
+import { usePageStore, usePageDataStore } from '@/store';
+import { useRouter, useRoute } from 'vue-router';
+import { bus } from '@/libs/util.bus.js';
 
 const router = useRouter();
+const route = useRoute();
 const pageStore = usePageStore();
+const pageDataStore = usePageDataStore();
 
 const { openedTabList, currentRouteName } = toRefs(pageStore.pageInfo);
+const updateKey = ref(0);
 
 // render-tab的label
 const renderTabLabel = (h, page) => {
@@ -74,7 +79,17 @@ const changeTab = (name) => {
 };
 // 关闭-标签（单个）
 const closeSingleTab = (name) => {
-    pageStore.closeTab(name);
+    const _pageScrollPosition = { ...pageDataStore.pageData.pageScrollPosition };
+    delete _pageScrollPosition[name];
+    pageDataStore.setPageData('pageScrollPosition', {
+        ..._pageScrollPosition,
+    });
+    if (route.query.mode === 'EDIT' && ['auditRecord-problemRectification'].includes(name)) {
+        bus.emit(`close_${name}`);
+    } else {
+        pageStore.closeTab(name);
+    }
+    updateKey.value++;
 };
 // 关闭-标签（多个）
 const closeMultipleTab = (closeType) => {

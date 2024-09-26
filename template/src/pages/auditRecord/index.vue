@@ -2,7 +2,7 @@
     <div>
         <PageHeader title="审核记录" hidden-breadcrumb />
         <div class="main-card">
-            <TablePage :tableConfig="tablePageData.tableConfig" :isHasPage="false">
+            <TablePage :tableConfig="tablePageData.tableConfig" :isHasPage="false" :key="updateKey">
                 <template #auditDate="{ scope: { row } }">
                     <span>{{ row._startDate }}</span>
                     <br />
@@ -14,9 +14,10 @@
                     <span>审核后：{{ row.afterReviewNum || '-' }}</span>
                 </template>
                 <template #operationColumn>
-                    <el-table-column width="180" fixed="right">
+                    <el-table-column width="240" fixed="right">
                         <template #header>操作</template>
                         <template #default="{ row }">
+                            <el-button type="primary" link @click="problemRectification(row)"> 问题整改 </el-button>
                             <el-button type="primary" link @click="uploadMaterial(row)">上传资料</el-button>
                             <el-button type="primary" link @click="reviewNotice(row)">评审通知</el-button>
                         </template>
@@ -28,14 +29,16 @@
 </template>
 
 <script setup>
-import { reactive, onActivated } from 'vue';
+import { ref, reactive, onActivated, onDeactivated } from 'vue';
 import { useRouter } from 'vue-router';
 import TablePage from '@/components/tablePage';
 import { columns } from './const';
 import { apiGetAuditRecord } from '@/api/auditRecord';
+import { isResetDetail, setPageScrollPosition, removePageScrollListener } from '@/libs/util.tool';
 
 const router = useRouter();
 
+const updateKey = ref(0);
 const tablePageData = reactive({
     tableConfig: {
         loading: false,
@@ -51,7 +54,7 @@ const getData = async () => {
         //const res = await apiGetAuditRecord();
         let res = [
             {
-                productName: '树脂、聚辛烯橡胶VESTENAMER 8012(赢创)、白炭黑VN3GR(德固萨 彤程)',
+                productName: '树脂、聚辛烯橡胶',
                 startDate: '2024-05-16 18:00',
                 endDate: '2024-05-16 18:02',
                 auditOperator: '张三（质管）、刘二（质管）',
@@ -70,6 +73,14 @@ const getData = async () => {
         tablePageData.tableConfig.loading = false;
     }
 };
+// 问题整改
+const problemRectification = (row) => {
+    const _query = { id: 1, mode: 'EDIT' };
+    router.push({
+        path: './problemRectification',
+        query: { ..._query, isReset: isResetDetail('auditRecord-problemRectification', _query) },
+    });
+};
 // 上传资料
 const uploadMaterial = (row) => {
     router.push({ path: './uploadData', query: { monthPlanDetailId: row.monthPlanDetailId } });
@@ -82,6 +93,11 @@ const reviewNotice = (row) => {
 
 onActivated(() => {
     getData();
+    setPageScrollPosition();
+});
+onDeactivated(() => {
+    removePageScrollListener();
+    updateKey.value++;
 });
 </script>
 

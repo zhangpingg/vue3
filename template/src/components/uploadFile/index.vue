@@ -1,6 +1,6 @@
 <template>
     <el-upload
-        name="uploadFile"
+        ref="elUploadRef"
         :file-list="fileList"
         :headers="{ Authorization: Cookies.get('token') }"
         :action="action"
@@ -12,37 +12,46 @@
         :on-exceed="handleExceed"
         :on-preview="handlePreview"
         :class="[{ 'drag-uploaded': isDragUploaded }, 'upload-file-component']"
+        v-bind="config"
     >
-        <slot>
-            <!-- 拖拽上传 -->
-            <template v-if="isDragType">
-                <div class="drag-upload" v-if="fileList.length === 0">
-                    <el-icon class="el-icon--upload" size="52"><upload-filled /></el-icon>
-                    <div class="el-upload__text">点击或将文件拖拽到这里上传</div>
-                    <div class="el-upload__tip" v-if="attrs?.accept">支持扩展名：{{ attrs?.accept }}</div>
-                </div>
-                <div class="drag-file flex-col-c" v-for="(item, index) in fileList" :key="index" v-else>
-                    <p class="drag-file-main flex-c" @click="handlePreview(item)">
-                        <Icon class="cup" type="md-document" size="52" color="red" />
-                        <i class="drag-file-name e-1 cup">{{ item.name }}</i>
-                    </p>
-                    <Icon
-                        class="cup"
-                        type="ios-trash-outline"
-                        color="#515a6e"
-                        size="52"
-                        @click.stop="removeDragFileItem(index)"
-                    ></Icon>
-                </div>
-            </template>
-            <!-- 常规上传 -->
-            <el-button v-else type="primary" :icon="Plus" :disabled="fileList.length >= attrs?.limit">
-                上传文件
-            </el-button>
-        </slot>
+        <template #trigger>
+            <slot name="trigger">
+                <!-- 拖拽上传 -->
+                <template v-if="isDragType">
+                    <div class="drag-upload" v-if="fileList.length === 0">
+                        <el-icon class="el-icon--upload" size="52"><upload-filled /></el-icon>
+                        <div class="el-upload__text">点击或将文件拖拽到这里上传</div>
+                        <div class="el-upload__tip" v-if="attrs?.accept">支持扩展名：{{ attrs?.accept }}</div>
+                    </div>
+                    <div class="drag-file flex-col-c" v-for="(item, index) in fileList" :key="index" v-else>
+                        <p class="drag-file-main flex-c" @click="handlePreview(item)">
+                            <Icon class="cup" type="md-document" size="52" color="red" />
+                            <i class="drag-file-name e-1 cup">{{ item.name }}</i>
+                        </p>
+                        <Icon
+                            class="cup"
+                            type="ios-trash-outline"
+                            color="#515a6e"
+                            size="52"
+                            @click.stop="removeDragFileItem(index)"
+                        ></Icon>
+                    </div>
+                </template>
+                <!-- 常规上传 -->
+                <el-button
+                    v-else
+                    type="primary"
+                    :icon="Plus"
+                    :disabled="fileList.length >= attrs?.limit && !isReUpload"
+                >
+                    上传文件
+                </el-button>
+            </slot>
+        </template>
+        <slot> </slot>
         <template #tip>
             <slot name="tip">
-                <div class="el-upload__tip" v-if="needDownload">单击文件名可下载文件</div>
+                <div class="el-upload__tip" v-if="clickNameType === 'download'">单击文件名可下载文件</div>
             </slot>
         </template>
         <template #file>
@@ -53,13 +62,12 @@
 
 <script setup>
 import { ref, computed, useAttrs } from 'vue';
+import { useRouter } from 'vue-router';
 import { ElMessage, ElNotification, ElLoading } from 'element-plus';
 import { Plus } from '@element-plus/icons-vue';
-import { getEnvironment } from '@/libs/util.win';
-import { downloadFile } from '@/libs/util.tool';
 import Cookies from 'js-cookie';
-
-const attrs = useAttrs();
+import { getEnvironment } from '@/libs/util.win';
+import { downloadFile, previewFile } from '@/libs/util.tool';
 
 const props = defineProps({
     // 上传api
@@ -67,15 +75,27 @@ const props = defineProps({
         type: String,
         default: '/api/quality/common/file/upload',
     },
+    // 重新上传覆盖上一次文件，limit必须为1
+    isReUpload: {
+        type: Boolean,
+        default: false,
+    },
     // loading目标
     loadingTarget: {
         type: String,
         default: '.upload-file-component',
     },
-    // 是否需要下载
-    needDownload: {
-        type: Boolean,
-        default: false,
+    // 接口返回格式
+    // 1：code=200返回{data:'fileUrl'}，code!=200返回{data:'failExcelFileUrl'}报错并下载
+    // 2：code=200返回{data:{fileUrl:'',failExcelFileUrl:'',...}}，failExcelFileUrl有值报错并下载，code!=200仅报错
+    resType: {
+        type: Number,
+        default: 1,
+    },
+    // 单击文件名执行 download:下载，preview:查看预览
+    clickNameType: {
+        type: String,
+        default: '',
     },
     // 通用上传文件大小限制 maxSizeNum和maxSizeArr二选一
     maxSizeNum: {
@@ -95,6 +115,13 @@ const props = defineProps({
 });
 const emit = defineEmits(['uploadSuccess', 'removeSuccess', 'handleClickName']);
 
+const config = {
+    name: 'uploadFile',
+};
+const attrs = useAttrs();
+const router = useRouter();
+
+const elUploadRef = ref();
 // 上传的文件列表 通过组件ref回显和取上传后的数据
 const fileList = ref([]);
 // 上传loading
@@ -115,9 +142,33 @@ const isDragUploaded = computed(() => {
 
 // 上传前
 const beforeUpload = (rawFile) => {
+    if (!checkAccept(rawFile)) return false;
+    if (!checkSize(rawFile)) return false;
+    if (!uploading.value) {
+        uploading.value = ElLoading.service({
+            target: document.querySelector(props.loadingTarget),
+            text: '上传中...',
+        });
+    }
+};
+
+// 校验允许上传文件后缀名
+const checkAccept = (rawFile) => {
+    const accept = attrs?.accept;
+    if (!accept) return true;
+    const suffixName = rawFile.name.split('.').pop();
+    if (!accept.includes(suffixName)) {
+        ElMessage({ plain: true, message: '文件类型不正确', type: 'error' });
+        return false;
+    }
+    return true;
+};
+
+// 校验文件大小
+const checkSize = (rawFile) => {
     const { maxSizeNum, maxSizeArr } = props;
-    const fileSize = rawFile.size / 1024 / 1024; // 图片大小
-    const fileType = rawFile.type.split('/')[0]; // 图片类型
+    const fileSize = rawFile.size / 1024 / 1024; // 文件大小
+    const fileType = rawFile.type.split('/')[0]; // 文件类型
     // 通用上传文件大小限制
     if (maxSizeNum && fileSize > maxSizeNum) {
         ElMessage({ plain: true, message: `文件大小不能超过${maxSizeNum}M`, type: 'error' });
@@ -135,30 +186,39 @@ const beforeUpload = (rawFile) => {
             break;
         }
     }
-    if (sizeError) return false;
-    if (uploading.value) return false;
-    uploading.value = ElLoading.service({
-        target: document.querySelector(props.loadingTarget),
-        text: '上传中...',
-    });
+    return !sizeError;
 };
 
 // 上传成功
 const handleSuccess = (response, uploadFile, uploadFiles) => {
-    if (response.code !== 200) {
-        uploadFile.status = 'fail';
-        uploadFile.url = '';
-        ElNotification({
-            type: 'error',
-            title: '提示',
-            message: response.message,
-            duration: 3000,
-        });
-        // 导入失败下载错误链接文件
-        response.data && downloadFile(response.data);
+    if (props.isReUpload && attrs?.limit === 1) {
+        // 重新上传清空文件列表
+        fileList.value = [];
     }
-    if (response.code === 200 && typeof response.data === 'string') {
-        uploadFile.url = response.data;
+    switch (props.resType) {
+        case 1:
+            if (response.code !== 200) {
+                catchUploadError(uploadFile, response.message);
+                // 导入失败下载错误链接文件
+                response.data && downloadFile(response.data);
+            } else {
+                uploadFile.url = typeof response.data === 'string' ? response.data : '';
+            }
+            break;
+        case 2:
+            if (response.code !== 200) {
+                catchUploadError(uploadFile, response.message);
+            } else {
+                uploadFile.url = response?.data?.fileUrl || '';
+                if (response?.data?.failExcelFileUrl) {
+                    catchUploadError(uploadFile, '导入失败，请在文件中查看错误原因');
+                    // 校验失败下载错误链接文件
+                    downloadFile(response.data.failExcelFileUrl);
+                }
+            }
+            break;
+        default:
+            break;
     }
     fileList.value.push(uploadFile);
     if (fileList.value.length === uploadFiles.length) {
@@ -170,6 +230,18 @@ const handleSuccess = (response, uploadFile, uploadFiles) => {
     }
 };
 
+// 错误处理
+const catchUploadError = (uploadFile, msg) => {
+    uploadFile.status = 'fail';
+    uploadFile.url = '';
+    ElNotification({
+        type: 'error',
+        title: '提示',
+        message: msg,
+        duration: 3000,
+    });
+};
+
 // 移除
 const handleRemove = (uploadFile, uploadFiles) => {
     fileList.value = [...uploadFiles];
@@ -178,17 +250,29 @@ const handleRemove = (uploadFile, uploadFiles) => {
 
 // 超出限制
 const handleExceed = (files, uploadFiles) => {
+    if (props.isReUpload && attrs?.limit === 1) {
+        elUploadRef.value.clearFiles();
+        elUploadRef.value.handleStart(files[0]); // 手动选择文件
+        elUploadRef.value.submit(); // 手动上传
+        return;
+    }
     console.log('超出限制', files, uploadFiles);
     ElMessage({ plain: true, message: '超出上传数量限制', type: 'error' });
 };
 
 // 单击名称
 const handlePreview = (uploadFile) => {
-    if (props.needDownload) {
-        downloadFile(uploadFile.url, uploadFile.name);
-        return;
+    switch (props.clickNameType) {
+        case 'download':
+            downloadFile(uploadFile.url, uploadFile.name);
+            break;
+        case 'preview':
+            previewFile(uploadFile.url, uploadFile.name, router);
+            break;
+        default:
+            emit('handleClickName', uploadFile);
+            break;
     }
-    emit('handleClickName', uploadFile);
 };
 
 // 删除已上传的拖拽文件

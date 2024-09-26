@@ -118,6 +118,16 @@ const usePage = defineStore(
                 }
             }
         };
+        // 删除页面的滚动记录
+        const deletePageScrollPosition = (nameList) => {
+            const _pageScrollPosition = { ...pageDataStore.pageData.pageScrollPosition };
+            for (let key of nameList) {
+                delete _pageScrollPosition[key];
+            }
+            pageDataStore.setPageData('pageScrollPosition', {
+                ..._pageScrollPosition,
+            });
+        };
         // 关闭当前标签左边的标签
         const closeLeftTab = () => {
             let currentIndex = 0;
@@ -127,6 +137,11 @@ const usePage = defineStore(
                 }
             });
             if (currentIndex > 0) {
+                let namelist = pageInfo.openedTabList
+                    .slice(_isHomeOfFirst ? 1 : 0, _isHomeOfFirst ? currentIndex - 1 : currentIndex)
+                    .map((item) => item.name);
+                deletePageScrollPosition(namelist);
+
                 pageInfo.openedTabList.splice(_isHomeOfFirst ? 1 : 0, _isHomeOfFirst ? currentIndex - 1 : currentIndex);
             }
         };
@@ -138,6 +153,9 @@ const usePage = defineStore(
                     currentIndex = index;
                 }
             });
+            let namelist = pageInfo.openedTabList.slice(currentIndex + 1).map((item) => item.name);
+            deletePageScrollPosition(namelist);
+
             // 删除打开的页面 并在缓存设置中删除
             pageInfo.openedTabList.splice(currentIndex + 1);
         };
@@ -154,12 +172,21 @@ const usePage = defineStore(
                 pageInfo.openedTabList.splice(1);
             } else {
                 let _isHasHome = pageInfo.openedTabList?.[0]?.name === 'home';
+                // 删除页面滚动距离的缓存数据
+                let rightNamelist = pageInfo.openedTabList.slice(currentIndex + 1).map((item) => item.name);
+                let leftNamelist = pageInfo.openedTabList
+                    .splice(_isHasHome ? 1 : 0, _isHasHome ? currentIndex - 1 : currentIndex)
+                    .map((item) => item.name);
+                deletePageScrollPosition([...rightNamelist, ...leftNamelist]);
+                // 删除标签
                 pageInfo.openedTabList.splice(currentIndex + 1);
                 pageInfo.openedTabList.splice(_isHasHome ? 1 : 0, _isHasHome ? currentIndex - 1 : currentIndex);
             }
         };
         // 关闭所有标签
         const closeAllTab = () => {
+            let namelist = pageInfo.openedTabList.splice(_isHomeOfFirst ? 1 : 0).map((item) => item.name);
+            deletePageScrollPosition(namelist);
             // 删除打开的页面 并在缓存设置中删除
             pageInfo.openedTabList.splice(_isHomeOfFirst ? 1 : 0);
             if (pageInfo.currentRouteName !== 'home') {

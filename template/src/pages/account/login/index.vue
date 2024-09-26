@@ -56,7 +56,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
+import { ref, reactive, onMounted, watch } from 'vue';
 import Cookies from 'js-cookie';
 import ValidateCode from '@/components/validateCode/index.vue';
 import { usePageStore } from '@/store';
@@ -116,16 +116,7 @@ const submitForm = async (formEl) => {
                 await requestUser();
                 pageStore.setRoutePool(frameIn || []);
                 submitLoading.value = false;
-                if (router.currentRoute.value.query.redirect) {
-                    if (router.currentRoute.value.redirectedFrom) {
-                        const { path, query } = router.currentRoute.value.redirectedFrom;
-                        router.push({ path, query });
-                    } else {
-                        router.push({ path: router.currentRoute.value.query.redirect });
-                    }
-                } else {
-                    router.push({ path: '/home' });
-                }
+                router.push({ path: '/home' });
             } catch (err) {
                 submitLoading.value = false;
             }
@@ -133,6 +124,13 @@ const submitForm = async (formEl) => {
     });
 };
 
+watch(
+    () => formData.phone,
+    (newVal) => {
+        isAllowTriggerCode.value = !!newVal && newVal.length === 11;
+    },
+    { immediate: true }
+);
 onMounted(() => {
     ['menu', 'page', 'user', 'pageData'].map((item) => {
         localStorage.removeItem(item);

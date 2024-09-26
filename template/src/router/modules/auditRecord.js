@@ -20,6 +20,17 @@ const auditRecordRoutes = [
         },
         component: () => import('@/pages/auditRecord/uploadData'),
     },
+    {
+        path: '/auditRecord/problemRectification',
+        name: 'auditRecord-problemRectification',
+        meta: {
+            parentName: 'auditRecord-index',
+            title: '问题整改',
+            auth: true,
+            cache: true,
+        },
+        component: () => import('@/pages/auditRecord/problemRectification'),
+    },
 ];
 
 export { auditRecordRoutes };

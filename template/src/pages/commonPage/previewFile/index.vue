@@ -15,10 +15,8 @@
             <vue-office-excel
                 :src="url"
                 :options="{
-                    minColLength: 0,
                     widthOffset: 10,
                     heightOffset: 18,
-                    minRowLength: 0,
                 }"
                 v-if="fileType === 'excel'"
             />
@@ -30,30 +28,21 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, onActivated } from 'vue';
+import { ref, computed, onActivated } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import { usePageStore, usePageDataStore } from '@/store';
+import { usePageStore } from '@/store';
 import VueOfficePdf from '@vue-office/pdf';
 import VueOfficeDocx from '@vue-office/docx';
 import VueOfficeExcel from '@vue-office/excel';
-import { ElMessage, ElMessageBox } from 'element-plus';
-import RejectionReasonDialog from './components/RejectionReasonDialog';
 
 const router = useRouter();
 const route = useRoute();
 const pageStore = usePageStore();
-const pageDataStore = usePageDataStore();
 
-const rejectionReasonDialogRef = ref();
 const title = ref(route.query.title);
 const url = ref(route.query.url);
 const pageSource = ref(route.query.pageSource);
 const loading = ref(true);
-const yearlyPlanData = reactive({});
-const monthlyPlanData = reactive({});
-const supplementPlanData = reactive({});
-const approvalCenterData = reactive({});
-
 // 文件类型
 const fileType = computed(() => {
     let _list = url.value.split('.');

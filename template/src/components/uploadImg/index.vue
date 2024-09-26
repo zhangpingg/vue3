@@ -18,10 +18,13 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, useAttrs } from 'vue';
 import { api as viewerApi } from 'v-viewer';
 import { ElMessage, ElNotification } from 'element-plus';
+import Cookies from 'js-cookie';
 import { getEnvironment } from '@/libs/util.win';
+
+const attrs = useAttrs();
 
 const props = defineProps({
     // 上传api
@@ -38,6 +41,23 @@ const fileList = ref([]);
 const action = computed(() => {
     return getEnvironment() !== 'product' ? '/test' + props.api : props.api;
 });
+
+// 上传前
+const beforeUpload = (rawFile) => {
+    if (!checkAccept(rawFile)) return false;
+};
+
+// 校验允许上传文件后缀名
+const checkAccept = (rawFile) => {
+    const accept = attrs?.accept || config.accept;
+    if (!accept) return true;
+    const suffixName = rawFile.name.split('.').pop();
+    if (!accept.includes(suffixName)) {
+        ElMessage({ plain: true, message: '文件类型不正确', type: 'error' });
+        return false;
+    }
+    return true;
+};
 
 // 图片预览
 const handlePreview = (uploadFile) => {
