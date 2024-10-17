@@ -8,6 +8,7 @@ import { ref, watch, onMounted } from 'vue';
 // 方式2：
 import { marked } from 'marked';
 import sanitizeHtml from 'sanitize-html'; // 防止跨站脚本攻击（XSS），增强安全性，使用 sanitize-html 来清理渲染的 HTML
+// 方式3：把js下载到本地，本地直接引用
 
 const props = defineProps({
     markdown: {
