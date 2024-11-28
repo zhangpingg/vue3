@@ -1,9 +1,9 @@
 <template>
     <div>
         {{ isValidVal(1) }} <br />
-        {{ formatNum('12345678', 4, true) }} <br />
-        plus方法：0.1 + 0.2 = {{ plus(0.1, 0.2) }} <br />
-        {{ MOBILE_REG.test('18258261040') }}
+        <!--{{ formatNum('12345678', 4, true) }} <br />-->
+        <!--plus方法：0.1 + 0.2 = {{ plus(0.1, 0.2) }} <br />-->
+        <!--{{ MOBILE_REG.test('18258261040') }}-->
     </div>
 </template>
 

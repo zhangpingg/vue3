@@ -18,6 +18,7 @@
 13)zp-element-plus 组件库使用
 14)国际化-多语言（如果想把一个普通项目转换为多语言，请使用vscode扩展插件du-i18n）
 15)table中嵌入form
+16)vite插件
 ```
 
 ## template
