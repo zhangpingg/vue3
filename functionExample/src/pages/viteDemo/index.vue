@@ -1,5 +1,5 @@
 <template>
-    <div>test</div>
+    <div>vite 插件</div>
 </template>
 
 <script setup>
