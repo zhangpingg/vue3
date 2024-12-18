@@ -167,6 +167,15 @@ const routes = [
             cache: false
         },
         component: () => import('@/pages/formInTable/index.vue')
+    },
+    {
+        path: `/vitePlugin`,
+        name: 'vitePlugin',
+        meta: {
+            title: 'vite插件',
+            cache: false
+        },
+        component: () => import('@/pages/vitePluginDemo/index.vue')
     }
 ];
 
@@ -176,3 +185,4 @@ const router = createRouter({
 });
 
 export default router;
+

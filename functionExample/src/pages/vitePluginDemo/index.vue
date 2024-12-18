@@ -1,5 +1,5 @@
 <template>
-    <div>vite 插件</div>
+    <div>vite 插件、vitePluginCheckVersion.js</div>
 </template>
 
 <script setup>
@@ -42,3 +42,4 @@ onMounted(() => {
 </script>
 
 <style lang="less" scoped></style>
+
