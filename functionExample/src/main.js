@@ -1,13 +1,16 @@
 import { createApp } from 'vue';
 import router from './router';
 import App from './App.vue';
+// UI 框架
 import ElementPlus from 'element-plus';
 import zhCn from 'element-plus/es/locale/lang/zh-cn';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'; // element-plus图标
 import 'element-plus/dist/index.css';
 import 'view-ui-plus/dist/styles/viewuiplus.css';
-import VueViewer from 'v-viewer'; // 预览图片插件（自己电脑报错）
+// 预览图片插件
+import VueViewer from 'v-viewer';
 import 'viewerjs/dist/viewer.css';
+// docs、excel插件样式
 import '@vue-office/docx/lib/index.css'; // '@vue-office/docx' 样式
 import '@vue-office/excel/lib/index.css'; // '@vue-office/excel' 样式
 /** 自定义指令 */
@@ -54,3 +57,4 @@ const i18n = createI18n({
 });
 
 app.use(router).use(ElementPlus, { locale: zhCn }).use(ConfirmPlugin).use(ContextMenuPlugin).use(i18n).mount('#app');
+
