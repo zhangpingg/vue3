@@ -21,6 +21,7 @@
         <span @click="jumpPage('zpElementPlus')">zp-element-plus 组件库</span><br />
         <span @click="jumpPage('i18n')">国际化-多语言</span><br />
         <span @click="jumpPage('formInTable')">table 中嵌入 form</span><br />
+        <span @click="jumpPage('vitePlugin')">vite 插件</span><br />
     </div>
 </template>
 
@@ -45,3 +46,4 @@ const jumpPage = (path) => {
     }
 }
 </style>
+
