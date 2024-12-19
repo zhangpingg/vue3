@@ -1,30 +1,36 @@
 <template>
-    <div v-viewer="{ movable: true }">
-        <span v-for="(item, index) in images" :key="index">
-            <img :src="item" />
+    <div>(1)指令</div>
+    <div v-viewer>
+        <span v-for="src in imgList" :key="src">
+            <img :src="src" />
             <el-icon><CirclePlus /></el-icon>
         </span>
     </div>
-    <button @click="imgPreview">预览图片-js</button>
+
+    <div>(2)组件</div>
+    <viewer :images="imgList">
+        <span v-for="src in imgList" :key="src">
+            <img :src="src" />
+            <el-icon><CirclePlus /></el-icon>
+        </span>
+    </viewer>
+
+    <div>(3)api</div>
+    <el-button type="primary" @click="imgPreview">图片预览</el-button>
 </template>
 
 <script setup>
 import { api as viewerApi } from 'v-viewer';
 
-const images = [
-    'https://file.iviewui.com/images/image-demo-10.jpg',
-    'https://file.iviewui.com/images/image-demo-11.jpg',
-    'https://file.iviewui.com/images/image-demo-12.jpg'
-];
+const imgList = ['https://picsum.photos/200/200', 'https://picsum.photos/300/200', 'https://picsum.photos/250/200'];
 
 // 图片预览
 const imgPreview = () => {
     viewerApi({
         options: {
-            toolbar: true,
-            initialViewIndex: 0
+            initialViewIndex: 1
         },
-        images: images
+        images: imgList
     });
 };
 </script>

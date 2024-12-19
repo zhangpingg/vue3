@@ -42,8 +42,6 @@ app.directive('permission', permissionDirective);
 app.directive('loading', loadingDirective);
 app.directive('clickoutside', clickoutsideDirective);
 
-app.use(VueViewer);
-
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component);
 }
@@ -53,4 +51,15 @@ const i18n = createI18n({
     messages // 设置地区信息
 });
 
-app.use(router).use(ElementPlus, { locale: zhCn }).use(ConfirmPlugin).use(ContextMenuPlugin).use(i18n).mount('#app');
+app.use(router)
+    .use(ElementPlus, { locale: zhCn })
+    .use(ConfirmPlugin)
+    .use(ContextMenuPlugin)
+    .use(i18n)
+    .use(VueViewer, {
+        // 自定义默认配置
+        defaultOptions: {
+            //movable: false // 图片是否可以移动, 默认值:true
+        }
+    })
+    .mount('#app');
