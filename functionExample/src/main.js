@@ -31,6 +31,9 @@ import 'zp-element-plus/lib/style.css';
 // 国际化
 import { createI18n } from 'vue-i18n';
 import { messages } from '@/lib/i18n';
+// 裁剪图片（组件内引入会失败）
+import VueCropper from 'vue-cropper';
+import 'vue-cropper/dist/index.css';
 // 本地样式
 import './assets/css/index.css';
 
@@ -65,4 +68,5 @@ app.use(router)
             //movable: false // 图片是否可以移动, 默认值:true
         }
     })
+    .use(VueCropper)
     .mount('#app');
