@@ -176,6 +176,15 @@ const routes = [
             cache: false
         },
         component: () => import('@/pages/vitePluginDemo/index.vue')
+    },
+    {
+        path: `/cropImg`,
+        name: 'cropImg',
+        meta: {
+            title: '裁剪图片',
+            cache: false
+        },
+        component: () => import('@/pages/cropImg/index.vue')
     }
 ];
 

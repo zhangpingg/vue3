@@ -22,6 +22,7 @@
         <span @click="jumpPage('i18n')">国际化-多语言</span><br />
         <span @click="jumpPage('formInTable')">table 中嵌入 form</span><br />
         <span @click="jumpPage('vitePlugin')">vite 插件</span><br />
+        <span @click="jumpPage('cropImg')">裁剪图片</span><br />
     </div>
 </template>
 
