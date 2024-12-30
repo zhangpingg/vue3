@@ -30,7 +30,7 @@ import ContextMenuPlugin from './plugins/contextMenu'; // 全局右键菜单插�
 import 'zp-element-plus/lib/style.css';
 // 国际化
 import { createI18n } from 'vue-i18n';
-import { messages } from '@/lib/i18n';
+import { messages } from '@/libs/i18n';
 // 裁剪图片（组件内引入的方式会失败）
 import VueCropper from 'vue-cropper';
 import 'vue-cropper/dist/index.css';
@@ -70,4 +70,3 @@ app.use(router)
     })
     .use(VueCropper)
     .mount('#app');
-

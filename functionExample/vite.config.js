@@ -20,6 +20,14 @@ export default defineConfig({
                     const realUrl = new URL(req.url || '', options.target).href || '';
                     res.setHeader('x-res-proxyUrl', realUrl);
                 }
+            },
+            '/api': {
+                target: 'http://dtra.zhilun-k8s.com',
+                changeOrigin: true,
+                bypass(req, res, options) {
+                    const realUrl = new URL(req.url || '', options.target).href || '';
+                    res.setHeader('x-res-proxyUrl', realUrl);
+                }
             }
         }
     },

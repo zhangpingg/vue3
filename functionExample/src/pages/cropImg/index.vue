@@ -44,12 +44,13 @@
                 />
             </label>
             <button @click="refreshCrop" class="ci-btn">刷新重置</button>
-            <button @click="changeScale(1)" class="ci-btn">图片放大（+）</button>
-            <button @click="changeScale(-1)" class="ci-btn">图片缩小（-）</button>
-            <button @click="rotateLeft" class="ci-btn">图片逆时针旋转90°</button>
-            <button @click="rotateRight" class="ci-btn">图片顺时针旋转90°</button>
-            <a @click="downloadImg('base64')" class="ci-btn">下载(base64)</a>
-            <a @click="downloadImg('blob')" class="ci-btn">下载(blob)</a>
+            <button @click="changeScale(1)" class="ci-btn">图片放大 (+)</button>
+            <button @click="changeScale(-1)" class="ci-btn">图片缩小 (-)</button>
+            <button @click="rotateLeft" class="ci-btn">图片逆时针旋转 (90°)</button>
+            <button @click="rotateRight" class="ci-btn">图片顺时针旋转 90°</button>
+            <a @click="downloadImg('base64')" class="ci-btn">下载 (base64)</a>
+            <a @click="downloadImg('blob')" class="ci-btn">下载 (blob)</a>
+            <button class="ci-btn" @click="uploadCropImg">上传裁剪图片给后台</button>
         </div>
     </div>
 </template>
@@ -57,6 +58,7 @@
 <script setup>
 import { ref, reactive } from 'vue';
 import { VueCropper } from 'vue-cropper';
+import { apiUploadCropImg } from '@/api/cropImg.js';
 
 const vueCropperRef = ref();
 const cropperOption = reactive({
@@ -132,6 +134,12 @@ const downloadImg = (type) => {
 // 实时预览函数
 const realTime = (data) => {
     realTimeImgInfo.value = data;
+};
+// 上传图片给后台
+const uploadCropImg = async () => {
+    const res2 = await vueCropperRef.value.getCropBlob();
+    console.lg(11, res2);
+    //const res = await apiUploadCropImg();
 };
 </script>
 
