@@ -43,19 +43,21 @@
                     @change="uploadImg"
                 />
             </label>
-            <button @click="refreshCrop" class="ci-btn">刷新重置</button>
-            <button @click="changeScale(1)" class="ci-btn">图片放大（+）</button>
-            <button @click="changeScale(-1)" class="ci-btn">图片缩小（-）</button>
-            <button @click="rotateLeft" class="ci-btn">图片逆时针旋转90°</button>
-            <button @click="rotateRight" class="ci-btn">图片顺时针旋转90°</button>
-            <a @click="downloadImg('base64')" class="ci-btn">下载(base64)</a>
-            <a @click="downloadImg('blob')" class="ci-btn">下载(blob)</a>
+            <button class="ci-btn" @click="refreshCrop">刷新重置</button>
+            <button class="ci-btn" @click="changeScale(1)">图片放大 (+)</button>
+            <button class="ci-btn" @click="changeScale(-1)">图片缩小 (-)</button>
+            <button class="ci-btn" @click="rotateLeft">图片逆时针旋转 (90°)</button>
+            <button class="ci-btn" @click="rotateRight">图片顺时针旋转 90°</button>
+            <a class="ci-btn" @click="downloadImg('base64')">下载 (base64)</a>
+            <a class="ci-btn" @click="downloadImg('blob')">下载 (blob)</a>
+            <button class="ci-btn" @click="uploadCropImg">上传裁剪图片给后台</button>
         </div>
     </div>
 </template>
 
 <script>
 import { VueCropper } from 'vue-cropper';
+import { apiUploadCropImg } from '@/api/cropImg.js';
 export default {
     components: { VueCropper },
     data() {
@@ -135,6 +137,20 @@ export default {
         // 实时预览函数
         realTime(data) {
             this.realTimeImgInfo = data;
+        },
+        // 上传图片给后台
+        uploadCropImg() {
+            vueCropperRef.value.getCropBlob(async (data) => {
+                var fileName = 'example'; // 文件的基础名称
+                var fileExtension = '.jpg'; // 文件的扩展名，根据实际情况调整
+                var mimeType = 'image/jpeg'; // 文件的 MIME 类型，根据实际情况调整
+                // 创建一个新的 File 对象，包含文件名和 MIME 类型
+                var file = new File([data], fileName + fileExtension, { type: mimeType });
+                var formData = new FormData();
+                formData.append('file', file);
+                const res = await apiUploadCropImg(formData);
+                console.log('接口返回的图片地址:', res);
+            });
         }
     }
 };
@@ -158,4 +174,3 @@ export default {
     }
 }
 </style>
-
