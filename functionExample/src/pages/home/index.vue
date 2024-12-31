@@ -23,6 +23,7 @@
         <span @click="jumpPage('formInTable')">table 中嵌入 form</span><br />
         <span @click="jumpPage('vitePlugin')">vite 插件</span><br />
         <span @click="jumpPage('cropImg')">裁剪图片</span><br />
+        <span @click="jumpPage('richText')">富文本编辑器</span><br />
     </div>
 </template>
 
@@ -47,4 +48,3 @@ const jumpPage = (path) => {
     }
 }
 </style>
-

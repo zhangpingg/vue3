@@ -1,6 +1,6 @@
 import request from '@/libs/request';
 
-// 登录-系统
+// 裁剪图片-上传
 export function apiUploadCropImg(data) {
     return request({
         url: '/upload/fileUpload',
