@@ -31,9 +31,10 @@ export default defineConfig({
             }
         }
     },
-    plugins: [vue(), vueJsx(), checkVersion()],
+    plugins: [vue(), vueJsx()], //  checkVersion()
     resolve: {
         alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
         extensions: ['.js', '.vue', '.json']
     }
 });
+

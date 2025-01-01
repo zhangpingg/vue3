@@ -1,25 +1,87 @@
 <template>
-    <div class="pt-10 pr-10 pl-10">
-        <RichText ref="richTextRef" :content="richTextContent" />
-        <el-button type="primary" @click="save"> 保存 </el-button>
+    <div class="pt-10 pr-10 pb-10 pl-10">
+        <div style="border: 1px solid #ccc">
+            <Toolbar
+                style="border-bottom: 1px solid #ccc"
+                :editor="editorRef"
+                :defaultConfig="toolbarConfig"
+                :mode="mode"
+            />
+            <Editor
+                style="height: 500px; overflow-y: hidden"
+                v-model="valueHtml"
+                :defaultConfig="editorConfig"
+                :mode="mode"
+                @onCreated="handleCreated"
+            />
+        </div>
+        <el-button type="primary" class="mt-10" @click="getValue">按钮</el-button>
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import RichText from './richText';
+import '@wangeditor/editor/dist/css/style.css'; // 引入 css
 
-const richTextRef = ref();
-const richTextContent = ref(
-    '<p>215421521</p><p>5521</p><p><a href="https://www.baidu.com/" rel="noopener noreferrer" target="_blank">百度</a></p><p>12</p><iframe class="ql-video" frameborder="0" allowfullscreen="true" src="https://www.baidu.com/"></iframe><p><br></p><p><img src="https://zc-resource-dev.oss-cn-hangzhou.aliyuncs.com/upload/files/2024/12/30/31871239717507676_02.1735543526600.jpeg"><img src="https://zc-resource-dev.oss-cn-hangzhou.aliyuncs.com/upload/files/2024/12/31/31938829356020738_03.1735611117154.png"></p>'
-);
+import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue';
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
 
-// 保存
-const save = () => {
-    console.log('内容', richTextRef.value.realTimeContent);
+const editorRef = shallowRef(); // 编辑器实例，必须用 shallowRef
+const valueHtml = ref('<p>默认内容</p>'); // 内容 HTML
+const mode = ref('default'); // default、simple
+const toolbarConfig = { modalAppendToBody: true };
+const editorConfig = {
+    placeholder: '请输入内容...',
+    MENU_CONF: {
+        uploadImage: {
+            server: '/api/upload/fileUpload',
+            fieldName: 'your-custom-name',
+            meta: {
+                token: 'xxx',
+                otherKey: 'yyy'
+            },
+            headers: {
+                Accept: 'text/x-json',
+                otherKey: 'xxx'
+            },
+            withCredentials: true
+        }
+    }
 };
 
-onMounted(() => {});
+const handleCreated = (editor) => {
+    editorRef.value = editor; // 记录 editor 实例，重要！
+};
+// 获取内容
+const getValue = () => {
+    console.log(12, valueHtml.value);
+};
+
+onMounted(() => {
+    setTimeout(() => {
+        valueHtml.value = '<p>模拟 Ajax 异步设置内容</p>';
+    }, 1500);
+    // 上传图片的配置
+    console.log(11, editorConfig);
+    // editorConfig.MENU_CONF['uploadImage'] = {
+    //     server: '/api/upload/fileUpload',
+    //     fieldName: 'your-custom-name',
+    //     meta: {
+    //         token: 'xxx',
+    //         otherKey: 'yyy'
+    //     },
+    //     headers: {
+    //         Accept: 'text/x-json',
+    //         otherKey: 'xxx'
+    //     },
+    //     withCredentials: true
+    // };
+});
+// 组件销毁时，也及时销毁编辑器
+onBeforeUnmount(() => {
+    const editor = editorRef.value;
+    if (editor == null) return;
+    editor.destroy();
+});
 </script>
 
 <style lang="less" scoped></style>

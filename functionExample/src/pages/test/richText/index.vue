@@ -1,8 +1,7 @@
 <template>
     <div>
-        <div ref="editorRef" id="editorId" min-height="200">
-            <div v-html="realTimeContent"></div>
-        </div>
+        <!--<Quill ref="quillRef" v-model="content" min-height="200" />-->
+        <div ref="editorRef" id="editorId" min-height="200"></div>
         <input
             type="file"
             id="inputId"
@@ -13,107 +12,110 @@
         />
     </div>
 </template>
-
-<script setup>
-import { ref, watch, onMounted } from 'vue';
+<script>
+//import Quill from '@/components/quill';
+// import { uploadImage } from '@/api/upload';
 import Quill from 'quill';
-import 'quill/dist/quill.snow.css'; // 主题样式
-import 'quill/dist/quill.bubble.css'; // 气泡样式
-import 'quill/dist/quill.core.css'; // 核心库样式
-import { apiUploadCropImg } from '@/api/cropImg';
+import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.snow.css';
+import 'quill/dist/quill.bubble.css';
 
-const props = defineProps({
-    content: {
-        type: String,
-        default: ''
-    }
-});
-
-const inputRef = ref();
-const realTimeContent = ref(''); // 实时的内容
-const editorRef = ref();
-const quillIns = ref();
-
-// 初始化编辑器
-const initEditor = () => {
-    quillIns.value = new Quill('#editorId', {
-        theme: 'snow',
-        bounds: document.body,
-        debug: 'warn',
-        modules: {
-            toolbar: [
-                [{ header: [1, 2, 3, 4, 5, 6, false] }],
-                [{ size: ['small', false, 'large', 'huge'] }],
-                ['bold', 'italic', 'underline', 'strike'],
-                [{ color: [] }, { background: [] }],
-                ['blockquote', 'code-block'],
-                [{ list: 'ordered' }, { list: 'bullet' }],
-                [{ indent: '-1' }, { indent: '+1' }],
-                [{ align: [] }],
-                [{ direction: 'rtl' }],
-                ['clean'],
-                ['link', 'image', 'video']
-            ]
-        },
-        placeholder: '请输入...',
-        readOnly: false
-    });
-    // 点击富文本中的图片上传，就触发自己写的input上传图片
-    quillIns.value.getModule('toolbar').addHandler('image', triggerInput);
-    // 默认值
-    realTimeContent.value = props.content;
-    // change-输入框
-    quillIns.value.on('text-change', () => {
-        const html = editorRef.value.children[0].innerHTML;
-        realTimeContent.value = html; // 更新值（方便保存的时候，父组件取值）
-    });
-};
-// 触发自己写的input上传图片
-const triggerInput = () => {
-    inputRef.value.click();
-};
-// change-上传图片
-const changeFile = async () => {
-    try {
-        let file = document.getElementById('inputId').files[0];
-        var formData = new FormData();
-        formData.append('file', file);
-        //const res = await apiUploadCropImg(formData);
-        const res = 'https://avatars2.githubusercontent.com/u/15681693?s=460&v=4';
-        if (res) {
-            // 调用富文本编辑器的 insertEmbed 方法，插入URL
-            console.log(14, quillIns);
-            console.log(15, quillIns.value.selection);
-            //console.log(16, quillIns.value.insertEmbed);
-            //let selectRange = quillIns.value.getSelection(); // 选择的范围：{index:10, length: 0}
-            //console.log(14, selectRange);
-            //quillIns.value.insertEmbed(selectRange !== null ? selectRange.index : 0, 'image', res);
-            quillIns.value.insertEmbed(0, 'image', res);
-        }
-    } catch (error) {
-        console.log('上传失败');
-    }
-};
-
-watch(
-    () => props.content,
-    (newVal) => {
-        if (newVal !== realTimeContent.value) {
-            realTimeContent.value = newVal;
+export default {
+    //components: { Quill },
+    props: {
+        content: String
+    },
+    data() {
+        return {
+            quillIns: null,
+            realTimeContent: '' // 当前的内容
+        };
+    },
+    watch: {
+        // 数据回显
+        content: {
+            handler(val) {
+                if (val !== this.realTimeContent) {
+                    this.realTimeContent = val;
+                    if (this.quillIns) {
+                        this.quillIns.pasteHTML(val);
+                    }
+                }
+            },
+            immediate: true
         }
     },
-    { immediate: true }
-);
-defineExpose({ realTimeContent });
-onMounted(() => {
-    initEditor();
-});
+    mounted() {
+        this.init();
+        // 点击富文本中的图片上传，就触发自己写的input上传图片
+        this.quillIns.getModule('toolbar').addHandler('image', this.triggerInput);
+    },
+    beforeDestroy() {
+        // 在组件销毁后销毁实例
+        this.quillIns = null;
+    },
+    methods: {
+        // 初始化
+        init() {
+            this.quillIns = new Quill('#editorId', {
+                theme: 'snow',
+                bounds: document.body,
+                debug: 'warn',
+                modules: {
+                    toolbar: [
+                        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                        [{ size: ['small', false, 'large', 'huge'] }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{ color: [] }, { background: [] }],
+                        ['blockquote', 'code-block'],
+                        [{ list: 'ordered' }, { list: 'bullet' }],
+                        [{ indent: '-1' }, { indent: '+1' }],
+                        [{ align: [] }],
+                        [{ direction: 'rtl' }],
+                        ['clean'],
+                        ['link', 'image', 'video']
+                    ]
+                },
+                placeholder: '内容...',
+                readOnly: false
+            });
+            // 默认值
+            console.log(11, this.quillIns);
+            // this.quillIns.pasteHTML(this.realTimeContent);
+            // change-输入框
+            this.quillIns.on('text-change', (delta, oldDelta, source) => {
+                const html = this.$refs.editorRef.children[0].innerHTML;
+                this.realTimeContent = html; // 更新内部的值
+            });
+        },
+        // 触发自己写的input上传图片
+        triggerInput() {
+            this.$refs['inputRef'].click();
+        },
+        // change-上传图片
+        async changeFile() {
+            try {
+                let file = document.getElementById('inputId').files[0];
+                // const res = await uploadImage(file);
+                const res = 'https://avatars2.githubusercontent.com/u/15681693?s=460&v=4';
+                let picUrl = res;
+                if (picUrl) {
+                    // 调用富文本编辑器的 insertEmbed 方法，插入URL
+                    let selectRange = this.quillIns.getSelection(); // 选择的范围：{index:10, length: 0}
+                    this.quillIns.insertEmbed(selectRange !== null ? selectRange.index : 0, 'image', picUrl);
+                }
+            } catch (error) {
+                this.$Notice.error({
+                    title: '上传失败',
+                    desc: err
+                });
+            }
+        }
+    }
+};
 </script>
 
 <style lang="less">
-.ql-snow img {
-    display: block;
-}
 // quill 样式汉化
 .ql-snow .ql-tooltip[data-mode='link']::before {
     content: '请输入链接地址:';
@@ -187,3 +189,4 @@ onMounted(() => {
     content: '等宽字体';
 }
 </style>
+
