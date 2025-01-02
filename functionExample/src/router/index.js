@@ -185,16 +185,16 @@ const routes = [
             cache: false
         },
         component: () => import('@/pages/cropImg/index.vue')
+    },
+    {
+        path: `/richText`,
+        name: 'richText',
+        meta: {
+            title: '富文本编辑器',
+            cache: false
+        },
+        component: () => import('@/pages/richText/index.vue')
     }
-    //{
-    //    path: `/richText`,
-    //    name: 'richText',
-    //    meta: {
-    //        title: '富文本编辑器',
-    //        cache: false
-    //    },
-    //    component: () => import('@/pages/richText/index.vue')
-    //}
 ];
 
 const router = createRouter({
