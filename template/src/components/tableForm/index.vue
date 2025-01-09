@@ -174,7 +174,7 @@ const getDatePickerAttr = (type) => {
 const initSearchParams = () => {
     props.formList.forEach((item) => {
         const { prop } = item;
-        if (item.value) {
+        if (item.hasOwnProperty('value')) {
             formData[isValidArr(prop) ? prop.join(',') : prop] = item.value;
         }
     });
