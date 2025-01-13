@@ -194,6 +194,15 @@ const routes = [
             cache: false
         },
         component: () => import('@/pages/richText/index.vue')
+    },
+    {
+        path: `/generateQRcode`,
+        name: 'generateQRcode',
+        meta: {
+            title: '(各种数据)生成二维码',
+            cache: false
+        },
+        component: () => import('@/pages/generateQRcode/index.vue')
     }
 ];
 
