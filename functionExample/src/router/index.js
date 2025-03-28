@@ -203,6 +203,15 @@ const routes = [
             cache: false
         },
         component: () => import('@/pages/generateQRcode/index.vue')
+    },
+    {
+        path: `/gaodeMap`,
+        name: 'gaodeMap',
+        meta: {
+            title: '高德地图',
+            cache: false
+        },
+        component: () => import('@/pages/gaodeMap/index.vue')
     }
 ];
 

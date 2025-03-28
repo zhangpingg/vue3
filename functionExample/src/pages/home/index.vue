@@ -25,6 +25,7 @@
         <span @click="jumpPage('cropImg')">裁剪图片</span><br />
         <span @click="jumpPage('richText')">富文本编辑器</span><br />
         <span @click="jumpPage('generateQRcode')">(各种数据)生成二维码</span><br />
+        <span @click="jumpPage('gaodeMap')">高德地图</span><br />
     </div>
 </template>
 
