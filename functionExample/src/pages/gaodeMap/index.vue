@@ -6,26 +6,26 @@
 
 <template>
     <div class="pt-20 pl-20">
-        <!-- <Base /> -->
+        <Base />
         <hr class="mt-50 mb-50" />
 
         <!--画线-->
-        <!-- <PolylineDemo /> -->
+        <PolylineDemo />
         <hr class="mt-50 mb-50" />
 
         <!-- 批量打点 -->
-        <!-- <BatchMarker /> -->
+        <BatchMarker />
         <hr class="mt-50 mb-50" />
 
         <!-- 根据地点在地图上搜索，并定位标记画圆，可拖拽 -->
-        <!-- <SearchAdress /> -->
+        <SearchAdress />
         <hr class="mt-50 mb-50" />
 
         <!-- 自定义地图 -->
-        <!-- <CustomMap /> -->
+        <CustomMap />
         <hr class="mt-50 mb-50" />
 
-        <!-- 海量标注 -->
+        <!-- 标注和标注图层-海量点 -->
         <MassiveAnnotation />
         <hr class="mt-50 mb-50" />
     </div>
