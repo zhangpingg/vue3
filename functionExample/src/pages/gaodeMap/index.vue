@@ -14,6 +14,8 @@
         <!-- 批量打点 -->
         <BatchMarker />
         <hr class="mt-50 mb-50" />
+        <!-- 根据地点在地图上搜索，并定位标记画圆，可拖拽 -->
+        <SearchAdress />
     </div>
 </template>
 
@@ -21,6 +23,7 @@
 import Base from './base';
 import PolylineDemo from './polylineDemo';
 import BatchMarker from './batchMarker';
+import SearchAdress from './searchAdress';
 </script>
 
 <style lang="less" scoped></style>

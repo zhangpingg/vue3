@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="mb-10">点击获取当前经纬度、自定义右键菜单、经纬度与地址之间的相互查询、点击展示弹框</div>
-        <div id="batchMarker-mapContainer"></div>
+        <div class="box" id="batchMarker-mapContainer"></div>
     </div>
 </template>
 
@@ -117,7 +117,7 @@ onUnmounted(() => {
 </script>
 
 <style lang="less" scoped>
-#batchMarker-mapContainer {
+.box {
     width: 600px;
     height: 400px;
     border: 1px solid #000;

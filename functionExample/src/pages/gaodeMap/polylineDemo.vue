@@ -1,5 +1,5 @@
 <template>
-    <div id="polyline-mapContainer"></div>
+    <div class="box" id="polyline-mapContainer"></div>
 </template>
 
 <script setup>
@@ -49,9 +49,10 @@ onUnmounted(() => {
 </script>
 
 <style lang="less" scoped>
-#polyline-mapContainer {
+.box {
     width: 600px;
     height: 400px;
     border: 1px solid #000;
 }
 </style>
+
