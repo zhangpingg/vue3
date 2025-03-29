@@ -51,8 +51,8 @@ onUnmounted(() => {
 
 <style lang="less" scoped>
 #polyline-mapContainer {
-    width: 800px;
-    height: 500px;
+    width: 600px;
+    height: 400px;
     border: 1px solid #000;
 }
 </style>

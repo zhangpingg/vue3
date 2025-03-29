@@ -10,12 +10,18 @@
         <hr class="mt-50 mb-50" />
         <!--画线-->
         <PolylineDemo />
+        <hr class="mt-50 mb-50" />
+        <!-- 批量打点 -->
+        <BatchMarker />
+        <hr class="mt-50 mb-50" />
     </div>
 </template>
 
 <script setup>
 import Base from './base';
 import PolylineDemo from './polylineDemo';
+import BatchMarker from './batchMarker';
 </script>
 
 <style lang="less" scoped></style>
+
