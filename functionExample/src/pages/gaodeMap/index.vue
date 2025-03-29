@@ -28,6 +28,10 @@
         <!-- 标注和标注图层-海量点 -->
         <MassiveAnnotation />
         <hr class="mt-50 mb-50" />
+
+        <!-- 标注和标注图层-文字标注 -->
+        <MassiveAnnotationText />
+        <hr class="mt-50 mb-50" />
     </div>
 </template>
 
@@ -37,7 +41,8 @@ import PolylineDemo from './polylineDemo';
 import BatchMarker from './batchMarker';
 import SearchAdress from './searchAdress';
 import CustomMap from './customMap';
-import MassiveAnnotation from './massiveAnnotation.vue';
+import MassiveAnnotation from './massiveAnnotation';
+import MassiveAnnotationText from './massiveAnnotationText';
 </script>
 
 <style lang="less" scoped></style>

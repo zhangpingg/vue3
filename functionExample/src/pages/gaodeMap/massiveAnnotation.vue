@@ -21,9 +21,9 @@ const startRender = () => {
         zIndex: 1000, // 标注层与其它图层的叠加顺序
         collision: false // 标注层内的标注是否避让，true-类似点聚合 false-全部展示
     });
-
     var markers = []; // 标注类集合，即所有的点
-    var positionsList = Positions.slice(0, 3e4);
+
+    var positionsList = Positions.slice(0, 3e4); // 数据源
     // 普通点：悬浮海量点的时候，展示提示的内容
     var normalMarker = new AMap.Marker({
         anchor: 'bottom-center'
