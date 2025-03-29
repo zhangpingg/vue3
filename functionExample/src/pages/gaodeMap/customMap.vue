@@ -10,7 +10,7 @@ let map = null; // 地图实例
 // 初始化-地图
 const initMap = () => {
     map = new AMap.Map('customMap-mapContainer', {
-        zoom: 10, // 缩放级别
+        zoom: 9, // 缩放级别
         center: [120.2126, 30.290851], // 中心点坐标
         scrollWheel: true, // 是否滚轮缩放
         mapStyle: 'amap://styles/eed6bd92ef6e537a61874677487d66ca' //设置地图的显示样式
