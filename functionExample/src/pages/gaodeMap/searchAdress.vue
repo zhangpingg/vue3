@@ -1,7 +1,7 @@
 <template>
     <div class="sa">
         <div>根据地点在地图上搜索，并定位标记画圆，可拖拽</div>
-        <div class="sa-header">
+        <div class="sa-header mt-10">
             <el-input placeholder="请输入" type="textarea" v-model="formData.address" class="mb-10"></el-input>
             <el-select v-model="formData.distance" class="mb-10">
                 <el-option v-for="item in distanceList" :value="item.value" :key="item.value">

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="box" id="base-mapContainer"></div>
+        <div class="box mb-10" id="base-mapContainer"></div>
         <button class="mr-10 mb-10" @click="setZoom">地图缩放</button>
         <button class="mr-10 mb-10" @click="setCenterPoint">设置中心点</button><br />
         <button class="mr-10 mb-10" @click="setMark">设置 标记+拖拽</button>
