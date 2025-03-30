@@ -6,6 +6,8 @@
 
 <template>
     <div class="pt-20 pl-20">
+        <h2>如果地图展示有问题，记得在index.html中，把高德的秘钥，key恢复正常即可</h2>
+
         <Base />
         <hr class="mt-50 mb-50" />
 

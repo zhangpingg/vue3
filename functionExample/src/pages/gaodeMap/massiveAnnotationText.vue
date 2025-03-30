@@ -10,6 +10,36 @@ import { onMounted, onUnmounted } from 'vue';
 
 let map = null; // 地图实例
 
+// 获取城市的数据（包含了经纬度数据）
+const findInCities = (name) => {
+    // citiesData 是 mock 里面的
+    for (const city of citiesData) {
+        if (name === city.name) {
+            return city;
+        }
+    }
+};
+// 获取颜色
+const getColorByNumber = (number) => {
+    var color;
+    var colorLegend = {
+        10: '#f9c02f',
+        100: '#f5a54f',
+        500: '#f18334',
+        1000: '#cc5f42',
+        5000: '#a94d36',
+        100000: '#792a17'
+    };
+    for (var key in colorLegend) {
+        if (colorLegend.hasOwnProperty(key)) {
+            if (number < parseInt(key)) {
+                color = colorLegend[key];
+                break;
+            }
+        }
+    }
+    return color;
+};
 // 初始化-地图
 const initMap = () => {
     map = new AMap.Map('massiveAnnotationText-mapContainer', {
@@ -32,20 +62,11 @@ const initMap = () => {
     var provinces = yiqingChinaData.provinces || []; // 数据源
     var cityNames = [];
     var specialCity = ['北京', '上海', '天津', '重庆'];
-    var colorLegend = {
-        // 10: '#f9c02f',
-        10: '#f00',
-        100: '#f5a54f',
-        500: '#f18334',
-        1000: '#cc5f42',
-        5000: '#a94d36',
-        100000: '#792a17'
-    };
 
     // 初始化 labelMarker
     for (var provice of provinces) {
         var cities = provice.cities || [];
-        // 正常的省份
+        // 正常的城市
         if (specialCity.indexOf(provice.name) !== -1) {
             var totalNumber = 0;
             for (const city of cities) {
@@ -71,7 +92,7 @@ const initMap = () => {
                     text: {
                         content: city.name + ': ' + city.confirmedNum,
                         direction: 'center',
-                        style: { fontSize: 12, fillColor: '#fff', padding: [2, 5], backgroundColor: color }
+                        style: { fontSize: 12, fillColor: '#fff', padding: [2, 5], backgroundColor: color || '#000' }
                     }
                 });
                 markers.push(marker);
@@ -80,26 +101,6 @@ const initMap = () => {
     }
     layer.add(markers); // 将 marker 添加到图层上
     map.add(layer); // 图层添加到地图
-
-    function findInCities(name) {
-        for (const city of citiesData) {
-            if (name === city.name) {
-                return city;
-            }
-        }
-    }
-    function getColorByNumber(number) {
-        var color;
-        for (var key in colorLegend) {
-            if (colorLegend.hasOwnProperty(key)) {
-                if (number < parseInt(key)) {
-                    color = colorLegend[key];
-                    break;
-                }
-            }
-        }
-        return color;
-    }
 };
 
 onMounted(() => {

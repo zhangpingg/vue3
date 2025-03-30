@@ -1,5 +1,8 @@
 <template>
-    <div class="box" id="customMap-mapContainer"></div>
+    <div>
+        <div>自定义地图</div>
+        <div class="box mt-10" id="customMap-mapContainer"></div>
+    </div>
 </template>
 
 <script setup>
