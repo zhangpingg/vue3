@@ -6,7 +6,7 @@
 
 <template>
     <div class="pt-20 pl-20">
-        <h2>如果地图展示有问题，记得在index.html中，把高德的秘钥，key恢复正常即可</h2>
+        <h2 class="mb-30">如果地图展示有问题，记得在index.html中，把高德的秘钥，key恢复正常即可</h2>
 
         <Base />
         <hr class="mt-50 mb-50" />
@@ -34,6 +34,10 @@
         <!-- 标注和标注图层-文字标注 -->
         <MassiveAnnotationText />
         <hr class="mt-50 mb-50" />
+
+        <!-- 海量点 -->
+        <MassivePoints />
+        <hr class="mt-50 mb-50" />
     </div>
 </template>
 
@@ -45,6 +49,7 @@ import SearchAdress from './searchAdress';
 import CustomMap from './customMap';
 import MassiveAnnotation from './massiveAnnotation';
 import MassiveAnnotationText from './massiveAnnotationText';
+import MassivePoints from './massivePoints';
 </script>
 
 <style lang="less" scoped></style>
