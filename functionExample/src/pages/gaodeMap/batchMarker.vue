@@ -12,30 +12,17 @@ let map = null; // 地图实例
 let contextMenu1 = null; // 自定义右键菜单1
 let contextMenu2 = null; // 自定义右键菜单2
 let markerLayer = []; // 仓库标记图层
+let infoWindowLayer = null; // 信息窗口图层
 
 const current = ref();
 
 // 设置-批量标记
 const setBatchMarker = (type) => {
     const list1 = [
-        {
-            title: '张三',
-            longitude: '120.232513',
-            latitude: '30.305969'
-        },
-        {
-            title: '李四',
-            longitude: '120.234229',
-            latitude: '30.273655'
-        }
+        { title: '张三', longitude: '120.232513', latitude: '30.305969' },
+        { title: '李四', longitude: '120.234229', latitude: '30.273655' }
     ];
-    const list2 = [
-        {
-            title: '王五',
-            longitude: '120.216377',
-            latitude: '30.300337'
-        }
-    ];
+    const list2 = [{ title: '王五', longitude: '120.216377', latitude: '30.300337' }];
     map.remove(markerLayer);
     markerLayer = [];
     const _list = type ? list1 : list2;
@@ -44,9 +31,9 @@ const setBatchMarker = (type) => {
         let marker = new AMap.Marker({
             map: map,
             icon: 'https://webapi.amap.com/theme/v1.3/markers/n/mark_r.png',
-            position: new AMap.LngLat(item.longitude, item.latitude)
+            position: new AMap.LngLat(item.longitude, item.latitude) // 这个经纬度是给该marker打点用的
         });
-        marker.longitude = item.longitude;
+        marker.longitude = item.longitude; // 让marker对象携带经纬，这个是给下面，当你点击marker的时候，让弹框显示，弹框需要的经纬度
         marker.latitude = item.latitude;
         marker.aa = '自定义数据';
         markerLayer.push(marker);
@@ -67,10 +54,11 @@ const setBatchMarker = (type) => {
             content.push(`名称：<b>张三</b>`);
             content.push(`数据：<b>${target.aa}</b>`);
             content.push(`</div>`);
-            let infoWindow = new AMap.InfoWindow({
-                content: content.join('<br/>') // 使用默认信息窗体框样式，显示信息内容
+            infoWindowLayer = new AMap.InfoWindow({
+                content: content.join('<br/>'), // 使用默认信息窗体框样式，显示信息内容
+                offset: new AMap.Pixel(0, -20) // 信息窗体显示位置偏移量
             });
-            infoWindow.open(map, [target.longitude, target.latitude]);
+            infoWindowLayer.open(map, [target.longitude, target.latitude]);
         });
     });
 };
@@ -105,6 +93,10 @@ const initMap = () => {
         center: [120.2126, 30.290851], // 中心点坐标
         scrollWheel: true // 是否滚轮缩放
     });
+    map.setDefaultCursor('default'); // 设置鼠标样式
+    map.on('click', (e) => {
+        infoWindowLayer?.close(); // 关闭信息窗口图层
+    });
     rightclickAddMarker();
 };
 
@@ -123,4 +115,3 @@ onUnmounted(() => {
     border: 1px solid #000;
 }
 </style>
-

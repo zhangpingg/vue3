@@ -23,7 +23,7 @@ let markerLayer; // 标记+拖拽-图层
 let markAndContentLayer = []; // 标记+内容-图层
 let circleLayer; // 圆形-图层
 let curveLayer; // 曲线-图层
-let modalLayer; // modal图层
+let infoWindowLayer; // 信息窗口图层
 
 const mapInfo = reactive({
     longitude: '', // 经度
@@ -160,16 +160,16 @@ const openModal = () => {
     content.push(`年龄：<b>20</b>`);
     content.push(`</div>`);
 
-    modalLayer = new AMap.InfoWindow({
-        isCustom: true,
+    infoWindowLayer = new AMap.InfoWindow({
+        isCustom: true, // 是否自定义窗体
         content: content.join('<br />'),
-        autoMove: false
+        autoMove: true
     });
-    modalLayer.open(map, map.getCenter());
+    infoWindowLayer.open(map, [120.2126, 30.290851]);
 };
 // 关闭-model
 const closeModal = () => {
-    modalLayer.close();
+    infoWindowLayer.close();
 };
 
 onMounted(() => {
@@ -187,4 +187,3 @@ onUnmounted(() => {
     border: 1px solid #000;
 }
 </style>
-

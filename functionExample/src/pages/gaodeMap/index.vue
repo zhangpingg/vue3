@@ -38,6 +38,10 @@
         <!-- 海量点 -->
         <MassivePoints />
         <hr class="mt-50 mb-50" />
+
+        <!-- 混合：自定义地图，点击 (左击) 地图获取该点的信息，画线，画点（点弹框） -->
+        <HybridA />
+        <hr class="mt-50 mb-50" />
     </div>
 </template>
 
@@ -50,7 +54,7 @@ import CustomMap from './customMap';
 import MassiveAnnotation from './massiveAnnotation';
 import MassiveAnnotationText from './massiveAnnotationText';
 import MassivePoints from './massivePoints';
+import HybridA from './hybridA';
 </script>
 
 <style lang="less" scoped></style>
-
