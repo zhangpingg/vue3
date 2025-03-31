@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>自定义地图，点击 (左击) 地图获取该点的信息，画线，画点（点弹框）</div>
-        <div class="box mt-10" id="customMap-mapContainer"></div>
+        <div class="box mt-10" id="hybridA-mapContainer"></div>
         <div class="mt-10">
             <el-button type="primary" @click="drawLine">画线</el-button>
             <el-button type="primary" @click="clearLine">清空线</el-button>
@@ -21,7 +21,7 @@ let infoWindowLayer = null; // 信息窗口图层
 
 // 初始化-地图
 const initMap = () => {
-    map = new AMap.Map('customMap-mapContainer', {
+    map = new AMap.Map('hybridA-mapContainer', {
         zoom: 9, // 缩放级别
         center: [120.2126, 30.290851], // 中心点坐标
         scrollWheel: true, // 是否滚轮缩放
