@@ -46,6 +46,10 @@
         <!-- 省份级行政区图层 -->
         <ProvinceLayer />
         <hr class="mt-50 mb-50" />
+
+        <!-- 省份级行政区图层 -->
+        <ProvinceLayerTwo />
+        <hr class="mt-50 mb-50" />
     </div>
 </template>
 
@@ -60,6 +64,7 @@ import MassiveAnnotationText from './massiveAnnotationText';
 import MassivePoints from './massivePoints';
 import HybridA from './hybridA';
 import ProvinceLayer from './provinceLayer';
+import ProvinceLayerTwo from './provinceLayerTwo';
 </script>
 
 <style lang="less" scoped></style>
