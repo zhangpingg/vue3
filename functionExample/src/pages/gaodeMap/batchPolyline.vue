@@ -2,7 +2,7 @@
     <div>
         <div class="box mb-10" id="batchPolyline-mapContainer"></div>
 
-        <div>绘制进度：{{ drawNum }} / {{ hangzhou.features.length - 1 }}</div>
+        <div>绘制进度：{{ drawNum }} / {{ hangzhou.features.length }}</div>
         <div>清除进度：{{ clearNum }} / {{ drawNum }}</div>
         <el-button type="primary" :disabled="isMapLoading" @click="drawLine">绘制线</el-button>
         <el-button type="primary" :disabled="isMapLoading" @click="clearLine">清空线</el-button>
@@ -62,7 +62,7 @@ const drawLine = () => {
         requestIdleCallback(() => {
             polylineLayer.push(shortPolyline);
             map.add(shortPolyline);
-            drawNum.value = index;
+            drawNum.value = ++index;
             if (index === hangzhou.features.length - 1) {
                 isMapLoading.value = false;
                 ElMessage({
@@ -80,7 +80,7 @@ const clearLine = () => {
     polylineLayer.map((item, index) => {
         requestIdleCallback(() => {
             map.remove(item);
-            clearNum.value = index;
+            clearNum.value = ++index;
             if (index === polylineLayer.length - 1) {
                 isMapLoading.value = false;
                 polylineLayer = [];
