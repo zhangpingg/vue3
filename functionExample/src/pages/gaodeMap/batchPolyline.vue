@@ -18,6 +18,13 @@ let polylineLayer = []; // 线-图层
 
 const isMapLoading = ref(false);
 
+// 地图点击事件
+const mapClick = (e) => {
+    new AMap.Marker({
+        position: e.lnglat,
+        map: map
+    });
+};
 // 初始化-地图
 const initMap = () => {
     map = new AMap.Map('batchPolyline-mapContainer', {
@@ -25,6 +32,8 @@ const initMap = () => {
         center: [120.2126, 30.290851], // 杭州
         scrollWheel: true // 是否滚轮缩放
     });
+    map.setDefaultCursor('default'); // 设置鼠标样式
+    map.on('click', mapClick);
 };
 // 画线
 const drawLine = () => {

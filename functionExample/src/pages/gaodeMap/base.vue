@@ -43,6 +43,7 @@ const initMap = () => {
         center: [120.2126, 30.290851], // 中心点坐标
         scrollWheel: true // 是否滚轮缩放
     });
+    map.setDefaultCursor('default'); // 设置鼠标样式
 };
 // 设置-地图缩放
 const setZoom = () => {
