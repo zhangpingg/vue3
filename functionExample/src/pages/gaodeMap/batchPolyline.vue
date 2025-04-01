@@ -1,18 +1,22 @@
 <template>
     <div>
         <div class="box mb-10" id="batchPolyline-mapContainer"></div>
-        <el-button type="primary" @click="drawLine">绘制线</el-button>
-        <el-button type="primary" @click="clearLine">清空线</el-button>
+        <el-button type="primary" :disabled="isMapLoading" @click="drawLine">绘制线</el-button>
+        <el-button type="primary" :disabled="isMapLoading" @click="clearLine">清空线</el-button>
     </div>
 </template>
 
 <script setup>
-import { onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { ElMessage } from 'element-plus';
 import { hangzhou } from './hangzhou.js';
+//import { beijing } from './beijing.js';
+//import { anhui } from './anhui.js';
 
 let map = null; // 地图实例
 let polylineLayer = []; // 线-图层
+
+const isMapLoading = ref(false);
 
 // 初始化-地图
 const initMap = () => {
@@ -42,10 +46,12 @@ const drawLine = () => {
         });
         // 使用 requestIdleCallback 来优化添加折线的操作
         requestIdleCallback(() => {
+            isMapLoading.value = true;
             polylineLayer.push(shortPolyline);
             map.add(shortPolyline);
-            console.log('进度', index, hangzhou.features.length);
+            console.log('绘制进度', index, hangzhou.features.length);
             if (index === hangzhou.features.length - 1) {
+                isMapLoading.value = false;
                 ElMessage({
                     message: '绘制完成',
                     type: 'success'
@@ -59,14 +65,16 @@ const drawLine = () => {
 const clearLine = () => {
     polylineLayer.map((item, index) => {
         requestIdleCallback(() => {
+            isMapLoading.value = true;
             map.remove(item);
-            console.log('进度', index, polylineLayer.length);
+            console.log('清除进度', index, polylineLayer.length);
             if (index === polylineLayer.length - 1) {
+                isMapLoading.value = false;
+                polylineLayer = [];
                 ElMessage({
                     message: '清除完成',
                     type: 'success'
                 });
-                polylineLayer = [];
             }
         });
     });
