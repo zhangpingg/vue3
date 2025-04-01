@@ -1,11 +1,13 @@
 <template>
     <div>
+        <div>批量绘制线</div>
         <div class="box mb-10" id="batchPolyline-mapContainer"></div>
 
         <div>绘制进度：{{ drawNum }} / {{ hangzhou.features.length }}</div>
         <div>清除进度：{{ clearNum }} / {{ drawNum }}</div>
         <el-button type="primary" :disabled="isMapLoading" @click="drawLine">绘制线</el-button>
         <el-button type="primary" :disabled="isMapLoading" @click="clearLine">清空线</el-button>
+        <el-button type="primary" :disabled="isMapLoading" @click="clearOverlayGroup">清空图层组</el-button>
     </div>
 </template>
 
@@ -16,6 +18,7 @@ import { hangzhou } from './hangzhou.js';
 
 let map = null; // 地图实例
 let polylineLayer = []; // 线-图层
+let overlayGroup; // 图层组
 
 const isMapLoading = ref(false);
 const drawNum = ref(0);
@@ -41,6 +44,7 @@ const initMap = () => {
 // 画线
 const drawLine = () => {
     isMapLoading.value = true;
+    overlayGroup = new AMap.OverlayGroup();
     clearNum.value = 0;
     hangzhou.features.map((item, index) => {
         let shortPolyline = new AMap.Polyline({
@@ -58,7 +62,7 @@ const drawLine = () => {
             lineCap: 'round', // 折线两端样式：butt-无头 round-圆头 square-方头
             zIndex: 50
         });
-        // 使用 requestIdleCallback 来优化添加折线的操作
+        // 方式1：使用 requestIdleCallback 来优化添加折线的操作
         requestIdleCallback(() => {
             polylineLayer.push(shortPolyline);
             map.add(shortPolyline);
@@ -71,6 +75,17 @@ const drawLine = () => {
                 });
             }
         });
+        // 方式2：图层组（加载更快，但是页面拖拽之类的好像很卡）
+        //overlayGroup.addOverlay(shortPolyline);
+        //overlayGroup.setMap(map);
+        //drawNum.value = ++index;
+        //if (index === hangzhou.features.length - 1) {
+        //    isMapLoading.value = false;
+        //    ElMessage({
+        //        message: '绘制完成',
+        //        type: 'success'
+        //    });
+        //}
     });
     map.setFitView();
 };
@@ -91,6 +106,11 @@ const clearLine = () => {
             }
         });
     });
+};
+// 清空图层组（清除更快）
+const clearOverlayGroup = () => {
+    clearNum.value = 0;
+    overlayGroup.clearOverlays();
 };
 
 onMounted(() => {
