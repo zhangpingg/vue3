@@ -49,7 +49,7 @@ function initPro(adcode, depth) {
         depth: depth, // 数据的层级深度
         styles: {
             fill: function (properties) {
-                console.log('区块内容', properties);
+                //console.log('区块内容', properties);
                 // properties 可用于给每个区块定义不同的颜色
                 // NAME_CHN:中文名称
                 // adcode_pro // 省code

@@ -1,6 +1,9 @@
 <template>
     <div>
         <div class="box mb-10" id="batchPolyline-mapContainer"></div>
+
+        <div>绘制进度：{{ drawNum }} / {{ hangzhou.features.length - 1 }}</div>
+        <div>清除进度：{{ clearNum }} / {{ drawNum }}</div>
         <el-button type="primary" :disabled="isMapLoading" @click="drawLine">绘制线</el-button>
         <el-button type="primary" :disabled="isMapLoading" @click="clearLine">清空线</el-button>
     </div>
@@ -10,13 +13,13 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { ElMessage } from 'element-plus';
 import { hangzhou } from './hangzhou.js';
-//import { beijing } from './beijing.js';
-//import { anhui } from './anhui.js';
 
 let map = null; // 地图实例
 let polylineLayer = []; // 线-图层
 
 const isMapLoading = ref(false);
+const drawNum = ref(0);
+const clearNum = ref(0);
 
 // 地图点击事件
 const mapClick = (e) => {
@@ -37,12 +40,14 @@ const initMap = () => {
 };
 // 画线
 const drawLine = () => {
+    isMapLoading.value = true;
+    clearNum.value = 0;
     hangzhou.features.map((item, index) => {
         let shortPolyline = new AMap.Polyline({
             path: item.geometry.coordinates,
             isOutline: true, // 是否添加描边
             outlineColor: '#f00', // 描边颜色
-            borderWeight: 2, // 描边宽度
+            borderWeight: 1, // 描边宽度
             strokeColor: '#00f', // 线条颜色
             strokeOpacity: 1, // 线条透明度
             strokeWeight: 1, // 线条宽度
@@ -55,10 +60,9 @@ const drawLine = () => {
         });
         // 使用 requestIdleCallback 来优化添加折线的操作
         requestIdleCallback(() => {
-            isMapLoading.value = true;
             polylineLayer.push(shortPolyline);
             map.add(shortPolyline);
-            console.log('绘制进度', index, hangzhou.features.length);
+            drawNum.value = index;
             if (index === hangzhou.features.length - 1) {
                 isMapLoading.value = false;
                 ElMessage({
@@ -72,11 +76,11 @@ const drawLine = () => {
 };
 // 清空线
 const clearLine = () => {
+    isMapLoading.value = true;
     polylineLayer.map((item, index) => {
         requestIdleCallback(() => {
-            isMapLoading.value = true;
             map.remove(item);
-            console.log('清除进度', index, polylineLayer.length);
+            clearNum.value = index;
             if (index === polylineLayer.length - 1) {
                 isMapLoading.value = false;
                 polylineLayer = [];
