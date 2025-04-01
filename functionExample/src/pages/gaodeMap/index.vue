@@ -11,12 +11,12 @@
         <Base />
         <hr class="mt-50 mb-50" />
 
-        <!--画线-->
-        <PolylineDemo />
-        <hr class="mt-50 mb-50" />
-
         <!-- 批量打点 -->
         <BatchMarker />
+        <hr class="mt-50 mb-50" />
+
+        <!--批量绘制线-->
+        <BatchPolyline />
         <hr class="mt-50 mb-50" />
 
         <!-- 根据地点在地图上搜索，并定位标记画圆，可拖拽 -->
@@ -55,8 +55,8 @@
 
 <script setup>
 import Base from './base';
-import PolylineDemo from './polylineDemo';
 import BatchMarker from './batchMarker';
+import BatchPolyline from './batchPolyline';
 import SearchAdress from './searchAdress';
 import CustomMap from './customMap';
 import MassiveAnnotation from './massiveAnnotation';

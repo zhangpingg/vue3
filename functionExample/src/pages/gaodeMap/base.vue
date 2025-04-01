@@ -13,6 +13,10 @@
         <button class="mr-10 mb-10" @click="clearCurve">清除曲线</button>
         <button class="mr-10 mb-10" @click="openModal">打开弹框</button>
         <button class="mr-10 mb-10" @click="closeModal">关闭弹框</button>
+        <button class="mr-10 mb-10" @click="drawLine">绘制线</button>
+        <button class="mr-10 mb-10" @click="clearLine">清空制线</button>
+        <button class="mr-10 mb-10" @click="drawLine2">绘制线2</button>
+        <button class="mr-10 mb-10" @click="clearLine2">清空制线2</button>
     </div>
 </template>
 
@@ -24,6 +28,8 @@ let markAndContentLayer = []; // 标记+内容-图层
 let circleLayer; // 圆形-图层
 let curveLayer; // 曲线-图层
 let infoWindowLayer; // 信息窗口图层
+let polylineLayer; // 线-图层
+let polylineLayer2 = []; // 线-图层2
 
 const mapInfo = reactive({
     longitude: '', // 经度
@@ -170,6 +176,69 @@ const openModal = () => {
 // 关闭-model
 const closeModal = () => {
     infoWindowLayer.close();
+};
+// 绘制线-一个线为一个图层
+const drawLine = () => {
+    var path = [
+        [116.362209, 39.887487],
+        [116.422897, 39.878002],
+        [116.372105, 39.90651],
+        [116.428945, 39.89663]
+    ];
+    polylineLayer = new AMap.Polyline({
+        path: path,
+        isOutline: true, // 是否添加描边
+        outlineColor: '#f00', // 描边颜色
+        borderWeight: 2, // 描边宽度
+        strokeColor: '#00f', // 线条颜色
+        strokeOpacity: 1, // 线条透明度
+        strokeWeight: 2, // 线条宽度
+        strokeStyle: 'solid', // 折线样式：solid-实线 dashed-虚线
+        // strokeStyle为'dashed'时有效，
+        strokeDasharray: [10, 5], // 设置折线的虚线样式，虚线和间隙的长度
+        lineJoin: 'round', // 折线拐点样式：miter-尖角 round-圆角 bevel-斜角
+        lineCap: 'round', // 折线两端样式：butt-无头 round-圆头 square-方头
+        zIndex: 50
+    });
+    map.add(polylineLayer);
+    map.setFitView();
+};
+// 清空线
+const clearLine = () => {
+    map.remove(polylineLayer);
+    polylineLayer = null;
+};
+// 绘制线-所有的线放一个图层中
+const drawLine2 = () => {
+    var path = [
+        [116.362209, 39.887487],
+        [116.422897, 39.878002],
+        [116.372105, 39.90651],
+        [116.428945, 39.89663]
+    ];
+    let polyline = new AMap.Polyline({
+        path: path,
+        isOutline: true, // 是否添加描边
+        outlineColor: '#f00', // 描边颜色
+        borderWeight: 2, // 描边宽度
+        strokeColor: '#00f', // 线条颜色
+        strokeOpacity: 1, // 线条透明度
+        strokeWeight: 2, // 线条宽度
+        strokeStyle: 'solid', // 折线样式：solid-实线 dashed-虚线
+        // strokeStyle为'dashed'时有效，
+        strokeDasharray: [10, 5], // 设置折线的虚线样式，虚线和间隙的长度
+        lineJoin: 'round', // 折线拐点样式：miter-尖角 round-圆角 bevel-斜角
+        lineCap: 'round', // 折线两端样式：butt-无头 round-圆头 square-方头
+        zIndex: 50
+    });
+    polylineLayer2.push(polyline);
+    map.add(polylineLayer2);
+    map.setFitView();
+};
+// 清空线
+const clearLine2 = () => {
+    map.remove(polylineLayer2);
+    polylineLayer2 = [];
 };
 
 onMounted(() => {

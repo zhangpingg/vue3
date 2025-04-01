@@ -29,7 +29,7 @@ const setBatchMarker = (type) => {
     _list.map((item) => {
         contextMenu2 = new AMap.ContextMenu();
         let marker = new AMap.Marker({
-            map: map,
+            //map: map, // 方式1.1：一个点为一个图层
             icon: 'https://webapi.amap.com/theme/v1.3/markers/n/mark_r.png',
             position: new AMap.LngLat(item.longitude, item.latitude) // 这个经纬度是给该marker打点用的
         });
@@ -37,6 +37,7 @@ const setBatchMarker = (type) => {
         marker.latitude = item.latitude;
         marker.aa = '自定义数据';
         markerLayer.push(marker);
+        //map.add(marker); // 方式1.2：一个点为一个图层
         // marker-鼠标右击
         marker.on('rightclick', function (e) {
             current.value = e.target.index;
@@ -61,6 +62,7 @@ const setBatchMarker = (type) => {
             infoWindowLayer.open(map, [target.longitude, target.latitude]);
         });
     });
+    map.add(markerLayer); // 方式2：把所有的点都放一个图层里面，然后放到地图上
 };
 // 右键-添加
 const rightclickAddMarker = () => {
