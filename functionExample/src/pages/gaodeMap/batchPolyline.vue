@@ -7,6 +7,9 @@
         <div>清除进度：{{ clearNum }} / {{ drawNum }}</div>
         <el-button type="primary" :disabled="isMapLoading" @click="drawLine">绘制线</el-button>
         <el-button type="primary" :disabled="isMapLoading" @click="clearLine">清空线</el-button>
+        <el-button type="primary" :disabled="isMapLoading" @click="drawLineOverlayGroup"
+            >绘制线的图层放在图层组</el-button
+        >
         <el-button type="primary" :disabled="isMapLoading" @click="clearOverlayGroup">清空图层组</el-button>
     </div>
 </template>
@@ -62,30 +65,21 @@ const drawLine = () => {
             lineCap: 'round', // 折线两端样式：butt-无头 round-圆头 square-方头
             zIndex: 50
         });
-        // 方式1：使用 requestIdleCallback 来优化添加折线的操作
-        requestIdleCallback(() => {
-            polylineLayer.push(shortPolyline);
-            map.add(shortPolyline);
-            drawNum.value = ++index;
-            if (index === hangzhou.features.length - 1) {
-                isMapLoading.value = false;
-                ElMessage({
-                    message: '绘制完成',
-                    type: 'success'
-                });
-            }
-        });
-        // 方式2：图层组（加载更快，但是页面拖拽之类的好像很卡）
-        //overlayGroup.addOverlay(shortPolyline);
-        //overlayGroup.setMap(map);
-        //drawNum.value = ++index;
-        //if (index === hangzhou.features.length - 1) {
-        //    isMapLoading.value = false;
-        //    ElMessage({
-        //        message: '绘制完成',
-        //        type: 'success'
-        //    });
-        //}
+        // 1)当数据量不多的时候，不加 requestIdleCallback 的，线条会渲染的的很快，几乎立刻渲染完成
+        // 2)当数据量特别多的时候，如果不加 requestIdleCallback 的，地图会不能动，会卡一会，直到地图渲染完成。
+        // 此时如果使用 requestIdleCallback，地图渲染线的速度会慢一点，但是地图不卡
+        // requestIdleCallback(() => {
+        polylineLayer.push(shortPolyline);
+        map.add(shortPolyline);
+        drawNum.value = ++index;
+        if (index === hangzhou.features.length - 1) {
+            isMapLoading.value = false;
+            ElMessage({
+                message: '绘制完成',
+                type: 'success'
+            });
+        }
+        // });
     });
     map.setFitView();
 };
@@ -93,19 +87,54 @@ const drawLine = () => {
 const clearLine = () => {
     isMapLoading.value = true;
     polylineLayer.map((item, index) => {
-        requestIdleCallback(() => {
-            map.remove(item);
-            clearNum.value = ++index;
-            if (index === polylineLayer.length - 1) {
-                isMapLoading.value = false;
-                polylineLayer = [];
-                ElMessage({
-                    message: '清除完成',
-                    type: 'success'
-                });
-            }
-        });
+        // requestIdleCallback(() => {
+        map.remove(item);
+        clearNum.value = ++index;
+        if (index === polylineLayer.length - 1) {
+            isMapLoading.value = false;
+            polylineLayer = [];
+            ElMessage({
+                message: '清除完成',
+                type: 'success'
+            });
+        }
+        // });
     });
+};
+// 绘制线的图层放在图层组
+const drawLineOverlayGroup = () => {
+    isMapLoading.value = true;
+    overlayGroup = new AMap.OverlayGroup();
+    clearNum.value = 0;
+    hangzhou.features.map((item, index) => {
+        let shortPolyline = new AMap.Polyline({
+            path: item.geometry.coordinates,
+            isOutline: true, // 是否添加描边
+            outlineColor: '#f00', // 描边颜色
+            borderWeight: 1, // 描边宽度
+            strokeColor: '#00f', // 线条颜色
+            strokeOpacity: 1, // 线条透明度
+            strokeWeight: 1, // 线条宽度
+            strokeStyle: 'solid', // 折线样式：solid-实线 dashed-虚线
+            // strokeStyle为'dashed'时有效，
+            strokeDasharray: [10, 5], // 设置折线的虚线样式，虚线和间隙的长度
+            lineJoin: 'round', // 折线拐点样式：miter-尖角 round-圆角 bevel-斜角
+            lineCap: 'round', // 折线两端样式：butt-无头 round-圆头 square-方头
+            zIndex: 50
+        });
+        // 方式2：图层组（加载更快，但是页面拖拽之类的好像很卡）
+        overlayGroup.addOverlay(shortPolyline);
+        overlayGroup.setMap(map);
+        drawNum.value = ++index;
+        if (index === hangzhou.features.length - 1) {
+            isMapLoading.value = false;
+            ElMessage({
+                message: '绘制完成',
+                type: 'success'
+            });
+        }
+    });
+    map.setFitView();
 };
 // 清空图层组（清除更快）
 const clearOverlayGroup = () => {
@@ -132,7 +161,7 @@ onUnmounted(() => {
 <!--
     // 如果是通过接口分页调取的数据,需要按如下编写，因为drawLine函数会调多次，即图层组也有好多个，所以需要循环清除
     let overlayGroup = {}; // 图层组
-    overlayGroup[current.value] = new AMap.OverlayGroup(); 
+    overlayGroup[current.value] = new AMap.OverlayGroup();
     // 下面是循环里面的
     overlayGroup[current.value].addOverlay(shortPolyline);
     overlayGroup[current.value].setMap(map);
@@ -141,3 +170,4 @@ onUnmounted(() => {
         overlayGroup[key].clearOverlays();
     }
 -->
+

@@ -8,6 +8,7 @@ import { checkVersion } from './src/plugins/vitePluginCheckVersion';
 export default defineConfig({
     base: '/vue3',
     server: {
+        open: '/vue3/home',
         host: '0.0.0.0',
         port: 8084,
         cors: true,

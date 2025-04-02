@@ -60,7 +60,7 @@ const initMap = () => {
         marker.setPosition(e.data.lnglat);
         marker.setLabel({ content: e.data.name });
     });
-    map.add(massLayer);
+    massLayer.setMap(map);
 };
 const setStyle = (type) => {
     if (type === 0) {
