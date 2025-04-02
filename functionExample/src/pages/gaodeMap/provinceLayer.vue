@@ -32,7 +32,7 @@ const initMap = () => {
         depth: 2, // 设置数据显示层级，0：显示国家面，1：显示省级，当国家为中国时设置depth为2的可以显示市一级
         // 方式1
         styles: {
-            'stroke-width': 50, // 描边线宽
+            'stroke-width': 5, // 描边线宽
             'province-stroke': '#f00', // 省界颜色
             fill: 'rgba(0,0,0,0.3)'
         }

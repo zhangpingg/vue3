@@ -133,6 +133,7 @@ onUnmounted(() => {
     // 如果是通过接口分页调取的数据,需要按如下编写，因为drawLine函数会调多次，即图层组也有好多个，所以需要循环清除
     let overlayGroup = {}; // 图层组
     overlayGroup[current.value] = new AMap.OverlayGroup(); 
+    // 下面是循环里面的
     overlayGroup[current.value].addOverlay(shortPolyline);
     overlayGroup[current.value].setMap(map);
     // 清空图层组

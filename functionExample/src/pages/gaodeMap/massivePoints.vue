@@ -47,7 +47,6 @@ const initMap = () => {
         center: [102.342785, 35.312316],
         viewMode: '3D'
     });
-
     // 海量点图层，实例化海量点类
     massLayer = new AMap.MassMarks(citys, {
         opacity: 0.8,
