@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            标注和标注图层-海量点
+            标注和标注图层-海量点 + 弹框中的点击事件
             <el-button class="ml-20" @click="startRender">渲染30000个标注</el-button>
         </div>
         <div class="box mt-10" id="massiveAnnotation-mapContainer"></div>
@@ -12,13 +12,18 @@
 import { onMounted, onUnmounted } from 'vue';
 
 let map = null; // 地图实例
+let infoWindowLayer = []; // 信息窗口图层
 
+// 弹框中的事件
+const fn1 = (type) => {
+    console.log(`${type} 按钮被点击了`);
+};
 // 开始渲染
 const startRender = () => {
     // 创建 AMap.LabelsLayer 图层
     var labelsLayer = new AMap.LabelsLayer({
         zooms: [3, 20], // 标注层展示层级范围
-        zIndex: 1000, // 标注层与其它图层的叠加顺序
+        zIndex: 100, // 标注层与其它图层的叠加顺序
         collision: false // 标注层内的标注是否避让，true-类似点聚合 false-全部展示
     });
     var markers = []; // 标注类集合，即所有的点
@@ -26,7 +31,8 @@ const startRender = () => {
     var positionsList = Positions.slice(0, 3e4); // 数据源
     // 普通点：悬浮海量点的时候，展示提示的内容
     var normalMarker = new AMap.Marker({
-        anchor: 'bottom-center'
+        anchor: 'bottom-center',
+        offset: [0, -30]
     });
     for (var i = 0; i < positionsList.length; i++) {
         let options = {
@@ -34,7 +40,7 @@ const startRender = () => {
             icon: {
                 type: 'image',
                 image: 'https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png',
-                size: [6, 9],
+                size: [12, 18],
                 anchor: 'bottom-center'
             }
         };
@@ -52,11 +58,30 @@ const startRender = () => {
         labelMarker.on('mouseout', function () {
             map.remove(normalMarker);
         });
+        labelMarker.on('click', function (e) {
+            const content = []; // 构建信息窗体中显示的内容
+            content.push(`<div style='padding:0px 40px 0px 10px;'>`);
+            content.push(`<div>标题</div>`);
+            content.push(`操作：<button id='btn1'>按钮1</button><button id='btn2'>按钮2</button>`);
+            content.push(`</div>`);
+            let _infoWindow = new AMap.InfoWindow({
+                content: content.join(''), // 使用默认信息窗体框样式，显示信息内容
+                offset: new AMap.Pixel(0, -20) // 信息窗体显示位置偏移量
+            });
+            _infoWindow.open(map, [e.lnglat.lng, e.lnglat.lat]);
+            infoWindowLayer.push(_infoWindow);
+
+            document.getElementById('btn1').addEventListener('click', function () {
+                fn1('btn1');
+            });
+            document.getElementById('btn2').addEventListener('click', function () {
+                fn1('btn2');
+            });
+        });
     }
     labelsLayer.add(markers); // 一次性将海量点添加到图层
     map.add(labelsLayer); // 将图层添加到地图
 };
-
 // 初始化-地图
 const initMap = () => {
     map = new AMap.Map('massiveAnnotation-mapContainer', {
@@ -68,6 +93,11 @@ const initMap = () => {
     });
     map.on('complete', function () {
         startRender();
+    });
+    map.on('click', () => {
+        infoWindowLayer.map((item) => {
+            item.close();
+        });
     });
 };
 
