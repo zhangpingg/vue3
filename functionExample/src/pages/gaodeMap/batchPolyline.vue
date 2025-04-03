@@ -6,10 +6,11 @@
         <div>绘制进度：{{ drawNum }} / {{ hangzhou.features.length }}</div>
         <div>清除进度：{{ clearNum }} / {{ drawNum }}</div>
         <el-button type="primary" :disabled="isMapLoading" @click="drawLine">绘制线</el-button>
-        <el-button type="primary" :disabled="isMapLoading" @click="clearLine">清空线</el-button>
-        <el-button type="primary" :disabled="isMapLoading" @click="drawLineOverlayGroup"
-            >绘制线的图层放在图层组</el-button
-        >
+        <el-button type="primary" :disabled="isMapLoading" @click="clearLineOneByOne">清清除线-一个个的清除</el-button>
+        <el-button type="primary" :disabled="isMapLoading" @click="clearLineOnlyOneTime">清除线-一次性</el-button>
+        <el-button type="primary" :disabled="isMapLoading" @click="drawLineOverlayGroup">
+            绘制线的图层放在图层组
+        </el-button>
         <el-button type="primary" :disabled="isMapLoading" @click="clearOverlayGroup">清空图层组</el-button>
     </div>
 </template>
@@ -83,8 +84,8 @@ const drawLine = () => {
     });
     map.setFitView();
 };
-// 清空线
-const clearLine = () => {
+// 清空线-一个个的清除
+const clearLineOneByOne = () => {
     isMapLoading.value = true;
     polylineLayer.map((item, index) => {
         // requestIdleCallback(() => {
@@ -99,6 +100,17 @@ const clearLine = () => {
             });
         }
         // });
+    });
+};
+// 清除线-一次性
+const clearLineOnlyOneTime = () => {
+    isMapLoading.value = true;
+    map.remove(polylineLayer);
+    polylineLayer = [];
+    isMapLoading.value = false;
+    ElMessage({
+        message: '清除完成',
+        type: 'success'
     });
 };
 // 绘制线的图层放在图层组
@@ -170,4 +182,3 @@ onUnmounted(() => {
         overlayGroup[key].clearOverlays();
     }
 -->
-
