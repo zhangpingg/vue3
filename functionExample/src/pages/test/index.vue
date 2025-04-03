@@ -1,94 +1,71 @@
 <template>
     <div>
-        <div>省份级行政区图层</div>
-        <div class="box mt-10" id="customMap-mapContainer"></div>
-        <div class="mt-10">
-            <span>选择省份</span>
-            <el-select v-model="formData.province" class="mr-20" style="width: 200px" @change="changeProvince">
-                <el-option v-for="item in adcodes" :key="item.adcode" :label="item.name" :value="item.adcode" />
-            </el-select>
-            <span>选择层级</span>
-            <el-select v-model="formData.depth" style="width: 200px" @change="changeLevel">
-                <el-option key="0" label="0-显示省级" :value="0" />
-                <el-option key="1" label="1-显示市级" :value="1" />
-                <el-option key="2" label="2-示区/县级" :value="2" />
-            </el-select>
-        </div>
-        <div class="mt-10">
-            <el-button type="primary" @click="clearProvinceLayer">清空省份级行政区图层</el-button>
-        </div>
+        <div class="box mb-10" id="base-mapContainer"></div>
+        <button class="mr-10 mb-10" @click="setMark">设置 标记+拖拽</button>
+        <button class="mr-10 mb-10" @click="clearMark">清除 标记+拖拽</button> <br />
     </div>
 </template>
 
 <script setup>
 import { onMounted, onUnmounted } from 'vue';
-import { adcodes } from './const';
-import { reactive } from 'vue';
 
 let map = null; // 地图实例
-let provinceLayer; // 省份级行政区-图层
-
-const formData = reactive({ province: 130000, depth: 1 });
-
-function initPro(adcode, depth) {
-    // 颜色辅助方法
-    let colors = {};
-    const getColorByAdcode = (adcode) => {
-        if (!colors[adcode]) {
-            var gb = Math.random() * 155 + 50;
-            colors[adcode] = 'rgb(' + gb + ',' + gb + ',255)';
-        }
-        return colors[adcode];
-    };
-
-    formData.province = adcode;
-    formData.depth = depth;
-    provinceLayer && provinceLayer.setMap(null); // 清空图层
-    provinceLayer = new AMap.DistrictLayer.Province({
-        zIndex: 12,
-        adcode: String(adcode),
-        depth: depth, // 数据的层级深度
-        styles: {
-            fill: function (properties) {
-                console.log('区块内容', properties);
-                // properties 可用于给每个区块定义不同的颜色
-                // NAME_CHN:中文名称
-                // adcode_pro // 省code
-                // adcode_cit // 市code
-                // adcode  // 区线code
-                return getColorByAdcode(properties.adcode);
-            },
-            'province-stroke': '#f00', // 省界颜色
-            'city-stroke': '#0f0', // 地级市边界颜色
-            'county-stroke': '#0ff' // 区/县界颜色
-        }
-    });
-    map.add(provinceLayer);
-}
-// change-省份
-const changeProvince = (val) => {
-    initPro(val, formData.depth);
-};
-// change-层级
-const changeLevel = (val) => {
-    initPro(formData.province, val);
-};
+let markerLayer; // 标记+拖拽-图层
 
 // 初始化-地图
 const initMap = () => {
-    map = new AMap.Map('customMap-mapContainer', {
-        zoom: 4.5,
-        center: [116.412427, 39.303573],
-        viewMode: '3D',
-        pitch: 0
+    map = new AMap.Map('base-mapContainer', {
+        zoom: 12, // 缩放级别
+        center: [120.2126, 30.290851], // 中心点坐标
+        scrollWheel: true // 是否滚轮缩放
     });
-
-    initPro(formData.province, formData.depth);
+    map.setDefaultCursor('default'); // 设置鼠标样式
 };
-// 清空省份级行政区图层
-const clearProvinceLayer = () => {
-    map.remove(provinceLayer);
-    provinceLayer = null;
+// 弹框中的事件
+const fn1 = (type) => {
+    console.log(`${type} 按钮被点击了`);
+};
+// 设置-标记+拖拽
+const setMark = () => {
+    if (markerLayer) {
+        return;
+    }
+    markerLayer = new AMap.Marker({
+        position: new AMap.LngLat(120.2126, 30.290851),
+        // 自定义标记内容，并可设置偏移量
+        // content: "<img src='https://a.amap.com/lbs/static/img/doc/doc_1678970777168_d2b5c.png' />",
+        // offset: new AMap.Pixel(-24, -60),
+        draggable: true, // 标记可拖拽
+        icon: 'https://webapi.amap.com/theme/v1.3/markers/n/mark_r.png',
+        title: '提示名称' // 标记悬浮时，展示的提示内容
+    });
+    // marker-鼠标左击
+    markerLayer.on('click', function (e) {
+        console.log(11, e);
+        const content = []; // 构建信息窗体中显示的内容
+        content.push(`<div style='padding:0px 40px 0px 10px;'>`);
+        content.push(`<div>标题</div>`);
+        content.push(`操作：<button id='btn1'>按钮1</button><button id='btn2'>按钮2</button>`);
+        content.push(`</div>`);
+        let infoWindowLayer = new AMap.InfoWindow({
+            content: content.join(''), // 使用默认信息窗体框样式，显示信息内容
+            offset: new AMap.Pixel(0, -20) // 信息窗体显示位置偏移量
+        });
+        infoWindowLayer.open(map, [e.lnglat.lng, e.lnglat.lat]);
+
+        document.getElementById('btn1').addEventListener('click', function () {
+            fn1('btn1');
+        });
+        document.getElementById('btn2').addEventListener('click', function () {
+            fn1('btn2');
+        });
+    });
+    map.add(markerLayer); // 如果是多个点的话，可以用数组的形式，详见 markAndContentLayer 示例
+};
+// 清除-标记+拖拽
+const clearMark = () => {
+    map.remove(markerLayer);
+    markerLayer = null;
 };
 
 onMounted(() => {
