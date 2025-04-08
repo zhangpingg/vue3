@@ -4,7 +4,9 @@
             标注和标注图层-海量点 + 弹框中的点击事件
             <el-button class="ml-20" @click="startRender">渲染30000个标注</el-button>
         </div>
-        <div class="box mt-10" id="massiveAnnotation-mapContainer"></div>
+        <div class="box mt-10 mb-10" id="massiveAnnotation-mapContainer"></div>
+        <el-button type="primary" @click="startRender">绘制海量点</el-button>
+        <el-button type="primary" class="ml-20" @click="clearMassiveAnnotation">清空海量点</el-button>
     </div>
 </template>
 
@@ -12,6 +14,7 @@
 import { onMounted, onUnmounted } from 'vue';
 
 let map = null; // 地图实例
+let labelsLayer; // 海量点图层
 let infoWindowLayer = []; // 信息窗口图层
 
 // 弹框中的事件
@@ -21,7 +24,7 @@ const fn1 = (type) => {
 // 开始渲染
 const startRender = () => {
     // 创建 AMap.LabelsLayer 图层
-    var labelsLayer = new AMap.LabelsLayer({
+    labelsLayer = new AMap.LabelsLayer({
         zooms: [3, 20], // 标注层展示层级范围
         zIndex: 100, // 标注层与其它图层的叠加顺序
         collision: false // 标注层内的标注是否避让，true-类似点聚合 false-全部展示
@@ -81,6 +84,11 @@ const startRender = () => {
     }
     labelsLayer.add(markers); // 一次性将海量点添加到图层
     map.add(labelsLayer); // 将图层添加到地图
+};
+// 清空海量点
+const clearMassiveAnnotation = () => {
+    map.remove(labelsLayer);
+    labelsLayer = null;
 };
 // 初始化-地图
 const initMap = () => {
