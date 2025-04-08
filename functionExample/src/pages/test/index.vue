@@ -1,85 +1,166 @@
 <template>
     <div>
-        <div class="box mb-10" id="base-mapContainer"></div>
-        <button class="mr-10 mb-10" @click="setMark">设置 标记+拖拽</button>
-        <button class="mr-10 mb-10" @click="clearMark">清除 标记+拖拽</button> <br />
+        <div></div>
+        <Table border :columns="tableObj.columns" :data="data"></Table>
+        <button @click="save">保存</button>
     </div>
 </template>
 
 <script setup>
-import { onMounted, onUnmounted } from 'vue';
+import { ref, reactive, onMounted, resolveComponent } from 'vue';
+import { Table } from 'view-ui-plus';
 
-let map = null; // 地图实例
-let markerLayer; // 标记+拖拽-图层
+const tableObj = reactive({
+    columns: [
+        {
+            title: '姓名',
+            align: 'center',
+            key: 'name',
+            ellipsis: true,
+            tooltip: true
+        },
+        {
+            title: 'Company',
+            align: 'center',
+            children: [
+                {
+                    title: 'Company Address',
+                    key: 'caddress',
+                    align: 'center',
+                    width: 200
+                },
+                {
+                    title: 'Company Name',
+                    key: 'cname',
+                    align: 'center',
+                    width: 200
+                }
+            ]
+        },
+        {
+            align: 'center',
+            key: 'aa',
+            renderHeader: (h, p) => {
+                const btn = h(
+                    'span',
+                    {
+                        style: { color: '#2d8cf0', cursor: 'pointer' },
+                        onClick: () => {
+                            data.value = data.value.map((item, index) => {
+                                item.aa = null;
+                                return item;
+                            });
+                        }
+                    },
+                    '清空'
+                );
+                return h('div', [h('p', '年龄'), btn]);
+            },
+            render: (h, p) => {
+                // view-ui-plus中的InputNumber，必须要在main.js中全局引入，不能在页面中按需引入
+                return h(resolveComponent('InputNumber'), {
+                    max: 9999,
+                    min: 0,
+                    'model-value': p.row.aa ? Number(p.row.aa) : null,
+                    formatter: (value) => value && `${parseInt(value)}`,
+                    onInput: (e) => {
+                        data.value[p.index].aa = e.target._value;
+                    }
+                });
+            }
+        },
+        {
+            align: 'center',
+            key: 'bbOne',
+            renderHeader: (h, p) => {
+                const btn = h(
+                    'span',
+                    {
+                        style: { color: '#2d8cf0', cursor: 'pointer' },
+                        onClick: () => {
+                            data.value = data.value.map((item, index) => {
+                                item.bbOne = null;
+                                item.bbTwo = null;
+                                return item;
+                            });
+                        }
+                    },
+                    '清空'
+                );
+                return h('div', [h('p', '返点(%)'), btn]);
+            },
+            render: (h, p) => {
+                const bbOne = h(resolveComponent('InputNumber'), {
+                    max: 99,
+                    min: 0,
+                    'model-value': p.row.bbOne ? Number(p.row.bbOne) : null,
+                    formatter: (value) => value && `${parseInt(value)}`,
+                    style: {
+                        width: '60px'
+                    },
+                    onInput: (e) => {
+                        data.value[p.index].bbOne = e.target._value;
+                    }
+                });
+                const bbTwo = h(resolveComponent('InputNumber'), {
+                    max: 99,
+                    min: 0,
+                    'model-value': p.row.bbTwo ? Number(p.row.bbTwo) : null,
+                    formatter: (value) => value && `${parseInt(value)}`,
+                    style: { width: '60px' },
+                    onInput: (e) => {
+                        data.value[p.index].bbTwo = e.target._value;
+                    }
+                });
+                return h('div', [bbOne, h('span', ' + '), bbTwo]);
+            }
+        },
+        {
+            align: 'center',
+            key: 'remark',
+            renderHeader: (h, p) => {
+                const btn = h(
+                    'span',
+                    {
+                        style: {
+                            color: '#2d8cf0',
+                            cursor: 'pointer'
+                        },
+                        onClick: () => {
+                            data.value = data.value.map((item, index) => {
+                                item.remark = '';
+                                return item;
+                            });
+                        }
+                    },
+                    '清空'
+                );
+                return h('div', [h('p', '备注'), btn]);
+            },
+            render: (h, p) => {
+                return h(resolveComponent('Input'), {
+                    maxlength: 100,
+                    'model-value': p.row.remark || '',
+                    onInput: (e) => {
+                        data.value[p.index].remark = e.target._value;
+                    }
+                });
+            }
+        }
+    ]
+});
+const data = ref([
+    { name: '张三', aa: 1, bbOne: '2', bbTwo: '3', remark: '备注信息1' },
+    { name: '李四', aa: 4, bbOne: '5', bbTwo: '6', remark: '备注信息2' }
+]);
 
-// 初始化-地图
-const initMap = () => {
-    map = new AMap.Map('base-mapContainer', {
-        zoom: 12, // 缩放级别
-        center: [120.2126, 30.290851], // 中心点坐标
-        scrollWheel: true // 是否滚轮缩放
-    });
-    map.setDefaultCursor('default'); // 设置鼠标样式
-};
-// 弹框中的事件
-const fn1 = (type) => {
-    console.log(`${type} 按钮被点击了`);
-};
-// 设置-标记+拖拽
-const setMark = () => {
-    if (markerLayer) {
-        return;
-    }
-    markerLayer = new AMap.Marker({
-        position: new AMap.LngLat(120.2126, 30.290851),
-        // 自定义标记内容，并可设置偏移量
-        // content: "<img src='https://a.amap.com/lbs/static/img/doc/doc_1678970777168_d2b5c.png' />",
-        // offset: new AMap.Pixel(-24, -60),
-        draggable: true, // 标记可拖拽
-        icon: 'https://webapi.amap.com/theme/v1.3/markers/n/mark_r.png',
-        title: '提示名称' // 标记悬浮时，展示的提示内容
-    });
-    // marker-鼠标左击
-    markerLayer.on('click', function (e) {
-        console.log(11, e);
-        const content = []; // 构建信息窗体中显示的内容
-        content.push(`<div style='padding:0px 40px 0px 10px;'>`);
-        content.push(`<div>标题</div>`);
-        content.push(`操作：<button id='btn1'>按钮1</button><button id='btn2'>按钮2</button>`);
-        content.push(`</div>`);
-        let infoWindowLayer = new AMap.InfoWindow({
-            content: content.join(''), // 使用默认信息窗体框样式，显示信息内容
-            offset: new AMap.Pixel(0, -20) // 信息窗体显示位置偏移量
-        });
-        infoWindowLayer.open(map, [e.lnglat.lng, e.lnglat.lat]);
-
-        document.getElementById('btn1').addEventListener('click', function () {
-            fn1('btn1');
-        });
-        document.getElementById('btn2').addEventListener('click', function () {
-            fn1('btn2');
-        });
-    });
-    map.add(markerLayer); // 如果是多个点的话，可以用数组的形式，详见 markAndContentLayer 示例
-};
-// 清除-标记+拖拽
-const clearMark = () => {
-    map.remove(markerLayer);
-    markerLayer = null;
+const save = () => {
+    console.log(data);
 };
 
 onMounted(() => {
-    initMap();
-});
-onUnmounted(() => {
-    map.destroy();
+    //initMap();
 });
 </script>
 
-<style lang="less" scoped>
-.box {
-    width: 600px;
-    height: 400px;
-    border: 1px solid #000;
-}
-</style>
+<style lang="less" scoped></style>

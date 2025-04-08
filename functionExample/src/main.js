@@ -6,6 +6,7 @@ import ElementPlus from 'element-plus';
 import zhCn from 'element-plus/es/locale/lang/zh-cn';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'; // element-plus图标
 import 'element-plus/dist/index.css';
+import { Input, InputNumber } from 'view-ui-plus';
 import 'view-ui-plus/dist/styles/viewuiplus.css';
 // 预览图片插件
 import VueViewer from 'v-viewer';
@@ -51,6 +52,10 @@ app.directive('clickoutside', clickoutsideDirective);
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component);
 }
+// view-ui-plus 的组件按需引入，为全局组件
+app.component(Input.name, Input);
+app.component(InputNumber.name, InputNumber);
+
 // 创建 i18n 实例
 const i18n = createI18n({
     locale: 'zh', // 设置地区
@@ -70,4 +75,3 @@ app.use(router)
     })
     .use(VueCropper)
     .mount('#app');
-
