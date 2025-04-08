@@ -57,7 +57,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { Input, Button } from 'view-ui-plus';
+// import { Input, Button } from 'view-ui-plus';
 
 const val1 = ref('1234');
 const textarea = ref('Hello 😊 World! 🌍 111 🤪 222');
@@ -78,3 +78,4 @@ const getTextarea = () => {
     border-bottom: 1px solid #ccc;
 }
 </style>
+

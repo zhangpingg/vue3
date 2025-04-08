@@ -1,0 +1,42 @@
+html,
+body,
+#app {
+    height: 100%;
+}
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    padding: 0;
+    margin: 0;
+}
+body {
+    background-color: #f7f7f7;
+    font-size: 14px;
+}
+
+// 自定义滚动条
+// 1、::-webkit-scrollbar 定义了滚动条整体的样式；
+// 2、::-webkit-scrollbar-thumb 滑块部分；
+// 3、::-webkit-scrollbar-track 轨道部分；
+::-webkit-scrollbar {
+    width: 8px;
+    height: 10px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 1em;
+    background-color: rgba(50, 50, 50, 0.3);
+}
+::-webkit-scrollbar-track {
+    border-radius: 1em;
+    background-color: rgba(50, 50, 50, 0.1);
+}
+
+:focus-visible {
+    outline: none;
+}
+

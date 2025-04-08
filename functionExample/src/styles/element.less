@@ -1,0 +1,57 @@
+/** element样式覆盖 **/
+// Table
+.el-table {
+    --el-table-header-text-color: #666;
+}
+.el-table thead th.el-table__cell,
+.el-table thead.is-group th.el-table__cell {
+    background: #fafafa !important;
+}
+.el-table__cell .cell span {
+    word-break: break-all;
+}
+
+// MessageBox
+.el-message-box__container {
+    align-items: flex-start;
+}
+
+// 修改element-左侧菜单栏
+.el-popper {
+    word-break: break-all;
+    .el-menu {
+        padding: 10px;
+        min-width: 180px !important;
+        .el-menu-item {
+            height: 40px;
+            line-height: 40px;
+            &:hover {
+                color: #fff;
+            }
+        }
+        .el-menu-item.is-active {
+            background: var(--el-color-primary);
+        }
+    }
+}
+.el-popper.is-light {
+    border: 0px;
+}
+
+// Form
+.el-form-item__content {
+    word-break: break-all;
+}
+
+// 日期-月份样式（年度计划）
+.yearlyPlan-tablePicker {
+    z-index: 10000 !important;
+    background: #000;
+    .el-date-picker__prev-btn,
+    .el-date-picker__next-btn {
+        display: none;
+    }
+    .el-date-picker__header-label {
+        pointer-events: none;
+    }
+}

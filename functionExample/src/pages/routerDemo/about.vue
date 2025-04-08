@@ -7,7 +7,7 @@
 <script setup>
 import { onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import { Button } from 'view-ui-plus';
+// import { Button } from 'view-ui-plus';
 
 const router = useRouter(); // 路由全局对象
 const route = useRoute(); // 当前路由对象
@@ -22,3 +22,4 @@ onMounted(() => {
 </script>
 
 <style scoped></style>
+

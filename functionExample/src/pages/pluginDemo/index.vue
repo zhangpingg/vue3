@@ -11,7 +11,7 @@
 
 <script setup>
 import { getCurrentInstance } from 'vue';
-import { Button } from 'view-ui-plus';
+// import { Button } from 'view-ui-plus';
 
 const { proxy } = getCurrentInstance();
 
@@ -39,3 +39,4 @@ const showContextMenu = (e) => {
 </script>
 
 <style scoped></style>
+

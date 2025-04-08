@@ -1,4 +1,4 @@
-// margin, padding, font-size, hright, line-height
+// margin, padding, font-size
 .setMarPadFontSize( @i:0, @n:100,) when(@i<@n) {
     .pt-@{i} {
         padding-top: unit(@i, px);
@@ -116,6 +116,31 @@
     left: 50%;
 }
 
+// 颜色
+.primary {
+    color: var(--el-color-primary);
+}
+.success {
+    color: var(--el-color-success);
+}
+.warning {
+    color: var(--el-color-warning);
+}
+.danger {
+    color: var(--el-color-danger);
+}
+.info {
+    color: var(--el-color-info);
+}
+
+// 页面主要卡片样式
+.main-card {
+    margin-top: 16px;
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 4px;
+}
+
 // 隐藏滚动条样式
 .c-hideScrollbar {
     &::-webkit-scrollbar {
@@ -142,3 +167,4 @@
         border-radius: 4px;
     }
 }
+
