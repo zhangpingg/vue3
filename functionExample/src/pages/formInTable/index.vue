@@ -16,7 +16,9 @@
                 </el-form>
             </template>
             <template #operation="{ scope: { row, $index } }">
-                <el-button type="primary" link @click="uploadFile(row, $index)"> 点击上传后，日期是必填的 </el-button>
+                <el-button type="primary" link @click="uploadFile(row, $index)">
+                    点击上传后，日期是必填的（请点击一下）
+                </el-button>
             </template>
         </ZpTablePage>
         <el-button type="primary" @click="submit">确定</el-button>
@@ -89,4 +91,3 @@ onMounted(() => {
     }
 }
 </style>
-
