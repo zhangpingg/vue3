@@ -212,6 +212,15 @@ const routes = [
             cache: false
         },
         component: () => import('@/pages/gaodeMap/index.vue')
+    },
+    {
+        path: `/highlightText`,
+        name: 'highlightText',
+        meta: {
+            title: '高亮文本',
+            cache: false
+        },
+        component: () => import('@/pages/highlightText/index.vue')
     }
 ];
 
@@ -221,3 +230,4 @@ const router = createRouter({
 });
 
 export default router;
+

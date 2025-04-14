@@ -28,6 +28,7 @@ npm run dev
 18)富文本
 19)(各种数据)生成二维码
 20)高度地图
+21)高亮文本
 ```
 
 ### 命令
@@ -42,3 +43,4 @@ npm run lint-staged // 执行 eslint 检查（暂存区,即add之后）
 npm run prettier    // 格式化，并自动修复（全局）
 
 ```
+

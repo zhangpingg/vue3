@@ -26,6 +26,7 @@
         <span @click="jumpPage('richText')">富文本编辑器</span><br />
         <span @click="jumpPage('generateQRcode')">(各种数据)生成二维码</span><br />
         <span @click="jumpPage('gaodeMap')">高德地图</span><br />
+        <span @click="jumpPage('highlightText')">高亮文本</span><br />
     </div>
 </template>
 
@@ -50,3 +51,4 @@ const jumpPage = (path) => {
     }
 }
 </style>
+
