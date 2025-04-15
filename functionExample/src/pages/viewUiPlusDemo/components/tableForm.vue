@@ -2,7 +2,7 @@
     <div>
         <div></div>
         <Table border :columns="tableObj.columns" :data="data"></Table>
-        <button @click="save">保存</button>
+        <Button type="primary" @click="save">保存</Button>
     </div>
 </template>
 
