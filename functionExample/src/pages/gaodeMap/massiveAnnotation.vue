@@ -14,7 +14,8 @@
 import { onMounted, onUnmounted } from 'vue';
 
 let map = null; // 地图实例
-let labelsLayer; // 海量点图层
+let massivePointsLayer; // 海量点-图层
+let massivePointsMarker = []; // 海量点-点
 let infoWindowLayer = []; // 信息窗口图层
 
 // 弹框中的事件
@@ -24,14 +25,12 @@ const fn1 = (type) => {
 // 开始渲染
 const startRender = () => {
     // 创建 AMap.LabelsLayer 图层
-    labelsLayer = new AMap.LabelsLayer({
+    massivePointsLayer = new AMap.LabelsLayer({
         zooms: [3, 20], // 标注层展示层级范围
         zIndex: 100, // 标注层与其它图层的叠加顺序
         collision: false // 标注层内的标注是否避让，true-类似点聚合 false-全部展示
     });
-    var markers = []; // 标注类集合，即所有的点
-
-    var positionsList = Positions.slice(0, 3e4); // 数据源
+    var positionsList = Positions.slice(0, 30000); // 数据源
     // 普通点：悬浮海量点的时候，展示提示的内容
     var normalMarker = new AMap.Marker({
         anchor: 'bottom-center',
@@ -48,7 +47,7 @@ const startRender = () => {
             }
         };
         var labelMarker = new AMap.LabelMarker(options); // 标注类
-        markers.push(labelMarker);
+        massivePointsMarker.push(labelMarker);
         // 给marker绑定事件
         labelMarker.on('mouseover', function (e) {
             var position = e.data.data && e.data.data.position;
@@ -82,13 +81,16 @@ const startRender = () => {
             });
         });
     }
-    labelsLayer.add(markers); // 一次性将海量点添加到图层
-    map.add(labelsLayer); // 将图层添加到地图
+    massivePointsLayer.add(massivePointsMarker); // 一次性将海量点添加到图层
+    map.add(massivePointsLayer); // 将图层添加到地图
 };
 // 清空海量点
 const clearMassiveAnnotation = () => {
-    map.remove(labelsLayer);
-    labelsLayer = null;
+    if (massivePointsLayer) {
+        massivePointsLayer.remove(massivePointsMarker);
+        massivePointsMarker = [];
+        massivePointsLayer = null;
+    }
 };
 // 初始化-地图
 const initMap = () => {
