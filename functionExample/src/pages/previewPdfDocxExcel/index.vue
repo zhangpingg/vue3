@@ -13,10 +13,10 @@
         (1)不能预览xls文件，需要后台转换为xlsx，方可预览 <br />
         (2)文件里面的柱状图，形状会丢失，渲染不出来
         <vue-office-excel
-            :src="excelUrl"
+            :src="url2"
             :options="{
-                minColLength: 0, // excel最少渲染多少列，如果想实现xlsx文件内容有几列，就渲染几列，可以将此值设置为0.
-                minRowLength: 0, // excel最少渲染多少行，如果想实现根据xlsx实际函数渲染，可以将此值设置为0.
+                //minColLength: 0, // excel最少渲染多少列，如果想实现xlsx文件内容有几列，就渲染几列，可以将此值设置为0.
+                //minRowLength: 0, // excel最少渲染多少行，如果想实现根据xlsx实际函数渲染，可以将此值设置为0.
                 widthOffset: 10, //如果渲染出来的结果感觉单元格宽度不够，可以在默认渲染的列表宽度上再加 Npx宽
                 heightOffset: 15 //在默认渲染的列表高度上再加 Npx高
             }"
@@ -33,6 +33,10 @@ import VueOfficeExcel from '@vue-office/excel';
 const pdfUrl = 'https://pdfobject.com/pdf/sample-3pp.pdf#page=2';
 const docxUrl = 'http://static.shanhuxueyuan.com/test6.docx';
 const excelUrl = 'http://static.shanhuxueyuan.com/demo/excel.xlsx';
+const url1 =
+    'https://zc-resource-dev.oss-cn-hangzhou.aliyuncs.com/upload/files/2025/05/19/9554728736831008_02.1747620689508.xls';
+const url2 =
+    'https://zc-resource-dev.oss-cn-hangzhou.aliyuncs.com/upload/files/2025/05/19/9554754561609916_09.1747620714778.xlsx';
 </script>
 
 <style scoped lang="less">
