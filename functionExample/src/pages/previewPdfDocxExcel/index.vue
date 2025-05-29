@@ -24,7 +24,7 @@
 
         <p>4)预览PDF</p>
         (1)不能预览ppt，可以预览pptx
-        <vue-office-pptx :src="pptx" @rendered="renderedHandler" @error="errorHandler" class="box2" />
+        <vue-office-pptx :src="pptx" @rendered="renderedHandler" @error="errorHandler" class="box" />
     </div>
 </template>
 
@@ -59,10 +59,6 @@ const errorHandler = () => {
 
 <style scoped lang="less">
 :deep(.box) {
-    width: 400px;
-    height: 400px;
-}
-:deep(.box2) {
     width: 800px;
     height: 400px;
 }
