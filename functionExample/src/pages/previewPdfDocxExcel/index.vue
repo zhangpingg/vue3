@@ -12,7 +12,7 @@
         (1)不能预览xls文件，需要后台转换为xlsx，方可预览 <br />
         (2)文件里面的柱状图，形状会丢失，渲染不出来, 把柱状图可让后台转换为png
         <vue-office-excel
-            :src="url2"
+            :src="xlsxUrl"
             :options="{
                 //minColLength: 0, // excel最少渲染多少列，如果想实现xlsx文件内容有几列，就渲染几列，可以将此值设置为0.
                 //minRowLength: 0, // excel最少渲染多少行，如果想实现根据xlsx实际函数渲染，可以将此值设置为0.
@@ -24,7 +24,7 @@
 
         <p>4)预览PDF</p>
         (1)不能预览ppt，可以预览pptx
-        <vue-office-pptx :src="pptx" @rendered="renderedHandler" @error="errorHandler" class="box" />
+        <vue-office-pptx :src="pptxUrl" @rendered="renderedHandler" @error="errorHandler" class="box" />
     </div>
 </template>
 
@@ -37,16 +37,15 @@ import VueOfficePptx from '@vue-office/pptx';
 const pdfUrl = 'https://pdfobject.com/pdf/sample-3pp.pdf#page=2';
 const docxUrl =
     'https://zc-resource-dev.oss-cn-hangzhou.aliyuncs.com/upload/files/2025/05/29/6922380684044392_05.1748511296547.docx';
-const excelUrl = 'http://static.shanhuxueyuan.com/demo/excel.xlsx';
-const url1 =
+const xlsUrl =
     'https://zc-resource-dev.oss-cn-hangzhou.aliyuncs.com/upload/files/2025/05/19/9554728736831008_02.1747620689508.xls';
-const url2 =
+const xlsxUrl =
     'https://zc-resource-dev.oss-cn-hangzhou.aliyuncs.com/upload/files/2025/05/19/9554754561609916_09.1747620714778.xlsx';
 // 不能预览
-const ppt =
+const pptUrl =
     'https://zc-resource-dev.oss-cn-hangzhou.aliyuncs.com/upload/files/2025/05/29/6921423029642434_06.1748510338261.ppt';
 // 能预览
-const pptx =
+const pptxUrl =
     'https://zc-resource-dev.oss-cn-hangzhou.aliyuncs.com/upload/files/2025/05/29/6921454793884033_07.1748510364908.pptx';
 
 const renderedHandler = () => {
