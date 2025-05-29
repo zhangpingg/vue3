@@ -23,6 +23,7 @@
         />
 
         <p>4)预览PDF</p>
+        (1)不能预览ppt，可以预览pptx
         <vue-office-pptx :src="pptx" @rendered="renderedHandler" @error="errorHandler" class="box2" />
     </div>
 </template>
