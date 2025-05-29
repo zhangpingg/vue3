@@ -73,4 +73,3 @@ app.use(router)
     })
     .use(VueCropper)
     .mount('#app');
-

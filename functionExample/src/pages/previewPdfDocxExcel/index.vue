@@ -6,12 +6,11 @@
 
         <p>2)预览docx</p>
         (1)不能预览doc文件，需要后台转换为docx，方可预览 <br />
-        (2)excel文件里面的柱状图会丢失，渲染不出来，可让后台转换为png，前端展示
         <vue-office-docx :src="docxUrl" class="box" /> <br />
 
         <p>3)预览excel</p>
         (1)不能预览xls文件，需要后台转换为xlsx，方可预览 <br />
-        (2)文件里面的柱状图，形状会丢失，渲染不出来
+        (2)文件里面的柱状图，形状会丢失，渲染不出来, 把柱状图可让后台转换为png
         <vue-office-excel
             :src="url2"
             :options="{
@@ -22,6 +21,9 @@
             }"
             class="box"
         />
+
+        <p>4)预览PDF</p>
+        <vue-office-pptx :src="pptx" @rendered="renderedHandler" @error="errorHandler" class="box2" />
     </div>
 </template>
 
@@ -29,19 +31,38 @@
 import VueOfficePdf from '@vue-office/pdf';
 import VueOfficeDocx from '@vue-office/docx';
 import VueOfficeExcel from '@vue-office/excel';
+import VueOfficePptx from '@vue-office/pptx';
 
 const pdfUrl = 'https://pdfobject.com/pdf/sample-3pp.pdf#page=2';
-const docxUrl = 'http://static.shanhuxueyuan.com/test6.docx';
+const docxUrl =
+    'https://zc-resource-dev.oss-cn-hangzhou.aliyuncs.com/upload/files/2025/05/29/6922380684044392_05.1748511296547.docx';
 const excelUrl = 'http://static.shanhuxueyuan.com/demo/excel.xlsx';
 const url1 =
     'https://zc-resource-dev.oss-cn-hangzhou.aliyuncs.com/upload/files/2025/05/19/9554728736831008_02.1747620689508.xls';
 const url2 =
     'https://zc-resource-dev.oss-cn-hangzhou.aliyuncs.com/upload/files/2025/05/19/9554754561609916_09.1747620714778.xlsx';
+// 不能预览
+const ppt =
+    'https://zc-resource-dev.oss-cn-hangzhou.aliyuncs.com/upload/files/2025/05/29/6921423029642434_06.1748510338261.ppt';
+// 能预览
+const pptx =
+    'https://zc-resource-dev.oss-cn-hangzhou.aliyuncs.com/upload/files/2025/05/29/6921454793884033_07.1748510364908.pptx';
+
+const renderedHandler = () => {
+    console.log('渲染完成');
+};
+const errorHandler = () => {
+    console.log('渲染失败');
+};
 </script>
 
 <style scoped lang="less">
 :deep(.box) {
     width: 400px;
+    height: 400px;
+}
+:deep(.box2) {
+    width: 800px;
     height: 400px;
 }
 </style>
