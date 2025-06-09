@@ -27,6 +27,7 @@
         <span @click="jumpPage('generateQRcode')">(各种数据)生成二维码</span><br />
         <span @click="jumpPage('gaodeMap')">高德地图</span><br />
         <span @click="jumpPage('highlightText')">高亮文本</span><br />
+        <span @click="jumpPage('imageDoesNotDeformOrStretch')">图片不变形的拉伸</span><br />
     </div>
 </template>
 

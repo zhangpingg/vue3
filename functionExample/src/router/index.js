@@ -221,6 +221,15 @@ const routes = [
             cache: false
         },
         component: () => import('@/pages/highlightText/index.vue')
+    },
+    {
+        path: `/imageDoesNotDeformOrStretch`,
+        name: 'imageDoesNotDeformOrStretch',
+        meta: {
+            title: '图片不变形拉伸',
+            cache: false
+        },
+        component: () => import('@/pages/imageDoesNotDeformOrStretch/index.vue')
     }
 ];
 
@@ -230,4 +239,3 @@ const router = createRouter({
 });
 
 export default router;
-
