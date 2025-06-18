@@ -230,6 +230,15 @@ const routes = [
             cache: false
         },
         component: () => import('@/pages/imageDoesNotDeformOrStretch/index.vue')
+    },
+    {
+        path: `/printDom`,
+        name: 'printDom',
+        meta: {
+            title: '打印DOM',
+            cache: false
+        },
+        component: () => import('@/pages/printDom/index.vue')
     }
 ];
 
@@ -239,3 +248,4 @@ const router = createRouter({
 });
 
 export default router;
+
