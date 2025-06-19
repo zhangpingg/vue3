@@ -83,16 +83,8 @@ onUnmounted(() => {
     border: 1px solid #000;
     .box-item {
         border-radius: 8px;
-        overflow: hidden;
         background: #f0f0f0;
         margin-top: 20px;
-        position: relative;
-        .box-item-skeleton {
-            position: absolute;
-            width: 600px;
-            height: 400px;
-            z-index: 2;
-        }
     }
 }
 </style>
