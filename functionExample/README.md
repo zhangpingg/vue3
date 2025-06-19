@@ -30,7 +30,7 @@ npm run dev
 20)高度地图
 21)高亮文本
 22)图片不变形的拉伸
-23)打印DOM
+23)打印DOM（div、echarts）
 ```
 
 ### 命令
@@ -45,4 +45,3 @@ npm run lint-staged // 执行 eslint 检查（暂存区,即add之后）
 npm run prettier    // 格式化，并自动修复（全局）
 
 ```
-

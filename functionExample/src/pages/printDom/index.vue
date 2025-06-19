@@ -8,12 +8,13 @@
     <div>
         <DivDom />
         <hr class="mt-20 mb-20" />
-        其他
+        <EchartsDom />
     </div>
 </template>
 
 <script setup>
 import DivDom from './components/DivDom';
+import EchartsDom from './components/EchartsDom';
 </script>
 
 <style lang="less" scoped></style>
