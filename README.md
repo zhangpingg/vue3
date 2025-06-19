@@ -25,7 +25,7 @@
 20)高度地图
 21)高亮文本
 22)图片不变形的拉伸
-23)打印DOM（div、echarts）
+23)打印DOM（div、echarts）、print-js插件
 ```
 
 ## template

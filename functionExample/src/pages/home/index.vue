@@ -28,7 +28,7 @@
         <span @click="jumpPage('gaodeMap')">高德地图</span><br />
         <span @click="jumpPage('highlightText')">高亮文本</span><br />
         <span @click="jumpPage('imageDoesNotDeformOrStretch')">图片不变形的拉伸</span><br />
-        <span @click="jumpPage('printDom')">打印DOM（div、echarts）</span><br />
+        <span @click="jumpPage('printDom')">打印DOM（div、echarts）、print-js插件</span><br />
     </div>
 </template>
 

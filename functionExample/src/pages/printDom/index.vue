@@ -9,12 +9,15 @@
         <DivDom />
         <hr class="mt-20 mb-20" />
         <EchartsDom />
+        <hr class="mt-20 mb-20" />
+        <PrintJsDemo />
     </div>
 </template>
 
 <script setup>
 import DivDom from './components/DivDom';
 import EchartsDom from './components/EchartsDom';
+import PrintJsDemo from './components/PrintJsDemo';
 </script>
 
 <style lang="less" scoped></style>
