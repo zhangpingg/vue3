@@ -31,6 +31,7 @@ npm run dev
 21)高亮文本
 22)图片不变形的拉伸
 23)打印DOM（div、echarts）、print-js插件
+24)图片懒加载
 ```
 
 ### 命令
@@ -45,3 +46,4 @@ npm run lint-staged // 执行 eslint 检查（暂存区,即add之后）
 npm run prettier    // 格式化，并自动修复（全局）
 
 ```
+

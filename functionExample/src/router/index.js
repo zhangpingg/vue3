@@ -239,6 +239,15 @@ const routes = [
             cache: false
         },
         component: () => import('@/pages/printDom/index.vue')
+    },
+    {
+        path: `/imgLazyLoad`,
+        name: 'imgLazyLoad',
+        meta: {
+            title: '图片懒加载',
+            cache: false
+        },
+        component: () => import('@/pages/imgLazyLoad/index.vue')
     }
 ];
 
