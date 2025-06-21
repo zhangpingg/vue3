@@ -29,7 +29,7 @@
         <span @click="jumpPage('highlightText')">高亮文本</span><br />
         <span @click="jumpPage('imageDoesNotDeformOrStretch')">图片不变形的拉伸</span><br />
         <span @click="jumpPage('printDom')">打印DOM（div、echarts）、print-js插件</span><br />
-        <span @click="jumpPage('imgLazyLoad')">图片懒加载</span><br />
+        <span @click="jumpPage('imgLazyLoad')">图片懒加载-IntersectionObserver</span><br />
     </div>
 </template>
 
