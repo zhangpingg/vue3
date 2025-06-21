@@ -248,6 +248,15 @@ const routes = [
             cache: false
         },
         component: () => import('@/pages/imgLazyLoad/index.vue')
+    },
+    {
+        path: `/createDownloadPDF`,
+        name: 'createDownloadPDF',
+        meta: {
+            title: '生成并下载PDF',
+            cache: false
+        },
+        component: () => import('@/pages/createDownloadPDF/index.vue')
     }
 ];
 
