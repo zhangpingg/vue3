@@ -2,6 +2,8 @@
     <div class="box">test</div>
 </template>
 
-<script setup></script>
+<script setup>
+console.log('11');
+</script>
 
 <style lang="less" scoped></style>
