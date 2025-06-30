@@ -77,4 +77,7 @@ export default defineConfig({
         alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
         extensions: ['.js', '.vue', '.json']
     }
+    //build: {
+    //    sourcemap: true
+    //}
 });
