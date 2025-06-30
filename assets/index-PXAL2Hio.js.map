@@ -1,0 +1,1 @@
+{"version":3,"file":"index-PXAL2Hio.js","sources":["../../src/pages/i18nDemo/index.vue"],"sourcesContent":["<template>\r\n    <div>{{ $t('message.hello') }}</div>\r\n</template>\r\n\r\n<script setup></script>\r\n\r\n<style scoped lang=\"less\"></style>\r\n\r\n"],"names":["_sfc_render","_ctx","_cache"],"mappings":"wEACI,SAAAA,EAAAC,EAAAC,EAAA"}

@@ -1,0 +1,2 @@
+import{_ as c,r as o,k as i,o as l,c as p,a as _}from"./index-PeL4Jeqv.js";const h=["innerHTML"],u={__name:"index",setup(d){const e=o("JavaScript是一种流行的编程语言。JavaScript可以用于前端和后端开发。"),n=(t,a)=>{const s=new RegExp(a,"ig");return t.replace(s,r=>`<span class="highlight">${r}</span>`)};return i(()=>{e.value=n(e.value,"javascript")}),(t,a)=>(l(),p("div",null,[_("span",{innerHTML:e.value},null,8,h)]))}},v=c(u,[["__scopeId","data-v-e802f727"]]);export{v as default};
+//# sourceMappingURL=index-yhywurVi.js.map
