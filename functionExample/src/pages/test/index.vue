@@ -1,10 +1,14 @@
 <template>
-    <div class="box">test</div>
+    <div class="box">
+        Test页面
+        <h1 @click="hanldeClick">点击我报错!</h1>
+    </div>
 </template>
 
 <script setup>
-console.log('11');
-console.log('22');
+const hanldeClick = () => {
+    throw new Error('test error.');
+};
 </script>
 
 <style lang="less" scoped></style>
