@@ -31,6 +31,7 @@
         <span @click="jumpPage('printDom')">打印DOM（div、echarts）、print-js插件</span><br />
         <span @click="jumpPage('imgLazyLoad')">图片懒加载-loading="lazy"、IntersectionObserver</span><br />
         <span @click="jumpPage('createDownloadPDF')">生成并下载PDF</span><br />
+        <span @click="jumpPage('ssr')">SSR 服务端渲染</span><br />
     </div>
 </template>
 
@@ -55,4 +56,3 @@ const jumpPage = (path) => {
     }
 }
 </style>
-

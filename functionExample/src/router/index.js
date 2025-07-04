@@ -257,6 +257,15 @@ const routes = [
             cache: false
         },
         component: () => import('@/pages/createDownloadPDF/index.vue')
+    },
+    {
+        path: `/ssr`,
+        name: 'ssr',
+        meta: {
+            title: 'SSR 服务端渲染',
+            cache: false
+        },
+        component: () => import('@/pages/ssr/index.vue')
     }
 ];
 
@@ -266,4 +275,3 @@ const router = createRouter({
 });
 
 export default router;
-

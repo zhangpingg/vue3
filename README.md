@@ -28,6 +28,7 @@
 23)打印DOM（div、echarts）、print-js插件
 24)图片懒加载-loading="lazy"、IntersectionObserver
 25)生成并下载PDF
+26)SSR 服务端渲染
 ```
 
 ## template
