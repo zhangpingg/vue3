@@ -8,7 +8,7 @@ const app = express();
 
 app.get('/getData', async (req, res) => {
     const name = '张三';
-    const html = `<div style="color: #f00">Hello, ${name}</div>`; // 渲染组件为 HTML 字符串
+    const componentHtmlStr = `<div style="color: #f00">Hello, ${name}</div>`; // 渲染组件为 HTML 字符串
 
     try {
         // 返回完整 HTML
@@ -16,7 +16,7 @@ app.get('/getData', async (req, res) => {
             <!DOCTYPE html>
             <html>
             <body>
-                <div id="root">${html}</div>
+                <div id="root">${componentHtmlStr}</div>
             </body>
             </html>
         `);
