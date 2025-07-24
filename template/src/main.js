@@ -7,7 +7,7 @@ import piniaPersist from 'pinia-plugin-persist';
 import ElementPlus from 'element-plus';
 import zhCn from 'element-plus/es/locale/lang/zh-cn';
 import 'element-plus/dist/index.css';
-import { PageHeader, FooterToolbar, Icon, Alert } from 'view-ui-plus';
+import { PageHeader, FooterToolbar, Icon, Alert, Tag, Badge } from 'view-ui-plus';
 import 'view-ui-plus/dist/styles/viewuiplus.css';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 /** 文件样式 */
@@ -29,10 +29,13 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 const pinia = createPinia();
 pinia.use(piniaPersist);
 
-app.component('PageHeader', PageHeader);
-app.component('FooterToolbar', FooterToolbar);
-app.component('Icon', Icon);
-app.component('Alert', Alert);
+app.component('PageHeader', PageHeader)
+    .component('FooterToolbar', FooterToolbar)
+    .component('Icon', Icon)
+    .component('Alert', Alert)
+    .component('Tag', Tag)
+    .component('Badge', Badge);
+
 
 app.config.globalProperties.globalConst = globalConst;
 app.use(router)

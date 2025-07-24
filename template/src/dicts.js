@@ -33,3 +33,13 @@ export const dataTypeDict = [
     { value: 7, label: 'CP' },
     { value: 8, label: 'FMEA' },
 ];
+
+// 【原材料ABC分类】
+export const productLevelDict = [
+    { value: 1, label: 'A类', shortLabel: 'A' },
+    { value: 2, label: 'B类', shortLabel: 'B' },
+    { value: 3, label: 'C类', shortLabel: 'C' },
+    { value: 4, label: '辅助', shortLabel: '辅助' },
+    { value: 5, label: '包装', shortLabel: '包装' },
+    { value: 6, label: '外购件', shortLabel: '外购件' },
+];

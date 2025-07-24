@@ -7,7 +7,7 @@ import { getEnvironment } from './util.win';
 
 // 创建一个 axios 实例
 const service = axios.create({
-    baseURL: getEnvironment() === 'product' ? '/api/supplier' : '/test/api/supplier',
+    baseURL: getEnvironment() === 'product' ? '/api/quality' : '/test/api/quality',
     timeout: 60000, // 请求超时时间
 });
 

@@ -1,17 +1,20 @@
+<!--
+ * @Author: chengleilei
+ * @Date: 2024-05-14 09:26:43
+ * @Description: 上传图片组件
+-->
 <template>
     <el-upload
-        list-type="picture-card"
-        accept=".png,.jpg,.jpeg"
-        name="uploadFile"
-        limit="9"
         :file-list="fileList"
         :headers="{ Authorization: Cookies.get('token') }"
         :action="action"
+        :before-upload="beforeUpload"
         :on-success="handleSuccess"
         :on-remove="handleRemove"
         :on-exceed="handleExceed"
         :on-preview="handlePreview"
         :class="{ hide: fileList.length >= $attrs?.limit }"
+        v-bind="config"
     >
         <el-icon><Plus /></el-icon>
     </el-upload>
@@ -26,6 +29,12 @@ import { getEnvironment } from '@/libs/util.win';
 
 const attrs = useAttrs();
 
+const config = {
+    listType: 'picture-card',
+    accept: '.png,.jpg,.jpeg,.webp,.bmp',
+    name: 'uploadFile',
+    limit: 9,
+};
 const props = defineProps({
     // 上传api
     api: {

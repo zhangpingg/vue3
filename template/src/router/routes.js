@@ -1,4 +1,5 @@
 import { auditRecordRoutes } from './modules/auditRecord';
+import { reviewPlanRoutes } from './modules/reviewPlan';
 
 // 在主框架之外显示
 const frameOut = [
@@ -46,6 +47,7 @@ const frameIn = [
                 component: () => import('@/pages/commonPage/previewFile'),
             },
             ...auditRecordRoutes,
+            ...reviewPlanRoutes,
         ],
     },
 ];

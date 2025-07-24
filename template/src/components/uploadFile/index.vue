@@ -1,3 +1,8 @@
+<!--
+ * @Author: chengleilei
+ * @Date: 2024-05-27 15:50:02
+ * @Description: 上传文件组件
+-->
 <template>
     <el-upload
         ref="elUploadRef"
@@ -12,7 +17,7 @@
         :on-exceed="handleExceed"
         :on-preview="handlePreview"
         :class="[{ 'drag-uploaded': isDragUploaded }, 'upload-file-component']"
-        v-bind="config"
+        v-bind="{ ...attrs, ...config }"
     >
         <template #trigger>
             <slot name="trigger">
@@ -51,7 +56,9 @@
         <slot> </slot>
         <template #tip>
             <slot name="tip">
-                <div class="el-upload__tip" v-if="clickNameType === 'download'">单击文件名可下载文件</div>
+                <div class="el-upload__tip" v-if="clickNameType === 'download' && fileList.length">
+                    单击文件名可下载文件
+                </div>
             </slot>
         </template>
         <template #file>

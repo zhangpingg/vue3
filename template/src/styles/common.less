@@ -56,6 +56,12 @@
 }
 .setEllipsis();
 
+// 表格数据为空时显示-
+.table-data {
+    .el-table__cell .cell:empty::before {
+        content: '-';
+    }
+}
 // 定位布局样式
 .por {
     position: relative;
@@ -89,6 +95,9 @@
 }
 .fr {
     float: right;
+}
+.fw-b {
+    font-weight: bold;
 }
 // flex水平垂直居中对齐
 .flex-c {
@@ -166,5 +175,13 @@
         background: #808695;
         border-radius: 4px;
     }
+}
+
+// 列表更多按钮
+.more-dropdown-link {
+    cursor: pointer;
+    color: var(--el-color-primary);
+    display: flex;
+    align-items: center;
 }
 

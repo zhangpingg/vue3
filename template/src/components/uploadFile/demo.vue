@@ -12,7 +12,7 @@ const uploadConfig = {
     // drag: true,
     multiple: true,
     showFileList: true,
-    needDownload: true,
+    clickNameType: 'download',
     limit: 3,
     maxSizeArr: [
         { types: ['image'], maxSize: 5, errTip: '图片文件大小不超过5M' },
@@ -49,7 +49,7 @@ const submitData = () => {
     console.log('params', params);
 };
 
-// 单击名称 needDownload为false才执行
+// 单击名称 clickNameType为空才执行
 const handleClickName = (uploadFile) => {
     console.log('单击了', uploadFile);
 };

@@ -13,19 +13,39 @@ const userInfoRes = {
     // 左侧菜单tree
     authMenuList: [
         {
-            id: '100010',
+            id: '1',
             path: '/home',
             name: 'home',
             title: '首页',
             icon: 'House',
         },
         {
-            id: '1x',
+            id: '2',
             path: '/auditRecord/index',
             name: 'auditRecord-index',
             title: '审核记录',
             icon: 'Finished',
             auth: true,
+        },
+        {
+            id: '3',
+            name: 'reviewPlan',
+            title: '评审计划',
+            icon: 'Notebook',
+            children: [
+                {
+                    id: '3-1',
+                    path: '/reviewPlan/yearlyPlan/index',
+                    name: 'reviewPlan-yearlyPlan-index',
+                    title: '年度计划',
+                },
+                {
+                    id: '3-2',
+                    path: '/reviewPlan/monthlyPlan/index',
+                    name: 'reviewPlan-monthlyPlan-index',
+                    title: '月度计划',
+                },
+            ],
         },
     ],
 };

@@ -1,5 +1,5 @@
 import { reactive } from 'vue';
-import { apiGetAllRole } from '@/api/systemSetting';
+// import { apiGetAllRole } from '@/api/systemSetting';
 
 // 【角色】
 const roleSelectItem = reactive({
@@ -10,7 +10,8 @@ const roleSelectItem = reactive({
 });
 // 获取所有角色列表
 const getRoleList = async () => {
-    const res = await apiGetAllRole();
+    // const res = await apiGetAllRole();
+    const res = [];
     roleSelectItem.options = res.map((item) => ({ label: item.roleName, value: item.id }));
 };
 getRoleList();

@@ -1,9 +1,9 @@
 const envApi = {
     test: {
-        api: 'http://10.1.12.123:8080',
+        api: 'http://10.1.13.23:8080',
     },
     prod: {
-        api: 'https://supplier.xxx.com:4434',
+        api: 'https://quality.chaoyang.com:4434',
     },
     environment: 'test',
 };

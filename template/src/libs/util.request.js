@@ -1,6 +1,6 @@
 import { apiGetUserInfo } from '@/api/account';
 import { useUserStore, useMenuStore } from '@/store';
-import { userInfoRes } from '@/pages/account/login/mockRes'; // 【待修改: 接口返回】
+import { userInfoRes } from '@/pages/account/login/mockRes'; // 【接口返回】
 
 const userStore = useUserStore();
 const menuStore = useMenuStore();

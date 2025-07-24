@@ -5,11 +5,13 @@
 import { reactive } from 'vue';
 import { defineStore } from 'pinia';
 import { useRouter } from 'vue-router';
+import { usePageDataStore } from '@/store';
 
 const usePage = defineStore(
     'page',
     () => {
         const router = useRouter();
+        const pageDataStore = usePageDataStore();
 
         const pageInfo = reactive({
             menuTabsPool: [], // 可以在多页 tab 模式下显示的页面（所有菜单路由平铺后的列表，包括详情）
@@ -111,7 +113,7 @@ const usePage = defineStore(
                 pageInfo.openedTabList.splice(index, 1);
             }
             if (isCurrent) {
-                if (newPage.query.isReset === '1') {
+                if (newPage.query?.isReset === '1') {
                     router.push({ path: newPage.path || '/home', query: { ...newPage.query, isReset: '0' } });
                 } else {
                     router.push({ path: newPage.path || '/home', query: newPage.query });

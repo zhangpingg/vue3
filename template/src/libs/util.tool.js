@@ -203,6 +203,53 @@ const isResetDetail = (detailName, query) => {
     return isReset;
 };
 
+/**
+ * @description 校验list中每一项obj的每一个字段都必填
+ * @param {Array} list
+ * @returns {boolean} true校验成功 false校验失败
+ */
+const checkListNoEmptyValues = (list) => {
+    return list.every((obj) => {
+        return Object.values(obj).every((value) => value !== null && value !== '' && value !== undefined);
+    });
+};
+
+/**
+ * 获取url的query参数
+ * @returns {object} url的参数对象
+ */
+const getUrlQuery = () => {
+    const url = window.location.href;
+    if (url.indexOf('?') < 0) {
+        return '暂无参数';
+    }
+    return formatData(joinParam(url));
+
+    function joinParam(url) {
+        const _obj = {};
+        url.split('?')[1]
+            .split('&')
+            .forEach((item) => {
+                let _key = item.split('=')[0];
+                let _val = item.split('=')[1];
+                if (_obj[_key]) {
+                    _obj[_key].push(decodeURI(_val));
+                } else {
+                    _obj[_key] = [decodeURI(_val)];
+                }
+            });
+        return _obj;
+    }
+    function formatData(obj) {
+        for (let key in obj) {
+            if (obj[key].length === 1) {
+                obj[key] = obj[key][0];
+            }
+        }
+        return obj;
+    }
+};
+
 // 页面滚动事件
 const pageScrollFn = (event, route) => {
     pageDataStore.setPageData('pageScrollPosition', {
@@ -246,6 +293,8 @@ export {
     downloadFile,
     transToNergeCellList,
     isResetDetail,
+    checkListNoEmptyValues,
+    getUrlQuery,
     setPageScrollZero,
     setPageScrollPosition,
     removePageScrollListener,

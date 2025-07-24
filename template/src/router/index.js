@@ -19,15 +19,11 @@ router.beforeEach((to, from, next) => {
             if (menuStore.menuInfo.nameList.includes(to.name)) {
                 next();
             } else {
-                next({
-                    path: '/login',
-                });
+                next({ path: '/login' });
             }
         } else {
             // 没有登录的时候跳转到登录界面，携带上登陆成功之后需要跳转的页面完整路径
-            next({
-                path: '/login',
-            });
+            next({ path: '/login' });
         }
     } else {
         next();
