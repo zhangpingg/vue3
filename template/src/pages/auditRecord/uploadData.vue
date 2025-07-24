@@ -5,7 +5,7 @@
             <div class="mb-10">审核前上传</div>
             <TablePage :tableConfig="tablePageData.tableConfig" :isHasPage="false">
                 <template #dataStatus="{ scope: { row } }">
-                    <SlotColumns slotType="badge" :value="row.dataStatus" :options="uploadStatusSlotOptions" />
+                    <SlotColumns slotType="badge" :value="row.dataStatus" :options="statusOneDict" />
                 </template>
                 <template #operationColumn>
                     <el-table-column width="160" fixed="right">
@@ -31,10 +31,9 @@ import { ref, reactive, onActivated } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { usePageStore } from '@/store';
 import TablePage from '@/components/tablePage';
-import { getLabelByValue, uploadRequirementDict, dataTypeDict } from '@/dicts';
+import { getLabelByValue, statusOneDict } from '@/dicts';
 import { uploadMaterialColumns } from './const';
 import SlotColumns from '@/components/tablePage/common/SlotColumns';
-import { uploadStatusSlotOptions } from '@/components/tablePage/common/slotOptions';
 import UploadFileDialog from './components/UploadFileDialog';
 import { apiGetAuditRecordUploadDataList } from '@/api/auditRecord';
 import { downloadFile } from '@/libs/util.tool';
@@ -72,8 +71,7 @@ const getData = async () => {
             },
         ];
         let _res = res.map((item) => {
-            item._dataType = getLabelByValue(dataTypeDict, item.dataType);
-            item._mustUploaded = getLabelByValue(uploadRequirementDict, item.mustUploaded);
+            item._dataType = getLabelByValue(statusOneDict, item.dataType);
             return item;
         });
         tablePageData.tableConfig.data = _res;

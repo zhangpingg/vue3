@@ -1,3 +1,51 @@
+<!-- <template>
+    <div class="home">
+        <div class="home-main">
+            <img src="@/assets/images/home-logo.png" alt="logo" class="home-main-logo" />
+            <p style="width: 100%" />
+            <img src="@/assets/images/home-tips.png" alt="logo" class="home-main-tips" />
+        </div>
+    </div>
+</template>
+
+<script setup></script>
+
+<style scoped lang="less">
+.home {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #43536c url('../../assets/images/home-bg.jpg') no-repeat 50% 50%;
+    background-size: 100% 100%;
+    flex-wrap: wrap;
+    .home-main {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        height: 193px;
+        margin-bottom: 150px;
+        img {
+            max-width: 80%;
+            display: block;
+            margin: 0 auto;
+        }
+        .home-main-logo {
+            width: 590px;
+            margin: auto 150px;
+        }
+        .home-main-tips {
+            width: 915px;
+        }
+    }
+}
+</style> -->
+
 <template>
     <div>
         <PageHeader title="标题" hidden-breadcrumb>
@@ -18,28 +66,18 @@
                 @onChangePageCurrent="changePageCurrent"
                 @onChangePageSize="changePageSize"
             >
-                <template #productLevel="slotProps">
-                    {{ getLabelByValue(productLevelDict, slotProps.scope.row.productLevel) }}
+                <template #ee="{ scope: { row } }">
+                    <SlotColumns slotType="text" :value="row.ee" :options="statusOneDict" />
                 </template>
-                <template #dd="slotProps">
-                    <SlotColumns slotType="text" :value="slotProps.scope.row.dd" :options="['上架', '下架']" />
-                </template>
-                <template #ee="slotProps">
-                    <SlotColumns slotType="text" :value="slotProps.scope.row.ee" :options="abcStatusSlotOptions" />
-                </template>
-                <template #auditStatus="slotProps">
-                    <SlotColumns
-                        slotType="badge"
-                        :value="slotProps.scope.row.auditStatus"
-                        :options="abcStatusSlotOptions"
-                    />
+                <template #auditStatus="{ scope: { row } }">
+                    <SlotColumns slotType="badge" :value="row.auditStatus" :options="statusOneDict" />
                 </template>
                 <template #operationColumn>
                     <el-table-column width="120" fixed="right">
                         <template #header>操作</template>
-                        <template #default="scope">
-                            <el-button type="primary" link @click="goDetail('CHECK', scope.row)">查看</el-button>
-                            <el-button type="primary" link @click="goDetail('EDIT', scope.row)">编辑</el-button>
+                        <template #default="{ row }">
+                            <el-button type="primary" link @click="goDetail('CHECK', row)">查看</el-button>
+                            <el-button type="primary" link @click="goDetail('EDIT', row)">编辑</el-button>
                         </template>
                     </el-table-column>
                 </template>
@@ -54,7 +92,6 @@ import { useRouter } from 'vue-router';
 import { Plus } from '@element-plus/icons-vue';
 import TableForm from '@/components/tableForm';
 import TablePage from '@/components/tablePage';
-import { inputTmplItem } from '@/components/tableForm/common/inputItem';
 import { roleSelectItem } from '@/components/tableForm/common/rolseSelectItem';
 import {
     getCurrentYear,
@@ -67,8 +104,7 @@ import {
 } from '@/components/tableForm/common/dateItem';
 import { personNameColumn } from '@/components/tablePage/common/columns';
 import SlotColumns from '@/components/tablePage/common/SlotColumns';
-import { AbcStatusSlotOptions, abcStatusSlotOptions } from '@/components/tablePage/common/slotOptions';
-import { getLabelByValue, productLevelDict } from '@/dicts';
+import { getLabelByValue, statusOneDict, productLevelDict } from '@/dicts';
 
 const router = useRouter();
 const {
@@ -77,7 +113,7 @@ const {
 
 const tableFormRef = ref(null);
 const formList = reactive([
-    { ...inputTmplItem, label: '自定义名称', prop: '自定义key' }, // 自定义输入框模板，扩展后，可拼接自定义数据
+    { type: 'input', label: '自定义名称', prop: '自定义key' }, // 自定义输入框模板，扩展后，可拼接自定义数据
     roleSelectItem, // 角色（也可以扩展后，拼接自定义数据，下面均同理）
     { ...yearDateItem, value: getCurrentYear() }, // 年份，默认当前年
     { ...monthDateItem, value: getPrevYearMoth() }, // 月份，默认上一个月
@@ -138,17 +174,11 @@ const tablePageData = reactive({
             { label: '全选', type: 'selection', width: 60, align: 'center', fixed: 'left' },
             { label: '姓名', prop: 'aa', minWidth: 150 },
             personNameColumn('手机号', 'bb'),
-            { label: '状态1', prop: 'productLevel', minWidth: 100, slotName: 'productLevel' },
-            { label: '状态2', prop: 'dd', minWidth: 100, slotName: 'dd' },
+            { label: '状态1', prop: '_productLevel', minWidth: 100 },
             { label: '状态3', prop: 'ee', minWidth: 100, slotName: 'ee' },
             { label: '审核结论', prop: 'auditStatus', minWidth: 140, slotName: 'auditStatus' },
         ],
-        data: [
-            { id: 1, aa: '张三', bb: '18258261040', productLevel: 1, dd: true, ee: 1, auditStatus: 1 },
-            { id: 2, aa: '李四', bb: '18258261041', productLevel: 2, dd: true, ee: 2, auditStatus: 2 },
-            { id: 3, aa: '王五', bb: '18258261042', productLevel: 3, dd: false, ee: 3, auditStatus: 3 },
-            { id: 4, aa: '赵六', bb: '18258261043', productLevel: 4, dd: null, ee: 4, auditStatus: 4 },
-        ],
+        data: [],
     },
     pageConfig: {
         currentPage: 1,
@@ -169,7 +199,18 @@ const getData = async () => {
     try {
         tablePageData.tableConfig.loading = true;
         //const res = await apiGetRoleListByPage(_params);
-        //tablePageData.tableConfig.data = res.list || [];
+        const res = {
+            list: [
+                { id: 1, aa: '张三', bb: '18258261040', productLevel: 1, ee: 1, auditStatus: 1 },
+                { id: 2, aa: '李四', bb: '18258261041', productLevel: 2, ee: 2, auditStatus: 2 },
+                { id: 3, aa: '王五', bb: '18258261042', productLevel: 3, ee: 3, auditStatus: 3 },
+                { id: 4, aa: '赵六', bb: '18258261043', productLevel: 4, ee: null, auditStatus: null },
+            ],
+        };
+        tablePageData.tableConfig.data = res.list.map((item) => {
+            item._productLevel = getLabelByValue(productLevelDict, item.productLevel);
+            return item;
+        });
         //tablePageData.pageConfig.total = Number(res.total);
         tablePageData.tableConfig.loading = false;
     } catch (error) {

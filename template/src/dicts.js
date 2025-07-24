@@ -16,24 +16,6 @@ export const getLabelByValue = (options, value, label = 'label') => {
     return _label;
 };
 
-// 【上传要求】
-export const uploadRequirementDict = [
-    { value: 0, label: '非必传' },
-    { value: 1, label: '必传' },
-];
-
-// 【资料名称】
-export const dataTypeDict = [
-    { value: 1, label: '营业执照' },
-    { value: 2, label: '工艺流程图' },
-    { value: 3, label: '中策SQS审核表' },
-    { value: 4, label: 'ISO9001认证' },
-    { value: 5, label: 'ISO9000认证' },
-    { value: 6, label: 'ISO19011认证' },
-    { value: 7, label: 'CP' },
-    { value: 8, label: 'FMEA' },
-];
-
 // 【原材料ABC分类】
 export const productLevelDict = [
     { value: 1, label: 'A类', shortLabel: 'A' },
@@ -42,4 +24,12 @@ export const productLevelDict = [
     { value: 4, label: '辅助', shortLabel: '辅助' },
     { value: 5, label: '包装', shortLabel: '包装' },
     { value: 6, label: '外购件', shortLabel: '外购件' },
+];
+
+// 【状态1】
+export const statusOneDict = [
+    { value: 1, label: '选项1', type: 'primary', color: 'red' },
+    { value: 2, label: '选项2', type: 'success', color: 'blue' },
+    { value: 3, label: '选项3', type: 'warning', color: 'yellow' },
+    { value: 4, label: '选项4', type: 'danger', color: 'green' },
 ];

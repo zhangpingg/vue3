@@ -12,7 +12,7 @@ const columns = [
 const uploadMaterialColumns = [
     { label: '资料名称', prop: '_dataType', minWidth: 140 },
     dateColumn('有效期', 'expirationDate'),
-    { label: '上传要求', prop: '_mustUploaded', minWidth: 120 },
+    { label: '上传要求', prop: 'mustUploaded', minWidth: 120 },
     { label: '状态', prop: 'dataStatus', minWidth: 100, slotName: 'dataStatus' },
     dateLongColumn('更新时间', 'uploadDate'),
 ];

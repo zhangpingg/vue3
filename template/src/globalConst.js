@@ -14,10 +14,4 @@ export default {
         pageSizes: [10, 20, 30, 40],
         pageSize: 10,
     },
-    // 请求头
-    requestHeader: {
-        Authorization: Cookies.get('token'),
-    },
-    // 可查看的文件类型
-    allowPreviewTypeList: ['jpg', 'png', 'jpeg', 'gif', 'txt', 'mp3', 'mp4', 'pdf', 'doc', 'docx', 'xls', 'xlsx'],
 };
