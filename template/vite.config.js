@@ -5,7 +5,7 @@ import path from 'path';
 import dayjs from 'dayjs';
 import proxy from './config/proxy';
 
-const timeStamp = dayjs().format('YYYYMMDD_HH_mm_ss');
+const timeStamp = dayjs().format('YYYYMMDD_HHmmss');
 
 export default defineConfig({
     server: {
@@ -38,4 +38,3 @@ export default defineConfig({
         //sourcemap: true,
     },
 });
-

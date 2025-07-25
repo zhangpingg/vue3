@@ -13,10 +13,12 @@
                         @uploadSuccess="uploadSuccess"
                         @removeSuccess="removeSuccess"
                     >
-                        <el-button>
-                            <el-icon class="el-icon--right mr-10"><Upload /></el-icon>
-                            {{ uploadBtnText }}
-                        </el-button>
+                        <template #trigger>
+                            <el-button>
+                                <el-icon class="el-icon--right mr-10"><Upload /></el-icon>
+                                {{ uploadBtnText }}
+                            </el-button>
+                        </template>
                         <template #tip>
                             <div class="el-upload__tip">支持jpg、png、pdf、bmp格式；图片文件大小不超过5M</div>
                         </template>
