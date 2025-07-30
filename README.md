@@ -29,6 +29,7 @@
 24)图片懒加载-loading="lazy"、IntersectionObserver
 25)生成并下载PDF
 26)SSR 服务端渲染
+27)v-model:count="count" （v-model语法糖）子组件同步修改父级数据源
 ```
 
 ## template

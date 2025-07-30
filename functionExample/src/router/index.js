@@ -266,6 +266,15 @@ const routes = [
             cache: false
         },
         component: () => import('@/pages/ssr/index.vue')
+    },
+    {
+        path: `/vModelXxx`,
+        name: 'vModelXxx',
+        meta: {
+            title: 'v-model:count="count"',
+            cache: false
+        },
+        component: () => import('@/pages/vModelXxx/index.vue')
     }
 ];
 
