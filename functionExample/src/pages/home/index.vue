@@ -34,6 +34,7 @@
         <span @click="jumpPage('ssr')">SSR 服务端渲染</span><br />
         <span @click="jumpPage('vModelXxx')">v-model:count="count" （v-model语法糖）子组件同步修改父级数据源</span
         ><br />
+        <span @click="jumpPage('sku')">sku 互相联动</span><br />
     </div>
 </template>
 
@@ -58,3 +59,4 @@ const jumpPage = (path) => {
     }
 }
 </style>
+

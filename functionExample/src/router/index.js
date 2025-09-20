@@ -275,6 +275,15 @@ const routes = [
             cache: false
         },
         component: () => import('@/pages/vModelXxx/index.vue')
+    },
+    {
+        path: `/sku`,
+        name: 'sku',
+        meta: {
+            title: 'sku',
+            cache: false
+        },
+        component: () => import('@/pages/sku/index.vue')
     }
 ];
 
@@ -284,3 +293,4 @@ const router = createRouter({
 });
 
 export default router;
+
