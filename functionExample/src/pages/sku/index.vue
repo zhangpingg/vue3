@@ -88,10 +88,8 @@ const isOptionDisabled = (groupName, optionId) => {
     if (selectedOptions[groupName] === optionId) {
         return false;
     }
-
     // 创建临时选中状态（包含当前要检查的选项）
     const tempSelected = { ...selectedOptions, [groupName]: optionId };
-
     // 检查是否存在匹配的SKU
     return !skuList.value.some((sku) => {
         return Object.entries(tempSelected).every(([gName, optId]) => {
@@ -139,7 +137,7 @@ const save = () => {
 <style lang="less" scoped>
 .box {
     .box-option {
-        padding: 0.6rem 1.2rem;
+        padding: 5px 10px;
         border-radius: 6px;
         cursor: pointer;
         transition: all 0.2s ease;
