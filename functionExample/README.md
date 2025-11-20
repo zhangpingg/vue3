@@ -36,6 +36,7 @@ npm run dev
 26)SSR 服务端渲染
 27)v-model:count="count" （v-model语法糖）子组件同步修改父级数据源
 28)sku，互相联动
+29)合并单元格
 ```
 
 ### 命令
@@ -50,4 +51,3 @@ npm run lint-staged // 执行 eslint 检查（暂存区,即add之后）
 npm run prettier    // 格式化，并自动修复（全局）
 
 ```
-

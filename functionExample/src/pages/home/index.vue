@@ -32,9 +32,10 @@
         <span @click="jumpPage('imgLazyLoad')">图片懒加载-loading="lazy"、IntersectionObserver</span><br />
         <span @click="jumpPage('createDownloadPDF')">生成并下载PDF</span><br />
         <span @click="jumpPage('ssr')">SSR 服务端渲染</span><br />
-        <span @click="jumpPage('vModelXxx')">v-model:count="count" （v-model语法糖）子组件同步修改父级数据源</span
-        ><br />
+        <span @click="jumpPage('vModelXxx')">v-model:count="count" （v-model语法糖）子组件同步修改父级数据源</span>
+        <br />
         <span @click="jumpPage('sku')">sku 互相联动</span><br />
+        <span @click="jumpPage('mergeCellTable')">合并单元格</span><br />
     </div>
 </template>
 
@@ -59,4 +60,3 @@ const jumpPage = (path) => {
     }
 }
 </style>
-

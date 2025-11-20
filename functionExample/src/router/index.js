@@ -284,6 +284,15 @@ const routes = [
             cache: false
         },
         component: () => import('@/pages/sku/index.vue')
+    },
+    {
+        path: `/mergeCellTable`,
+        name: 'mergeCellTable',
+        meta: {
+            title: '合并单元格表格',
+            cache: false
+        },
+        component: () => import('@/pages/mergeCellTable/index.vue')
     }
 ];
 
@@ -293,4 +302,3 @@ const router = createRouter({
 });
 
 export default router;
-
