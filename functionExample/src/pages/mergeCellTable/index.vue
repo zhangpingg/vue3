@@ -23,11 +23,15 @@ const tableData = ref([
     { aa: 1, bb: 1, cc: '啦啦啦' },
     { aa: 1, bb: 2, cc: '啦啦啦' },
     { aa: 2, bb: 3, cc: '啦啦啦' },
-    { aa: 2, bb: 3, cc: '啦啦啦' }
+    { aa: 2, bb: 3, cc: '啦啦啦' },
+    { aa: 100 }
 ]);
 
 // 合并单元格
 const spanMethod = ({ row, column, rowIndex, columnIndex }) => {
+    if (columnIndex === 0 && row.aa === 100) {
+        return [1, 3];
+    }
     switch (columnIndex) {
         case 0:
             return [row.aaRowSpan, 1];
