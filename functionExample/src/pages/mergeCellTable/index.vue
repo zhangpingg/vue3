@@ -19,18 +19,22 @@ import { ref, onMounted } from 'vue';
 import { transToMergeCellList } from '@/libs/util.tool';
 
 const tableData = ref([
+    { aa: 'TITLE' },
     { aa: 1, bb: 1, cc: '啦啦啦' },
     { aa: 1, bb: 1, cc: '啦啦啦' },
     { aa: 1, bb: 2, cc: '啦啦啦' },
     { aa: 2, bb: 3, cc: '啦啦啦' },
-    { aa: 2, bb: 3, cc: '啦啦啦' },
-    { aa: 100 }
+    { aa: 2, bb: 3, cc: '啦啦啦' }
 ]);
 
 // 合并单元格
 const spanMethod = ({ row, column, rowIndex, columnIndex }) => {
-    if (columnIndex === 0 && row.aa === 100) {
-        return [1, 3];
+    if (row.aa === 'TITLE') {
+        if (columnIndex === 0) {
+            return [1, 3]; // 第一列合并4列
+        } else {
+            return [0, 0]; // 其他列隐藏
+        }
     }
     switch (columnIndex) {
         case 0:
