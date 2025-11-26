@@ -29,13 +29,13 @@ const props = defineProps({
     // 文本内容
     content: {
         type: String,
-        default: '',
+        default: ''
     },
     // 右侧截取字符串长度
     rightSliceLength: {
         type: Number,
-        default: 6,
-    },
+        default: 6
+    }
 });
 
 // 判断内容是否为长文字
@@ -51,16 +51,14 @@ const judgeContentLongStr = () => {
     }
 };
 
-onMounted(() => {
-    judgeContentLongStr();
-});
 watch(
     () => props.content,
     async () => {
         await nextTick();
         isLongStr.value = true;
         judgeContentLongStr();
-    }
+    },
+    { immediate: true }
 );
 </script>
 
