@@ -42,8 +42,9 @@ const formatSize = (bytes) => {
 // 上传
 const uploadFileFn = (file) => {
     let url = `/test/api/pt/common/file/upload`;
-    let forms = new FormData();
-    forms.append('uploadFile', file, file.name);
+    let formData = new FormData();
+    formData.append('uploadFile', file, file.name);
+    formData.append('aa', 1);
     let configs = {
         headers: {
             // CRM项目
@@ -52,7 +53,7 @@ const uploadFileFn = (file) => {
         }
     };
     axios
-        .post(url, forms, configs)
+        .post(url, formData, configs)
         .then((res) => {})
         .catch((err) => {
             ElMessage.success('上传失败，请重试！');
