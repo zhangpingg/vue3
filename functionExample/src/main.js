@@ -37,6 +37,9 @@ import VueCropper from 'vue-cropper';
 import 'vue-cropper/dist/index.css';
 // 本地样式
 import './styles/index.less';
+// 上传文件夹
+import uploader from 'vue-simple-uploader';
+import 'vue-simple-uploader/dist/style.css';
 
 const app = createApp(App);
 
@@ -65,6 +68,7 @@ app.use(router)
     .use(ConfirmPlugin)
     .use(ContextMenuPlugin)
     .use(i18n)
+    .use(uploader)
     .use(VueViewer, {
         // 自定义默认配置
         defaultOptions: {
