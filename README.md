@@ -32,6 +32,7 @@
 27)v-model:count="count" （v-model语法糖）子组件同步修改父级数据源
 28)sku，互相联动
 29)合并单元格
+30)上传文件夹
 ```
 
 ## template

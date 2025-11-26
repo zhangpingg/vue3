@@ -293,6 +293,15 @@ const routes = [
             cache: false
         },
         component: () => import('@/pages/mergeCellTable/index.vue')
+    },
+    {
+        path: `/uploadFolder`,
+        name: 'uploadFolder',
+        meta: {
+            title: '上传文件夹',
+            cache: false
+        },
+        component: () => import('@/pages/uploadFolder/index.vue')
     }
 ];
 

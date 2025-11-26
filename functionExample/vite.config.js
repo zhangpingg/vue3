@@ -19,7 +19,8 @@ export default defineConfig({
         origin: 'http://localhost:8084',
         proxy: {
             '/test/api': {
-                target: 'http://10.1.13.23',
+                //target: 'http://10.1.13.23',  // 质管项目
+                target: 'http://10.1.13.23:8081', // CRM项目
                 changeOrigin: true,
                 bypass(req, res, options) {
                     const realUrl = new URL(req.url || '', options.target).href || '';
