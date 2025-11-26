@@ -302,6 +302,15 @@ const routes = [
             cache: false
         },
         component: () => import('@/pages/uploadFolder/index.vue')
+    },
+    {
+        path: `/ellipsisInMiddleTextDemo`,
+        name: 'ellipsisInMiddleTextDemo',
+        meta: {
+            title: '中间部分省略号文本组件',
+            cache: false
+        },
+        component: () => import('@/pages/ellipsisInMiddleTextDemo/index.vue')
     }
 ];
 

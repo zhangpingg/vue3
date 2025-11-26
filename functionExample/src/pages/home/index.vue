@@ -37,6 +37,7 @@
         <span @click="jumpPage('sku')">sku 互相联动</span><br />
         <span @click="jumpPage('mergeCellTable')">合并单元格</span><br />
         <span @click="jumpPage('uploadFolder')">上传文件夹</span><br />
+        <span @click="jumpPage('ellipsisInMiddleTextDemo')">中间部分省略号文本组件</span><br />
     </div>
 </template>
 
