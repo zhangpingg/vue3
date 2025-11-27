@@ -19,11 +19,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick, watch } from 'vue';
+import { ref, nextTick, watch, onUnmounted } from 'vue';
 import { v4 as uuidv4 } from 'uuid';
 
 const uuid = ref(uuidv4());
 const isLongStr = ref(true);
+const timerId = ref(null);
 
 const props = defineProps({
     // 文本内容
@@ -56,10 +57,15 @@ watch(
     async () => {
         await nextTick();
         isLongStr.value = true;
-        judgeContentLongStr();
+        timerId.value = setTimeout(() => {
+            judgeContentLongStr();
+        }, 0);
     },
     { immediate: true }
 );
+onUnmounted(() => {
+    clearTimeout(timerId.value);
+});
 </script>
 
 <style lang="less" scoped>
