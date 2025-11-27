@@ -2,8 +2,9 @@
 <!--
 <template>
     <div>
-        <el-button @click="uploadFolder">上传文件夹</el-button>
-        <NativeUploadFolder ref="nativeUploadFolderRef" />
+        <div>其他内容</div>
+        <el-button @click="uploadFolder" id="box1">上传文件夹</el-button>
+        <NativeUploadFolder ref="nativeUploadFolderRef" loadingContainer="#box1" />
     </div>
 </template>
 
@@ -33,9 +34,17 @@ const uploadFolder = () => {
 
 <script setup>
 import { ref, defineExpose, h, watch, nextTick, onBeforeUnmount } from 'vue';
-import { ElMessage, ElNotification } from 'element-plus';
+import { ElMessage, ElNotification, ElLoading } from 'element-plus';
 import { Refresh } from '@element-plus/icons-vue';
 import axios from 'axios';
+
+const props = defineProps({
+    // loading容器
+    loadingContainer: {
+        type: String,
+        default: ''
+    }
+});
 
 const inputRef = ref(null);
 const fileList = ref([]); // 选中的文件
@@ -44,7 +53,8 @@ const uploadedSuccessCount = ref(0); // 上传成功的数量
 const uploadFailCount = ref(0); // 上传失败的数量
 const notificationInstance = ref(); // 通知消息的实例
 const timer = ref();
-const hash = ref();
+const hash = ref(); // 接口参数需要的hash
+const loadingInstance = ref(null); // loading实例
 
 // 获取格式化的日期时间作为 hash
 const getDateTimeHash = () => {
@@ -69,6 +79,12 @@ const changeInput = (e) => {
     fileList.value.forEach((item, index) => {
         uploadFileFn(item, index);
     });
+    if (!loadingInstance.value) {
+        loadingInstance.value = ElLoading.service({
+            target: document.querySelector(props.loadingContainer),
+            text: '上传中...'
+        });
+    }
     openUploadProgressNotification();
 };
 // 判断是否上传结束
@@ -85,6 +101,8 @@ const JudgeUploadEnd = () => {
             uploadedFileList.value = [];
             uploadedSuccessCount.value = 0;
             uploadFailCount.value = 0;
+            loadingInstance.value.close();
+            loadingInstance.value = null;
         }, 1000);
     }
 };
