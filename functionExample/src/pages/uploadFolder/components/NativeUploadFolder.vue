@@ -160,8 +160,7 @@ const openUploadProgressNotification = () => {
                         width: '20px',
                         height: '20px',
                         animation: 'spinAnimation 1s linear infinite'
-                    },
-                    id: 'spinningIcon'
+                    }
                 }),
                 '任务运行中'
             ]),
