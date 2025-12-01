@@ -62,7 +62,7 @@ const loadNode = async (node, resolve) => {
 };
 // 手动打开tree节点
 const openNode = async (nodeId) => {
-    const node = elTreeRef.value.getNode(nodeId);
+    const node = elTreeRef.value.getNode(nodeId); // 获取当前节点的信息
     if (!node) return;
     // 非刷新数据且已经加载过了，可以直接展开
     if (node.loaded) {
