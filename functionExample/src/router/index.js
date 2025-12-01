@@ -311,6 +311,15 @@ const routes = [
             cache: false
         },
         component: () => import('@/pages/ellipsisInMiddleTextDemo/index.vue')
+    },
+    {
+        path: `/tree`,
+        name: 'tree',
+        meta: {
+            title: 'tree树',
+            cache: false
+        },
+        component: () => import('@/pages/tree/index.vue')
     }
 ];
 

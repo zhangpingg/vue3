@@ -38,6 +38,7 @@
         <span @click="jumpPage('mergeCellTable')">合并单元格</span><br />
         <span @click="jumpPage('uploadFolder')">上传文件夹</span><br />
         <span @click="jumpPage('ellipsisInMiddleTextDemo')">中间部分省略号文本组件</span><br />
+        <span @click="jumpPage('tree')">（自动/手动）懒加载子节点，设置节点背景色</span><br />
     </div>
 </template>
 
