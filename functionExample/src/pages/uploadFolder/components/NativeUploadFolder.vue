@@ -1,31 +1,14 @@
-<!--【使用实例】-->
 <!--
-<template>
-    <div>
-        <div>其他内容</div>
-        <el-button @click="uploadFolder" id="box1">上传文件夹</el-button>
-        <NativeUploadFolder ref="nativeUploadFolderRef" loadingContainer="#box1" />
-    </div>
-</template>
-
-<script setup>
-import { ref } from 'vue';
-import NativeUploadFolder from './components/NativeUploadFolder';
-
-const nativeUploadFolderRef = ref(null);
-
-// 上传文件夹
-const uploadFolder = () => {
-    nativeUploadFolderRef.value.openUploadFolder();
-};
-</script>
+* @Author: zhangping
+* @Date: 2025-11-28 15:13:04
+* @Description: 原生方式，上传文件夹
 -->
-
-<!--【原生实现上传文件夹：已完善】-->
 
 <template>
     <div>
         <input ref="inputRef" type="file" webkitdirectory mozdirectory @change="changeInput" class="dn" />
+
+        <!--接口上传成功后，页面没展示出来，是因为接口没有返回url-->
         <div v-for="item in uploadedFileList">
             <img :src="item.fileUrl" width="100px" />
         </div>
@@ -37,14 +20,21 @@ import { ref, defineExpose, h, watch, nextTick, onBeforeUnmount } from 'vue';
 import { ElMessage, ElNotification, ElLoading } from 'element-plus';
 import { Refresh } from '@element-plus/icons-vue';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const props = defineProps({
+    // 父级id
+    parentId: {
+        type: [Number, String],
+        default: null
+    },
     // loading容器
     loadingContainer: {
         type: String,
         default: ''
     }
 });
+const emit = defineEmits(['onSuccess']);
 
 const inputRef = ref(null);
 const fileList = ref([]); // 选中的文件
@@ -74,11 +64,8 @@ const openUploadFolder = () => {
     inputRef.value.click();
 };
 // 选择文件夹
-const changeInput = (e) => {
+const changeInput = async (e) => {
     fileList.value = Array.from(e.target.files);
-    fileList.value.forEach((item, index) => {
-        uploadFileFn(item, index);
-    });
     if (!loadingInstance.value) {
         loadingInstance.value = ElLoading.service({
             target: document.querySelector(props.loadingContainer),
@@ -86,6 +73,11 @@ const changeInput = (e) => {
         });
     }
     openUploadProgressNotification();
+    // 串行上传文件
+    for (let index = 0; index < fileList.value.length; index++) {
+        const item = fileList.value[index];
+        await uploadFileFn(item, index);
+    }
 };
 // 判断是否上传结束
 const JudgeUploadEnd = () => {
@@ -95,6 +87,7 @@ const JudgeUploadEnd = () => {
             message: `上传结束，总共${fileList.value.length || 0}个文件，成功${uploadedSuccessCount.value || 0}个，失败${uploadFailCount.value || 0}个`,
             duration: 4000
         });
+        emit('onSuccess', [props.parentId]);
         timer.value = setTimeout(() => {
             closeNotification();
             fileList.value = [];
@@ -107,33 +100,16 @@ const JudgeUploadEnd = () => {
     }
 };
 // 上传文件
-const uploadFileFn = (file, index) => {
-    let url = `/test/api/pt/common/file/upload`;
+const uploadFileFn = (file) => {
+    let url = '/test/api/pt/customer/file/upload/folder';
     let formData = new FormData();
-    formData.append('uploadFile', file, file.name);
+    formData.append('uploadFile', file, file.webkitRelativePath);
     formData.append('hash', hash.value);
-    // 过期的
-    let token1 = 'aaa';
-    // 无token
-    let token2 = '';
-    // 真实的token
-    let token3 = 'bbbb';
-    let token = null;
-    if (index === 0) {
-        token = token1;
-    } else if (index == 1) {
-        token = token2;
-    } else {
-        token = token3;
-    }
-    let configs = {
-        headers: {
-            // CRM项目
-            Authorization: token
-        }
-    };
+    formData.append('parentId', props.parentId);
+    let token =
+        'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxODIxMTExMTExMSIsInNjb3BlcyI6WyIxMDAwMTAiLCIxMDAwMjAiLCIxMDAwMzAiLCIxMDAwMzEiLCIxMDAwMzIiLCIxMDAwNDAiLCIxMDAwNDEiLCIxMDAwNDIiLCIxMDAwNDMiLCIxMDAwNTAiLCIxMDAwNTEiLCIxMDAwNTIiLCIxMDAwNTMiLCIxMDAwNTQiLCIxMDAwNjAiLCIxMDAwNjEiLCIxMDAwNjIiLCIxMDAwNjMiLCIxMDAwNzAiXSwiaXNzIjoic2VjdXJpdHkiLCJpYXQiOjE3NjQ2MzY5OTMsImV4cCI6MTc2NDY0ODk5M30.--coFmHqFn7BBluCicWj0Ik9fW1sGYffFTVUs21RzosWWOPsO7TLGUgSmDbpqMgId3GMcnAj7KWsDrzEqyQMFA';
     axios
-        .post(url, formData, configs)
+        .post(url, formData, { headers: { Authorization: token } }) // CRM 的 token
         .then((res) => {
             if (!!res.data.data) {
                 uploadedFileList.value.push({ fileUrl: res.data.data });
