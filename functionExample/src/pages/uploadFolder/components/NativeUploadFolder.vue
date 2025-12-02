@@ -76,7 +76,7 @@ const changeInput = async (e) => {
     // 串行上传文件
     for (let index = 0; index < fileList.value.length; index++) {
         const item = fileList.value[index];
-        await uploadFileFn(item, index);
+        await uploadFileFn(item);
     }
 };
 // 判断是否上传结束
@@ -101,28 +101,31 @@ const JudgeUploadEnd = () => {
 };
 // 上传文件
 const uploadFileFn = (file) => {
-    let url = '/test/api/pt/customer/file/upload/folder';
-    let formData = new FormData();
-    formData.append('uploadFile', file, file.webkitRelativePath);
-    formData.append('hash', hash.value);
-    formData.append('parentId', props.parentId);
-    let token =
-        'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxODIxMTExMTExMSIsInNjb3BlcyI6WyIxMDAwMTAiLCIxMDAwMjAiLCIxMDAwMzAiLCIxMDAwMzEiLCIxMDAwMzIiLCIxMDAwNDAiLCIxMDAwNDEiLCIxMDAwNDIiLCIxMDAwNDMiLCIxMDAwNTAiLCIxMDAwNTEiLCIxMDAwNTIiLCIxMDAwNTMiLCIxMDAwNTQiLCIxMDAwNjAiLCIxMDAwNjEiLCIxMDAwNjIiLCIxMDAwNjMiLCIxMDAwNzAiXSwiaXNzIjoic2VjdXJpdHkiLCJpYXQiOjE3NjQ2MzY5OTMsImV4cCI6MTc2NDY0ODk5M30.--coFmHqFn7BBluCicWj0Ik9fW1sGYffFTVUs21RzosWWOPsO7TLGUgSmDbpqMgId3GMcnAj7KWsDrzEqyQMFA';
-    axios
-        .post(url, formData, { headers: { Authorization: token } }) // CRM 的 token
-        .then((res) => {
-            if (!!res.data.data) {
-                uploadedFileList.value.push({ fileUrl: res.data.data });
-                uploadedSuccessCount.value++;
-            } else {
+    return new Promise((resolve) => {
+        let url = '/test/api/pt/customer/file/upload/folder';
+        let formData = new FormData();
+        formData.append('uploadFile', file, file.webkitRelativePath);
+        formData.append('hash', hash.value);
+        formData.append('parentId', props.parentId);
+        let token = '';
+        axios
+            .post(url, formData, { headers: { Authorization: token } }) // CRM 的 token
+            .then((res) => {
+                if (!!res.data.data) {
+                    uploadedFileList.value.push({ fileUrl: res.data.data });
+                    uploadedSuccessCount.value++;
+                } else {
+                    uploadFailCount.value++;
+                }
+                JudgeUploadEnd();
+                resolve();
+            })
+            .catch((err) => {
                 uploadFailCount.value++;
-            }
-            JudgeUploadEnd();
-        })
-        .catch((err) => {
-            uploadFailCount.value++;
-            JudgeUploadEnd();
-        });
+                JudgeUploadEnd();
+                resolve();
+            });
+    });
 };
 // 打开上传进度通知
 const openUploadProgressNotification = () => {
