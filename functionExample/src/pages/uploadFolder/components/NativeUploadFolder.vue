@@ -111,7 +111,7 @@ const uploadFileFn = (file) => {
         axios
             .post(url, formData, { headers: { Authorization: token } }) // CRM 的 token
             .then((res) => {
-                if (!!res.data.data) {
+                if (!!res.data) {
                     uploadedFileList.value.push({ fileUrl: res.data.data });
                     uploadedSuccessCount.value++;
                 } else {
