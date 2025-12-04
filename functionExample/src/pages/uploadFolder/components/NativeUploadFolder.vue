@@ -78,6 +78,8 @@ const changeInput = async (e) => {
         const item = fileList.value[index];
         await uploadFileFn(item);
     }
+    // 需要清空：不然如果上传同一个文件夹的时候，input 值不变，则不会触发 change 事件
+    e.target.value = '';
 };
 // 判断是否上传结束
 const JudgeUploadEnd = () => {
