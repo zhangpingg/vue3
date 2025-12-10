@@ -1,7 +1,7 @@
 <!--
 * @Author: zhangping
 * @Date: 2025-09-22 17:19:06
-* @Description: 动态合并单元格：未完成，还有缺陷
+* @Description: 动态合并单元格：未完成，还有缺陷，暂时用不了
 -->
 
 <template>
