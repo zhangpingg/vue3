@@ -9,12 +9,10 @@
         <el-table :data="tableData" :span-method="spanMethod" border>
             <el-table-column prop="a1Label" label="a1-客户序号" :min-width="120" fixed>
                 <template #default="{ row }">
-                    <div class="titleCell">
-                        <div v-if="row.a1Id == 'TITLE'">
-                            <div>问题序号 {{ row.index }}</div>
-                        </div>
-                        <div v-else>{{ row.a1Label }}</div>
+                    <div class="titleCell" v-if="row.a1Id == 'TITLE'">
+                        <div>问题序号 {{ row.index }}</div>
                     </div>
+                    <div v-else>{{ row.a1Label }}</div>
                 </template>
             </el-table-column>
             <el-table-column prop="a2Label" label="a2-工序" :min-width="120" fixed>
