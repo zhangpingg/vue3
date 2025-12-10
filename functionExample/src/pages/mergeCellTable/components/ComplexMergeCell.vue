@@ -171,30 +171,30 @@ const transNestingListToFlattenList = (list) => {
         item.issueRectifies.forEach((itemRectifies, indexItemRectifies) => {
             itemRectifies.issuePlans.forEach((itemPlan) => {
                 result.push({
-                    a1Id: index + 1,
+                    a1Id: index,
                     a1Label: item.orderNum,
-                    a2Id: index + 1,
+                    a2Id: index,
                     a2Label: item.process,
-                    b1Id: indexItemRectifies + 1,
+                    b1Id: indexItemRectifies,
                     b1Label: itemRectifies.subProcess,
-                    b2Id: indexItemRectifies + 1,
+                    b2Id: indexItemRectifies,
                     b2Label: itemRectifies.problem,
-                    b3Id: indexItemRectifies + 1,
+                    b3Id: indexItemRectifies,
                     b3Label: itemRectifies.analysis,
                     actionPlan: itemPlan.planDetail,
                     planCompleteDate: itemPlan.planFinishDate,
                     actualCompleteDate: itemPlan.actualFinishDate,
                     rectificationEvidence: itemPlan.rectifyEvidenceFileName,
                     rectifyEvidenceUrl: itemPlan.rectifyEvidenceUrl,
-                    b4Id: indexItemRectifies + 1,
+                    b4Id: indexItemRectifies,
                     b4Label: itemRectifies.issueUsers
                         .map((itemUser) => {
                             return `${itemUser.userName}（${itemUser.deptName}）`;
                         })
                         .join('、'),
-                    b5Id: indexItemRectifies + 1,
+                    b5Id: indexItemRectifies,
                     b5Label: itemRectifies.remark,
-                    operationId: indexItemRectifies + 1
+                    operationId: indexItemRectifies
                 });
             });
         });
