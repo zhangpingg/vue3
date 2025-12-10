@@ -5,9 +5,9 @@
 -->
 
 <template>
-    <div class="tableContant">
+    <div>
         <el-table :data="tableData" :span-method="spanMethod" border>
-            <el-table-column prop="a1Label" label="a1-客户序号" :min-width="120" fixed="left">
+            <el-table-column prop="a1Label" label="a1-客户序号" :min-width="120" fixed>
                 <template #default="{ row }">
                     <div class="titleCell">
                         <div v-if="row.a1Id == 'TITLE'">
@@ -437,9 +437,6 @@ onMounted(() => {
 </script>
 
 <style lang="less" scoped>
-.title {
-    border: 2px solid #f00;
-}
 /* 通过检查单元格内容是否包含 titleCell 来去除右边框 */
 :deep(.el-table__body tr td:has(> .cell > .titleCell)) {
     border-right: none !important;
