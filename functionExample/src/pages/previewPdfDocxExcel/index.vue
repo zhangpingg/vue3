@@ -1,3 +1,25 @@
+<!-- 
+    如果使用在Tab中，excel全屏无效时，需要以下操作：
+    // change-Tab
+    const changeTab = async () => {
+        await nextTick();
+        window.dispatchEvent(new Event('resize'));
+    };
+    :deep(.x-spreadsheet-sheet) {
+        width: 100% !important;
+        .x-spreadsheet-table,
+        .x-spreadsheet-overlayer {
+            width: 100% !important;
+            height: 100% !important;
+        }
+    }
+    :deep(.x-spreadsheet-container) {
+        transform: none !important;
+        max-width: 100%;
+        max-height: 100%;
+    }
+ -->
+
 <template>
     <div>
         <p>1)预览PDF</p>
