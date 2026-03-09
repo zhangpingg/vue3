@@ -320,6 +320,15 @@ const routes = [
             cache: false
         },
         component: () => import('@/pages/tree/index.vue')
+    },
+    {
+        path: `/selectParentChildItem`,
+        name: 'selectParentChildItem',
+        meta: {
+            title: '下拉框：父子项选中互斥',
+            cache: false
+        },
+        component: () => import('@/pages/selectParentChildItem/index.vue')
     }
 ];
 
