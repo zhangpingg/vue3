@@ -41,6 +41,7 @@
         "element-plus": "^2.7.4",
         "express": "^5.1.0",
         "jspdf": "^3.0.1",
+        "lodash": "^4.17.23",
         "marked": "^14.0.0",
         "multer": "^2.0.2",
         "print-js": "^1.6.0",

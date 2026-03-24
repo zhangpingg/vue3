@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 /**
  * @description 判断-是否是有效的数据
  * @param {any} val 传入的值
@@ -8,6 +10,18 @@ const isValidVal = (val) => {
         return false;
     }
     return true;
+};
+
+/**
+ * @description 判断-是否是有效的非空数组
+ * @param {any} list 传入的值
+ * @returns {boolean} 返回boolean
+ */
+const isValidArr = (list) => {
+    if (_.isArray(list) && !_.isEmpty(list)) {
+        return true;
+    }
+    return false;
 };
 
 /**
@@ -146,4 +160,4 @@ const transToMergeCellList = (dataList, strList) => {
     return _dataList;
 };
 
-export { isValidVal, downloadFile, previewFile, isAllowPreview, transToMergeCellList };
+export { isValidVal, isValidArr, downloadFile, previewFile, isAllowPreview, transToMergeCellList };
