@@ -1,4 +1,7 @@
 import _ from 'lodash';
+import Setting from '@/globalSetting';
+
+const { imgPreviewTypes, menuPreviewTypes } = Setting;
 
 /**
  * @description 判断-是否是有效的数据
@@ -67,40 +70,42 @@ const downloadFile = (url, fileName, isFileStream = false) => {
  * @param {router} router 路由全局对象
  */
 const previewFile = (fileUrl, menuTitle, router) => {
-    //const _list = fileUrl.split('.');
-    //const extension = _list[_list.length - 1];
-    //if (imgPreviewTypes.includes(extension)) {
-    //    viewerApi({
-    //        options: {
-    //            toolbar: true,
-    //            initialViewIndex: 0
-    //        },
-    //        images: [fileUrl]
-    //    });
-    //} else if (menuPreviewTypes.includes(extension)) {
-    //    switch (extension) {
-    //        case 'doc':
-    //            apiConvertFileType({ fileUrl }).then((res) => {
-    //                router.push({ path: '/previewFile', query: { url: res, title: menuTitle } });
-    //            });
-    //            break;
-    //        case 'docx':
-    //            router.push({ path: '/previewFile', query: { url: fileUrl, title: menuTitle } });
-    //            break;
-    //        case 'xls':
-    //            apiConvertFileType({ fileUrl }).then((res) => {
-    //                router.push({ path: '/previewFile', query: { url: res, title: menuTitle } });
-    //            });
-    //            break;
-    //        case 'xlsx':
-    //            router.push({ path: '/previewFile', query: { url: fileUrl, title: menuTitle } });
-    //            break;
-    //        default:
-    //            break;
-    //    }
-    //} else {
-    //    window.open(fileUrl, '_blank');
-    //}
+    const _list = fileUrl.split('.');
+    const extension = _list[_list.length - 1];
+    if (imgPreviewTypes.includes(extension)) {
+        viewerApi({
+            options: {
+                toolbar: true,
+                initialViewIndex: 0
+            },
+            images: [fileUrl]
+        });
+    } else if (menuPreviewTypes.includes(extension)) {
+        switch (
+            extension
+            //case 'doc':
+            //    apiConvertFileType({ fileUrl }).then((res) => {
+            //        router.push({ path: '/previewFile', query: { url: res, title: menuTitle } });
+            //    });
+            //    break;
+            //case 'docx':
+            //    router.push({ path: '/previewFile', query: { url: fileUrl, title: menuTitle } });
+            //    break;
+            //case 'xls':
+            //    apiConvertFileType({ fileUrl }).then((res) => {
+            //        router.push({ path: '/previewFile', query: { url: res, title: menuTitle } });
+            //    });
+            //    break;
+            //case 'xlsx':
+            //    router.push({ path: '/previewFile', query: { url: fileUrl, title: menuTitle } });
+            //    break;
+            //default:
+            //    break;
+        ) {
+        }
+    } else {
+        window.open(fileUrl, '_blank');
+    }
 };
 
 /**

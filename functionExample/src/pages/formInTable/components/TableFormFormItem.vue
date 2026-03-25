@@ -16,7 +16,6 @@
     let list = await contractControlIndicatorCollectFormItemRef.value.getSelectedData();  
     
     未做：
-        数据回显
         上传文件
 -->
 
@@ -38,7 +37,7 @@
                 />
             </template>
             <template #cc="{ scope: { row } }">
-                <el-select v-model="row.cc" placeholder="请选择" clearable @change="updateParentList('cc')">
+                <el-select v-model="row.cc" placeholder="请选择" clearable @change="updateParentList">
                     <el-option
                         v-for="item in selectTypeDict"
                         :key="item.value"
@@ -80,8 +79,8 @@
                     />
                 </el-select>
             </template>
-            <template #startEndDate="{ scope: { row, $index } }">
-                <el-radio-group v-model="row.termType">
+            <template #startEndDate="{ scope: { row } }">
+                <el-radio-group v-model="row.dateType" @change="updateParentList">
                     <el-radio :value="1">
                         <el-date-picker
                             v-model="row.startEndDate"
@@ -89,7 +88,7 @@
                             range-separator="至"
                             start-placeholder="开始日期"
                             end-placeholder="结束日期"
-                            :disabled="row.termType == 2"
+                            :disabled="row.dateType == 2"
                             format="YYYY-MM-DD"
                             value-format="YYYY-MM-DD"
                             style="width: 240px"
@@ -99,7 +98,21 @@
                 </el-radio-group>
             </template>
             <template #ff="{ scope: { row } }">
-                <el-input v-model="row.ff" :rows="3" type="textarea" placeholder="请输入" :maxlength="500" />
+                <el-input
+                    v-model="row.ff"
+                    :rows="3"
+                    type="textarea"
+                    placeholder="请输入"
+                    :maxlength="500"
+                    @change="updateParentList"
+                />
+            </template>
+            <template #fileList="{ scope: { row } }">
+                <UploadFile
+                    v-model:bindList="row.fileList"
+                    :bindKeys="{ url: 'fileUrl', name: 'fileName' }"
+                    @uploadSuccess="updateParentList"
+                />
             </template>
             <template #operationColumn>
                 <el-table-column width="80" fixed="right">
@@ -123,10 +136,11 @@
 </template>
 
 <script setup>
-import { ref, reactive, watch, nextTick } from 'vue';
+import { reactive, watch } from 'vue';
 import { ElMessage } from 'element-plus';
 import { Plus } from '@element-plus/icons-vue';
 import TablePage from '@/components/tablePage';
+import UploadFile from '@/components/uploadFile';
 // import { apiProjectListCustomerProject } from '@/api/projectManage';
 import { selectTypeDict } from '@/dicts';
 import { isValidVal, isValidArr } from '@/libs/util.tool';
@@ -155,19 +169,18 @@ const tablePageData = reactive({
             { label: '多选-下拉框', prop: 'dd', slotName: 'dd', minWidth: 150, required: true },
             { label: '下拉框-远程搜索', prop: 'ee', slotName: 'ee', minWidth: 150 },
             { label: '开始/结束-日期', prop: 'startEndDate', slotName: 'startEndDate', minWidth: 260 },
-            { label: '文本域', prop: 'ff', slotName: 'ff', minWidth: 250 }
+            { label: '文本域', prop: 'ff', slotName: 'ff', minWidth: 250 },
+            { label: '上传文件', prop: 'fileList', slotName: 'fileList', minWidth: 250 }
         ],
-        data: [{ metric: 2, termType: 1 }]
+        data: []
     }
 });
 const loadings = reactive({ select: false });
 
 // 更新父级列表
-const updateParentList = async (key) => {
-    console.log('change', tablePageData.tableConfig.data);
+const updateParentList = () => {
+    console.log('updateParentList');
     emit('update:list', tablePageData.tableConfig.data);
-    // await nextTick();
-    // props.formRef?.validateField?.(key);
 };
 // ee-远程搜索
 const eeRemoteMethod = async (index, val) => {
@@ -176,7 +189,8 @@ const eeRemoteMethod = async (index, val) => {
         // const res = await apiProjectListCustomerProject({ customerId: 1, keyword: val });
         const res = [
             { label: '项目1', value: 1 },
-            { label: '项目2', value: 2 }
+            { label: '项目2', value: 2 },
+            { label: '项目3', value: 3 }
         ];
         setTimeout(() => {
             tablePageData.tableConfig.data[index].eeList = res;
@@ -210,9 +224,9 @@ const validateRequired = () => {
             return;
         }
         let _list = tablePageData.tableConfig.data.map((item) => ({
-            ...item,
-            startDate: item.termType == 1 ? item.startEndDate[0] : null,
-            endDate: item.termType == 1 ? item.startEndDate[1] : null
+            ...item
+            // startDate: item.dateType == 1 ? item.startEndDate[0] : null,
+            // endDate: item.dateType == 1 ? item.startEndDate[1] : null
         }));
         resolve(_list);
     });
@@ -228,9 +242,11 @@ watch(
     (newList) => {
         if (newList && newList.length > 0) {
             tablePageData.tableConfig.data = [...newList];
+            newList.forEach((item, index) => {
+                eeRemoteMethod(index, '');
+            });
         } else {
-            // 空数组时，保留一行空数据
-            tablePageData.tableConfig.data = [{}];
+            tablePageData.tableConfig.data = [{}]; // 空数组时，保留一行空数据
         }
     },
     { immediate: true } // 初始化时也执行

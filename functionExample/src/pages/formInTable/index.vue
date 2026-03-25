@@ -1,93 +1,70 @@
+<!-- 还没整理完 -->
+
 <template>
-    <div class="fit">
-        <ZpTablePage :tableConfig="tablePageData.tableConfig" :isHasPage="false">
-            <template #bb="{ scope: { row, $index } }">
-                <el-form :model="row" :ref="formRefs[$index]" inline>
-                    是否必填：{{ !!row.bbb }}
-                    <el-form-item prop="bb" :rules="[{ required: !!row.bbb, message: '请选择时间' }]">
-                        <el-date-picker
-                            v-model="row.bb"
-                            type="date"
-                            placeholder="请选择"
-                            class="fit-datePicker"
-                            @change="(val) => changeDatePicker($index, val)"
-                        />
-                    </el-form-item>
-                </el-form>
-            </template>
-            <template #operation="{ scope: { row, $index } }">
-                <el-button type="primary" link @click="uploadFile(row, $index)">
-                    点击上传后，日期是必填的（请点击一下）
-                </el-button>
-            </template>
-        </ZpTablePage>
-        <el-button type="primary" @click="submit">确定</el-button>
+    <div style="background: #fff; padding: 20px">
+        <el-form ref="formRef" :model="formData" :rules="formRules" label-width="auto" label-suffix=":">
+            <el-form-item label="收集信息" prop="infoList">
+                <span class="poa" style="color: #f00; top: 0px; left: -83px">*</span>
+                <TableFormFormItem ref="tableFormFormItemRef" :formRef="formRef" v-model:list="formData.infoList" />
+            </el-form-item>
+        </el-form>
+        <Button type="primary" @click="echo">回显</Button>
+        <Button type="primary" class="ml-20" @click="save">保存</Button>
     </div>
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
-import { ZpTablePage } from 'zp-element-plus';
-import dayjs from 'dayjs';
+import { ref } from 'vue';
+import TableFormFormItem from './components/TableFormFormItem';
 
-const tablePageData = reactive({
-    tableConfig: {
-        loading: false,
-        columns: [
-            { label: '姓名', prop: 'aa', minWidth: 155 },
-            { label: '证书有效期', prop: 'bb', minWidth: 200, slotName: 'bb' },
-            { label: '操作', prop: 'operation', minWidth: 180, slotName: 'operation' }
-        ],
-        data: [
-            { aa: '张三', bb: null, cc: null },
-            { aa: '李四', bb: null, cc: null }
-        ]
-    }
+const formRef = ref();
+const tableFormFormItemRef = ref();
+const formData = ref({
+    infoList: []
 });
-const formRefs = reactive([]);
+const formRules = ref({});
 
-// 获取数据
-const getData = () => {
-    let res = [
-        { aa: '张三', bb: null, cc: null },
-        { aa: '李四', bb: null, cc: null }
+// 回显
+const echo = () => {
+    formData.value.infoList = [
+        {
+            aa: '你好',
+            bb: 10,
+            cc: 1,
+            dd: [1, 2],
+            ee: [1, 2],
+            dateType: 1,
+            startEndDate: ['2022-01-01', '2022-01-02'],
+            ff: '文本域内容',
+            fileList: [
+                {
+                    fileName: '01.pdf',
+                    fileUrl:
+                        'http://10.1.13.23:8081/test/static/pt/test/pt/20260325/170011db585d432293827c7c719f62a5.pdf'
+                }
+            ]
+        },
+        {
+            aa: '你好2',
+            bb: 22,
+            cc: 2,
+            dd: [2],
+            ee: [2],
+            dateType: 2,
+            startEndDate: [],
+            ff: '文本域内容2'
+        }
     ];
-    tablePageData.tableConfig.data = res;
-    // 初始化表单引用
-    res.forEach(() => {
-        formRefs.push(ref(null));
+};
+// 保存
+const save = async () => {
+    await formRef.value.validate(async (valid, fields) => {
+        if (valid) {
+            await tableFormFormItemRef.value.validateRequired();
+            console.log('formData', formData.value);
+        }
     });
 };
-// 上传文件
-const uploadFile = (row, index) => {
-    tablePageData.tableConfig.data[index].bbb = true;
-};
-// change-时间
-const changeDatePicker = (index, value) => {
-    tablePageData.tableConfig.data[index].bb = value && dayjs(value).format('YYYY-MM-DD');
-};
-// 提交
-const submit = async () => {
-    formRefs.forEach((item) => {
-        item.value.validate((valid) => {
-            if (valid) {
-                console.log('成功', tablePageData.tableConfig.data);
-            } else {
-                console.log('失败');
-            }
-        });
-    });
-};
-
-onMounted(() => {
-    getData();
-});
 </script>
 
-<style lang="less" scoped>
-.fit {
-    :deep(.fit-datePicker) {
-        width: 140px;
-    }
-}
-</style>
+<style lang="less" scoped></style>

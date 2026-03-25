@@ -14,7 +14,7 @@ const service = axios.create({
 service.interceptors.request.use(
     (config) => {
         // 需要测试裁剪图片上传的接口，这里打开即可
-        //config.headers['Authorization'] = Cookies.get('token');
+        config.headers['Authorization'] = Cookies.get('token');
         //config.headers['supplier-domain'] = 'dt';
         return config;
     },
