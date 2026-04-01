@@ -329,6 +329,15 @@ const routes = [
             cache: false
         },
         component: () => import('@/pages/selectParentChildItem/index.vue')
+    },
+    {
+        path: `/childComponentValidateFormItem`,
+        name: 'childComponentValidateFormItem',
+        meta: {
+            title: '子组件自动校验表单项必填',
+            cache: false
+        },
+        component: () => import('@/pages/childComponentValidateFormItem/index.vue')
     }
 ];
 

@@ -40,6 +40,7 @@
         <span @click="jumpPage('ellipsisInMiddleTextDemo')">中间部分省略号文本组件</span><br />
         <span @click="jumpPage('tree')">（自动/手动）懒加载子节点，设置节点背景色</span><br />
         <span @click="jumpPage('selectParentChildItem')">下拉框：父子项选中互斥</span><br />
+        <span @click="jumpPage('childComponentValidateFormItem')">子组件自动校验表单项必填</span><br />
     </div>
 </template>
 
