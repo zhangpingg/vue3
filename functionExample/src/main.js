@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import router from './router';
 import App from './App.vue';
+import packageJson from '../package.json';
 // UI 框架
 import ElementPlus from 'element-plus';
 import zhCn from 'element-plus/es/locale/lang/zh-cn';
@@ -40,6 +41,13 @@ import './styles/index.less';
 // 上传文件夹
 import uploader from 'vue-simple-uploader';
 import 'vue-simple-uploader/dist/style.css';
+
+// 输出项目版本
+console.log(
+    `%c version %c ${packageJson.version}`,
+    'padding: 1px; border-radius: 3px 0 0 3px; color: #fff; background: #606060',
+    'padding: 1px 5px 1px 1px; border-radius: 0 3px 3px 0; color: #fff; background: #42c02e'
+);
 
 const app = createApp(App);
 
