@@ -6,11 +6,13 @@ import colors from 'colors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import simpleGit from 'simple-git';
 
 const prompt = inquirer.createPromptModule();
 const __filename = fileURLToPath(import.meta.url); // 当前文件路径
 const __dirname = path.dirname(__filename); // 当前目录路径
 const packagePath = path.join(__dirname, 'package.json'); // package.json 路径
+const git = simpleGit(__dirname);
 
 /**
  * 增加版本号
@@ -18,7 +20,7 @@ const packagePath = path.join(__dirname, 'package.json'); // package.json 路径
  * @param {string} version - 当前版本号，例如 "1.2.99"
  * @returns {string} - 新版本号，例如 "1.3.0"
  */
-function incrementVersion(version) {
+const incrementVersion = (version) => {
     let parts = version.split('.').map(Number); // 分割版本号
     // 确保至少有三位 [major, minor, patch]，不足补0
     while (parts.length < 3) {
@@ -42,7 +44,33 @@ function incrementVersion(version) {
         parts.unshift(carry);
     }
     return parts.join('.'); // 拼接回字符串
-}
+};
+
+// package.json中的版本号，上传代码
+const uploadPackage = async () => {
+    const res = await prompt([
+        {
+            type: 'list',
+            message: '是否将新版本号上传至git仓库: ',
+            name: 'isUploadToGit',
+            choices: [
+                { name: '否', value: 'No' },
+                { name: '是', value: 'Yes' }
+            ],
+            default: 'No'
+        }
+    ]);
+    if (res.isUploadToGit === 'Yes') {
+        await git.add(packagePath); // 添加文件
+        const packageJson = JSON.parse(fs.readFileSync(packagePath, 'utf-8'));
+        const commitMsg = `chore: 项目版本为 ${packageJson.version}`;
+        await git.commit(commitMsg);
+        await git.push();
+        console.log('推送成功'.green);
+    } else {
+        console.log('跳过 Git 上传'.yellow);
+    }
+};
 
 prompt([
     {
@@ -53,7 +81,7 @@ prompt([
             { name: '测试', value: 'test' },
             { name: '生产', value: 'prod' }
         ],
-        default: 'normal'
+        default: 'test'
     }
 ]).then((res) => {
     let newVersion = null;
@@ -77,6 +105,8 @@ prompt([
                 // 打包
                 execSync('vite build', { stdio: 'inherit' });
                 console.log(`【生产环境】打包成功，新版本号为：${newVersion}`.green);
+                // 上传package.json文件
+                uploadPackage();
                 break;
         }
     } catch (error) {

@@ -1,7 +1,7 @@
 {
   "name": "demo-vue3-1",
   "private": true,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -81,10 +81,12 @@
     "prettier": "^3.3.3",
     "rollup-plugin-visualizer": "^6.0.3",
     "sass": "^1.72.0",
+    "simple-git": "^3.35.2",
     "vite": "^5.1.4",
     "vite-plugin-cdn-import": "^1.0.1",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-remove-console": "^2.2.0",
+    "vite-plugin-zip-pack": "^1.2.4",
     "vue3-clipboard": "^1.0.0"
   }
 }

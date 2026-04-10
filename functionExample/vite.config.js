@@ -7,6 +7,10 @@ import viteCompression from 'vite-plugin-compression';
 import cdn from 'vite-plugin-cdn-import';
 import path from 'path';
 import { checkVersion } from './src/plugins/vitePluginCheckVersion';
+import zipPack from 'vite-plugin-zip-pack';
+import dayjs from 'dayjs';
+
+const timeStamp = dayjs().format('YYYYMMDD_HHmmss');
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -39,7 +43,13 @@ export default defineConfig({
     },
     plugins: [
         vue(),
-        vueJsx()
+        vueJsx(),
+        zipPack({
+            inDir: 'dist', // 输入的文件夹
+            outDir: 'dist-zip', // 打包好的 zip 文件放到哪个文件夹下
+            outFileName: `dist_${timeStamp}.zip`, // 打包好的文件名
+            pathPrefix: 'dist'
+        })
         //  checkVersion()
         //visualizer({
         //    filename: 'stats.html', // 输出文件的名称。默认 stats.html
