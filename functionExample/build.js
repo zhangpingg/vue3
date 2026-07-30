@@ -48,6 +48,7 @@ const incrementVersion = (version) => {
 
 // package.json中的版本号，上传代码
 const uploadPackage = async () => {
+    const { current } = await git.branch(); // 获取当前分支名称
     const res = await prompt([
         {
             type: 'list',
@@ -65,7 +66,7 @@ const uploadPackage = async () => {
         const packageJson = JSON.parse(fs.readFileSync(packagePath, 'utf-8'));
         const commitMsg = `chore: 项目版本为 ${packageJson.version}`;
         await git.commit(commitMsg);
-        await git.push();
+        await git.push('origin', current);
         console.log('推送成功'.green);
     } else {
         console.log('跳过 Git 上传'.yellow);
